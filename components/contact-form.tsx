@@ -1,0 +1,268 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Send } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+type Errors = Partial<Record<"name" | "email" | "phone" | "message", string>>;
+
+export default function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Errors>({});
+  const [hasTyped, setHasTyped] = useState(false);
+  const firstInputAt = useRef<number | null>(null);
+  const lastSaved = useRef<FormData | null>(null);
+
+  useEffect(() => {
+    // Load pending form if any
+    try {
+      const raw = localStorage.getItem("contactForm:pending");
+      if (raw) {
+        const parsed = JSON.parse(raw) as Record<string, string>;
+        const formEl = document.querySelector<HTMLFormElement>("form[data-contact-form]");
+        if (formEl) {
+          Object.entries(parsed).forEach(([k, v]) => {
+            const el = formEl.elements.namedItem(k) as HTMLInputElement | HTMLTextAreaElement | null;
+            if (el) el.value = v;
+          });
+        }
+      }
+    } catch {}
+  }, []);
+
+  function validate(form: HTMLFormElement): Errors {
+    const data = new FormData(form);
+    const name = (data.get("name") as string)?.trim();
+    const email = (data.get("email") as string)?.trim();
+    const phone = (data.get("phone") as string)?.trim();
+    const message = (data.get("message") as string)?.trim();
+    const errs: Errors = {};
+
+    if (!name) errs.name = "Please enter your name.";
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = "Enter a valid email address.";
+    if (phone && !/^\+?[0-9\-()\s]{7,20}$/.test(phone)) errs.phone = "Phone looks invalid.";
+  if (!message || message.length < 10) errs.message = "Message must be at least 10 characters.";
+    return errs;
+  }
+
+  async function send(formData: FormData) {
+  const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || "https://formspree.io/f/xzzjjvjl";
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: formData,
+    });
+    if (!res.ok) {
+      const json = await res.json().catch(() => ({} as any));
+      throw new Error(json?.errors?.[0]?.message || "Submission failed.");
+    }
+  }
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    const form = e.currentTarget;
+
+    // Anti-spam: relaxed time heuristic (allow autofill/no typing)
+    const now = Date.now();
+    if (firstInputAt.current && now - firstInputAt.current < 800) {
+      setError("Just a sec — please wait a moment and try again.");
+      return;
+    }
+
+    const errs = validate(form);
+    setFieldErrors(errs);
+    if (Object.keys(errs).length) {
+      const first = Object.keys(errs)[0] as keyof Errors;
+      const el = form.elements.namedItem(first as string) as HTMLElement | null;
+      el?.focus();
+      return;
+    }
+
+    setStatus("submitting");
+    const data = new FormData(form);
+    if ((data.get("_gotcha") as string)?.length) {
+      setStatus("success");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    // Offline fallback: save and show retry
+    if (typeof navigator !== "undefined" && !navigator.onLine) {
+      persistPending(data);
+      setStatus("error");
+      setError("You appear to be offline. Saved your message. Try again when online.");
+      return;
+    }
+
+    try {
+      await send(data);
+      // analytics event
+      try {
+        window.dispatchEvent(new CustomEvent("contact:submitted"));
+        // Google Analytics (if present)
+        // @ts-expect-error optional global
+        if (window.gtag) window.gtag("event", "contact_submit", {});
+      } catch {}
+
+      localStorage.removeItem("contactForm:pending");
+      setStatus("success");
+      form.reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err: any) {
+      persistPending(data);
+      setStatus("error");
+      setError(err?.message || "Network error. Saved your message—try again.");
+      lastSaved.current = data;
+    }
+  }
+
+  function persistPending(data: FormData) {
+    const obj: Record<string, string> = {};
+    data.forEach((v, k) => {
+      if (k !== "_gotcha") obj[k] = String(v);
+    });
+    try {
+      localStorage.setItem("contactForm:pending", JSON.stringify(obj));
+    } catch {}
+  }
+
+  const onAnyInput = () => {
+    if (!firstInputAt.current) firstInputAt.current = Date.now();
+    setHasTyped(true);
+  };
+
+  const isDisabled = useMemo(() => status === "submitting", [status]);
+
+  async function retrySend() {
+    try {
+      const raw = localStorage.getItem("contactForm:pending");
+      if (!raw) throw new Error("No saved message to retry.");
+      const parsed = JSON.parse(raw) as Record<string, string>;
+      const fd = new FormData();
+      Object.entries(parsed).forEach(([k, v]) => fd.append(k, v));
+      setStatus("submitting");
+      await send(fd);
+      localStorage.removeItem("contactForm:pending");
+      setStatus("success");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err: any) {
+      setStatus("error");
+      setError(err?.message || "Retry failed. Please try again later.");
+    }
+  }
+
+  return (
+    <AnimatePresence mode="wait">
+      {status === "success" ? (
+        <motion.div
+          key="success"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25 }}
+          className="flex flex-col items-center gap-2 text-center"
+        >
+          <div className="h-24 w-full rounded-xl bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.25),transparent_60%)]" />
+          <h2 className="text-xl font-semibold">Thank you! Message received.</h2>
+          <p className="text-white/70">We’ll reply within 24–48 hours.</p>
+          <button
+            onClick={() => setStatus("idle")}
+            className="mt-4 inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 hover:bg-white/10"
+          >
+            Send another
+          </button>
+        </motion.div>
+      ) : (
+        <motion.form
+          key="form"
+          data-contact-form
+          onSubmit={onSubmit}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25 }}
+          className="space-y-4"
+          onInput={onAnyInput}
+          onFocusCapture={onAnyInput}
+        >
+          <div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              required
+              aria-invalid={!!fieldErrors.name}
+              aria-describedby={fieldErrors.name ? "name-error" : undefined}
+              className="w-full rounded-lg border border-white/10 bg-[#111214] px-4 py-3 text-sm text-white/90 placeholder-white/40 outline-none ring-brand/30 focus:ring-2 shadow-inner/5"
+            />
+            {fieldErrors.name && <p id="name-error" className="mt-1 text-xs text-red-400">{fieldErrors.name}</p>}
+          </div>
+          <div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              required
+              aria-invalid={!!fieldErrors.email}
+              aria-describedby={fieldErrors.email ? "email-error" : undefined}
+              className="w-full rounded-lg border border-white/10 bg-[#111214] px-4 py-3 text-sm text-white/90 placeholder-white/40 outline-none ring-brand/30 focus:ring-2 shadow-inner/5"
+            />
+            {fieldErrors.email && <p id="email-error" className="mt-1 text-xs text-red-400">{fieldErrors.email}</p>}
+          </div>
+          <div>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Your Phone Number (optional)"
+              pattern="^\+?[0-9\-()\s]{7,20}$"
+              aria-invalid={!!fieldErrors.phone}
+              aria-describedby={fieldErrors.phone ? "phone-error" : undefined}
+              className="w-full rounded-lg border border-white/10 bg-[#111214] px-4 py-3 text-sm text-white/90 placeholder-white/40 outline-none ring-brand/30 focus:ring-2 shadow-inner/5"
+            />
+            {fieldErrors.phone && <p id="phone-error" className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>}
+          </div>
+          <div>
+            <textarea
+              name="message"
+              placeholder="Your Message (min 10 characters)"
+              rows={5}
+              required
+              aria-invalid={!!fieldErrors.message}
+              aria-describedby={fieldErrors.message ? "message-error" : undefined}
+              className="w-full rounded-lg border border-white/10 bg-[#111214] px-4 py-3 text-sm text-white/90 placeholder-white/40 outline-none ring-brand/30 focus:ring-2 shadow-inner/5"
+            />
+            {fieldErrors.message && <p id="message-error" className="mt-1 text-xs text-red-400">{fieldErrors.message}</p>}
+          </div>
+          {/* Honeypot */}
+          <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+          <div aria-live="polite" className="min-h-5">
+            {error && (
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-sm text-red-400">{error}</p>
+                <button type="button" onClick={retrySend} className="text-xs text-white/70 underline hover:text-white">Try again</button>
+              </div>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isDisabled}
+            className="group relative w-full overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold text-black transition disabled:opacity-70"
+            style={{
+              background: "linear-gradient(90deg, #ff6ad5 0%, #ffd36a 50%, #b4fa72 100%)",
+            }}
+          >
+            <span className="relative z-10 inline-flex items-center justify-center gap-2">
+              {status === "submitting" ? "Sending..." : "Send Message"}
+              <Send size={16} />
+            </span>
+            {/* sheen */}
+            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-[linear-gradient(115deg,transparent,rgba(255,255,255,0.35),transparent)] transition-transform duration-700 ease-out group-hover:translate-x-full" />
+          </button>
+        </motion.form>
+      )}
+    </AnimatePresence>
+  );
+}

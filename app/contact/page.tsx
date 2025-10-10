@@ -1,0 +1,30 @@
+import { Mail } from "lucide-react";
+import ContactForm from "@/components/contact-form";
+
+export const metadata = {
+  title: "Contact — Mandar Kajbaje",
+  description: "Get in touch via a secure Formspree form.",
+};
+
+export default function ContactPage() {
+  return (
+    <main className="container py-24 md:py-32">
+      <div className="mx-auto max-w-2xl">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-white/5">
+            <Mail className="text-brand" />
+          </div>
+          <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Contact Me</h1>
+        </div>
+
+        <p className="mt-3 text-white/80">
+          💌 Form Submission: Powered by Formspree. Your message is sent securely to my inbox with spam protection.
+        </p>
+
+        <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <ContactForm />
+        </div>
+      </div>
+    </main>
+  );
+}
