@@ -3,8 +3,11 @@
 Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × Security × Web into one experience. Built with Next.js, TypeScript, Tailwind, and Framer Motion.
 
 ## ✨ Highlights
-- Animated Hero with polished CTAs and “Class of 2026” badge
+- Animated Hero with polished CTAs, “Class of 2026” badge, and micro‑motion
+- High‑signal hero tags: B.Sc CS ’26 • 20+ Projects • CEH v13 • CTF Top 113/3,235 • NSDC‑DS • Full‑Stack • AI/ML
 - Dedicated pages: Projects, Certifications (3-column categories), Internships, Contact
+- Evidence bar with badges (CEH v13, NSDC, SIDH, Microsoft)
+- Evidence links wired: NSDC, Microsoft (CEH & SIDH placeholders ready)
 - Contact form powered by Formspree with:
 	- Field validation hints (email format, message length, optional phone pattern)
 	- Anti-spam (honeypot + time heuristic), analytics event, offline fallback with retry
@@ -17,7 +20,7 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 - `/certifications` — Three sections:
 	1. Ethical Hacking & Cybersecurity
 	2. Data Science
-	3. Other Certifications & Internships
+	3. Other Certifications
 - `/internships` — Online internships with role, dates, stack tags, and highlights
 - `/contact` — Formspree-powered contact form with validation, anti-spam, and success screen
 
@@ -57,10 +60,16 @@ Netlify (recommended):
 Vercel works out of the box as well.
 
 ## 🗺️ Roadmap
-- Home sections: Proof bar, About, Skills
+- Home sections: About, Skills
 - Projects page: animated cards, category filters (AI, Security, Web, Games)
 - SEO/OG polish, sitemap/robots
 - Theme toggle, scrollspy nav
+
+## 🔗 Evidence Links
+- NSDC: https://trainings.internshala.com/certificate/view/nsdc/6glr84cp6od/e52s9kdy5a2/
+- Microsoft (freeCodeCamp): https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft
+- CEH v13: coming soon
+- SIDH: coming soon
 
 ## 📄 License
 MIT

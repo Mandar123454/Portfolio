@@ -41,15 +41,27 @@ const INTERNSHIPS: Internship[] = [
     ],
     link: "#",
   },
+  {
+    company: "Security Lab (Example)",
+    role: "Cybersecurity Intern",
+    mode: "Online",
+    dates: "Jan 2024 – Mar 2024",
+    stack: ["CEH Toolkit", "Browser Security", "Automation"],
+    highlights: [
+      "Developed phishing detection Chrome extension prototype",
+      "Documented attack vectors and mitigations",
+    ],
+    link: "#",
+  },
 ];
 
 export default function InternshipsPage() {
   return (
-    <main className="container py-24 md:py-32">
+    <main className="container py-16 md:py-24">
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Internships</h1>
       <p className="mt-3 max-w-2xl text-white/80">All internships completed online, focused on building real solutions fast.</p>
 
-      <div className="mt-10 grid grid-cols-1 gap-6">
+  <div className="mt-8 grid grid-cols-1 gap-6">
         {INTERNSHIPS.map((it) => (
           <article key={it.company} className="rounded-2xl border border-white/10 bg-white/5 p-5">
             <div className="flex items-start justify-between gap-4">

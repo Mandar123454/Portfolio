@@ -19,20 +19,25 @@ type Item = { title: string; provider: string; Icon: React.ComponentType<{ class
 const CYBERSECURITY: Item[] = [
   { title: "CEH v13 — Certified Ethical Hacker", provider: "EC‑Council", Icon: ShieldCheck, href: "#" },
   { title: "Complete Ethical Hacking Masterclass", provider: "Udemy", Icon: GraduationCap, href: "#" },
-  // Add internship certificates here when available
+  { title: "Real‑Time OS Hacking — Hands‑On Training", provider: "NULL CLASS", Icon: Shield, href: "#" },
+  { title: "EC‑Council CTF (August) — Rank 113 of 3,235", provider: "EC‑Council", Icon: ShieldCheck, href: "#" },
 ];
 
 const DATA_SCIENCE: Item[] = [
-  { title: "NSDC Data Science", provider: "NSDC & Internshala", Icon: LineChart, href: "#" },
+  { title: "NSDC Data Science", provider: "NSDC ×  Skill India Digital Hub", Icon: LineChart, href: "#" },
   { title: "Data Science Training", provider: "Internshala", Icon: LineChart, href: "#" },
-  // Add internship certificates here when available
+  { title: "Real‑Time Emotion Detection — Hands‑On Training", provider: "NULL CLASS", Icon: BrainCircuit, href: "#" },
+  { title: "Python From Zero to Hero", provider: "Udemy", Icon: GraduationCap, href: "#" },
+  { title: "Fundamental of Python Machine Learning", provider: "Udemy", Icon: GraduationCap, href: "#" },
 ];
 
 const OTHER: Item[] = [
-  { title: "Microsoft Azure Fundamentals", provider: "Microsoft", Icon: Cloud, href: "#" },
-  { title: "Web Development", provider: "Skill India Digital Hub", Icon: Code2, href: "#" },
+  { title: "Microsoft Azure Fundamentals", provider: "Udemy", Icon: Cloud, href: "#" },
+  { title: "Web Design & Development", provider: "NSDC × Skill India Digital Hub", Icon: Code2, href: "#" },
   { title: "AI + ChatGPT for MS Office", provider: "Skill Nation", Icon: BrainCircuit, href: "#" },
+  { title: "Foundational C# with Microsoft", provider: "freeCodeCamp × Microsoft", Icon: Code2, href: "#" },
   { title: "Internship & Job Readiness", provider: "Internshala", Icon: BadgeCheck, href: "#" },
+  { title: "Full Stack Programming Course", provider: "Udemy", Icon: Code2, href: "#" },
 ];
 
 function Section({ title, items }: { title: string; items: Item[] }) {
@@ -67,16 +72,16 @@ function Section({ title, items }: { title: string; items: Item[] }) {
 
 export default function CertificationsPage() {
   return (
-    <main className="container py-24 md:py-32">
+    <main className="container py-16 md:py-24">
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Certifications</h1>
       <p className="mt-3 max-w-2xl text-white/80">
         Three pillars: Ethical Hacking & Cybersecurity, Data Science, and everything else that rounds out my toolkit.
       </p>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <Section title="Ethical Hacking & Cybersecurity" items={CYBERSECURITY} />
         <Section title="Data Science" items={DATA_SCIENCE} />
-        <Section title="Other Certifications & Internships" items={OTHER} />
+        <Section title="Other Certifications" items={OTHER} />
       </div>
     </main>
   );
