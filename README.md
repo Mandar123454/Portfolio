@@ -66,15 +66,28 @@ Vercel works out of the box as well.
 - Theme toggle, scrollspy nav
 
 ## 🔗 Evidence Links
-## ♻️ Reuse Policy (TL;DR)
-- You can use and adapt the code under MIT.
-- Do not publish this portfolio with my name/content. Replace all personal text, images, badges, and proofs with your own.
-- Keep third‑party marks respectful and within their brand guidelines.
-
 - NSDC: https://trainings.internshala.com/certificate/view/nsdc/6glr84cp6od/e52s9kdy5a2/
 - Microsoft (freeCodeCamp): https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft
 - CEH v13: coming soon
 - SIDH: coming soon
+
+
+## ♻️ Reuse Policy (TL;DR)
+Use the code, not the identity.
+
+Do:
+- Fork and adapt the code under MIT
+- Replace all personal content with your own (text, images, badges, proofs)
+- Keep attribution somewhere (e.g., repo README) — example below
+
+Don’t:
+- Republish this portfolio with Mandar Kajbaje’s name, content, or branding
+- Reuse screenshots, badges, or proofs that belong to Mandar
+- Misuse third‑party marks (EC‑Council/CEH, NSDC, SIDH, Microsoft, etc.)
+
+Attribution example:
+> Portfolio template based on Mandar Kajbaje’s MK Portfolio (MIT).
+
 
 ## 📄 License
 - Code: MIT (see [LICENSE](./LICENSE)). You may copy, modify, and reuse the code with attribution.
