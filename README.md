@@ -77,8 +77,8 @@ Vercel works out of the box as well.
 - SIDH: coming soon
 
 ## 📄 License
-- Code: MIT (see `LICENSE`). You may copy, modify, and reuse the code with attribution.
+- Code: MIT (see [LICENSE](./LICENSE)). You may copy, modify, and reuse the code with attribution.
 - Content, media, and branding (text, images, badges, screenshots, profile details): Copyright © 2025 Mandar Kajbaje. Not licensed for republication or redistribution. Do not publish as your own; you may adapt the code for your portfolio and replace my content with yours.
-- Third‑party names, logos, and badges (e.g., EC‑Council/CEH, NSDC, SIDH, Microsoft) are trademarks of their respective owners and used here for identification. See `NOTICE.md`.
+- Third‑party names, logos, and badges (e.g., EC‑Council/CEH, NSDC, SIDH, Microsoft) are trademarks of their respective owners and used here for identification. See [NOTICE.md](./NOTICE.md).
 
 
