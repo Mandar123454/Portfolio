@@ -8,10 +8,11 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 - Dedicated pages: Projects, Certifications (3-column categories), Internships, Contact
 - Evidence bar with badges (CEH v13, NSDC, SIDH, Microsoft)
 - Evidence links wired: NSDC, Microsoft (CEH & SIDH placeholders ready)
-- Contact form powered by Formspree with:
-	- Field validation hints (email format, message length, optional phone pattern)
-	- Anti-spam (honeypot + time heuristic), analytics event, offline fallback with retry
-	- Success “thank-you” glow screen and 24–48 hour reply note
+- Professional Contact pipeline (server-side):
+	- Primary: SMTP via Nodemailer (Brevo recommended)
+	- Backup: Google Sheet (Apps Script webhook)
+	- Fallback: Formspree forward (kept for reliability)
+	- 5/min IP rate limit with cooldown UI, anti-spam honeypot, offline retry, success toast
 - Dark-first theme, electric-violet accent, pro icon set (Lucide)
 
 ## 🧭 Pages & Routes
@@ -22,7 +23,7 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 	2. Data Science
 	3. Other Certifications
 - `/internships` — Online internships with role, dates, stack tags, and highlights
-- `/contact` — Formspree-powered contact form with validation, anti-spam, and success screen
+- `/contact` — SMTP-backed contact form with validation, anti-spam, success screen + toast, and delivery fallbacks
 
 ## 🛠 Tech Stack
 
@@ -34,20 +35,41 @@ npm run dev
 ```
 Open http://localhost:3000
 
-## 🔐 Environment Variables
+## 🔐 Environment & Contact Setup
 
-Environment variables (see `.env.example`):
+Required envs (see `.env.example`):
+- `SMTP_HOST` — SMTP host (Brevo: smtp-relay.brevo.com)
+- `SMTP_PORT` — Port (Brevo: 587; SSL: 465)
+- `SMTP_USER` — SMTP user/login
+- `SMTP_PASS` — SMTP key/password
+- `CONTACT_TO_EMAIL` — Destination mailbox (inbox)
+- Optional: `CONTACT_FROM_EMAIL` — From header (defaults to SMTP_USER)
+- Optional: `CONTACT_WEBHOOK_URL` — Google Apps Script Web App URL to log to a Sheet
 
-- `SMTP_HOST` — SMTP server host (e.g., smtp.gmail.com)
-- `SMTP_PORT` — Port (465 for SSL, 587 for STARTTLS)
-- `SMTP_USER` — SMTP username/login
-- `SMTP_PASS` — SMTP password or app password
-- `CONTACT_TO_EMAIL` — Destination mailbox (your inbox)
-- `CONTACT_FROM_EMAIL` — From header (defaults to SMTP_USER)
+Quick start (Brevo recommended):
+```env
+SMTP_HOST=smtp-relay.brevo.com
+SMTP_PORT=587
+SMTP_USER=your_brevo_username
+SMTP_PASS=your_brevo_smtp_key
+CONTACT_TO_EMAIL=you@example.com
+# CONTACT_FROM_EMAIL="Portfolio Contact <no-reply@yourdomain.com>"
+# CONTACT_WEBHOOK_URL=https://script.google.com/macros/s/XXXX/exec
+```
 
-Deployment notes:
-- On Netlify, add these variables in Site Settings → Environment Variables.
-- For Gmail, use an App Password (recommended) and keep 2FA enabled.
+Delivery flow:
+1) Try SMTP → send email
+2) Also log to Google Sheet if `CONTACT_WEBHOOK_URL` is set (fire-and-forget)
+3) If SMTP misconfigured or fails → try Sheet as backup (await)
+4) If Sheet unavailable → fallback to Formspree
+
+Rate limiting & UX:
+- 5 requests/min per IP, Retry-After header, submit button cooldown timer
+- Honeypot spam trap, client offline retry, success toast (“We reply within 24–48 hours”)
+
+Deploy notes:
+- Netlify: set env vars in Site settings → Environment variables; build command `npm run build`, publish `.next`, plugin `@netlify/plugin-nextjs`.
+- Gmail alternative: use an App Password (2FA on) if using smtp.gmail.com:465.
 
 ## 📦 Build
 ```powershell
@@ -71,7 +93,7 @@ Vercel works out of the box as well.
 
 ## 🔗 Evidence Links
 - NSDC: https://trainings.internshala.com/certificate/view/nsdc/6glr84cp6od/e52s9kdy5a2/
-- Microsoft (freeCodeCamp): https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft
+- Microsoft × freeCodeCamp: https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft
 - CEH v13: coming soon
 - SIDH: coming soon
 
