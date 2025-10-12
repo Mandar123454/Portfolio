@@ -3,7 +3,7 @@ import ContactForm from "@/components/contact-form";
 
 export const metadata = {
   title: "Contact — Mandar Kajbaje",
-  description: "Get in touch via a secure Formspree form.",
+  description: "Get in touch via a secure SMTP-backed form.",
 };
 
 export default function ContactPage() {
@@ -17,9 +17,7 @@ export default function ContactPage() {
           <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Contact Me</h1>
         </div>
 
-        <p className="mt-3 text-white/80">
-          💌 Form Submission: Powered by Formspree. Your message is sent securely to my inbox with spam protection.
-        </p>
+  <p className="mt-3 text-white/80">💌 Direct to inbox via secure SMTP with spam protection.</p>
 
         <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
           <ContactForm />

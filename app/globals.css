@@ -5,6 +5,8 @@
 :root {
   --background: 240 10% 6%;
   --foreground: 0 0% 100%;
+  /* brand = tailwind violet-600 in HSL */
+  --brand: 262 83% 58%;
 }
 
 html, body, #__next {
@@ -17,4 +19,38 @@ body {
 
 .container {
   @apply mx-auto max-w-6xl px-4;
+}
+
+/* CSS-only first-load preloader */
+#preloader {
+  position: fixed;
+  inset: 0;
+  display: grid; /* will be toggled to none via script when done */
+  place-items: center;
+  background: rgba(5,5,8,0.92);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+  transition: opacity .3s ease;
+}
+#preloader.hidden { opacity: 0; pointer-events: none; }
+.spinner-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 9999px;
+  border: 4px solid rgba(255,255,255,0.16);
+  border-top-color: rgba(124,58,237,1); /* brand violet */
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 48px rgba(124,58,237,0.55);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#preloader .preloader-inner { display: flex; flex-direction: column; align-items: center; }
+#preloader .tagline {
+  margin-top: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.9);
+  text-transform: uppercase;
+  text-shadow: 0 0 22px rgba(124,58,237,0.6);
 }

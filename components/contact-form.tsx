@@ -11,6 +11,8 @@ export default function ContactForm() {
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Errors>({});
   const [hasTyped, setHasTyped] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
+  const [cooldown, setCooldown] = useState<number>(0);
   const firstInputAt = useRef<number | null>(null);
   const lastSaved = useRef<FormData | null>(null);
 
@@ -47,15 +49,36 @@ export default function ContactForm() {
   }
 
   async function send(formData: FormData) {
-  const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || "https://formspree.io/f/xzzjjvjl";
-    const res = await fetch(endpoint, {
+    const res = await fetch("/api/contact", {
       method: "POST",
       headers: { Accept: "application/json" },
       body: formData,
     });
     if (!res.ok) {
       const json = await res.json().catch(() => ({} as any));
-      throw new Error(json?.errors?.[0]?.message || "Submission failed.");
+      if (res.status === 429 && typeof json?.retryAfter === "number") {
+        const seconds = Math.max(1, Math.floor(json.retryAfter));
+        setCooldown(seconds);
+        // start ticking
+        const id = setInterval(() => {
+          setCooldown((s) => {
+            if (s <= 1) {
+              clearInterval(id);
+              return 0;
+            }
+            return s - 1;
+          });
+        }, 1000);
+        throw new Error(`Too many requests. Wait ${seconds}s and try again.`);
+      }
+      throw new Error(json?.error || "Submission failed.");
+    }
+    // success: return response JSON for context (email vs sheet-only)
+    try {
+      const json = await res.json();
+      return json as { ok?: boolean; note?: string };
+    } catch {
+      return {} as any;
     }
   }
 
@@ -97,7 +120,7 @@ export default function ContactForm() {
     }
 
     try {
-      await send(data);
+      const result = await send(data);
       // analytics event
       try {
         window.dispatchEvent(new CustomEvent("contact:submitted"));
@@ -108,6 +131,15 @@ export default function ContactForm() {
 
       localStorage.removeItem("contactForm:pending");
       setStatus("success");
+      if (result?.note === "logged_to_sheet_only") {
+        setToast("Received! Logged to Sheet. Email will be enabled after SMTP setup.");
+      } else if (result?.note === "email_failed_logged_to_sheet") {
+        setToast("We received your message (logged to Sheet). Email send failed.");
+      } else if (result?.note === "sent_via_formspree") {
+        setToast("Sent successfully via Formspree. We'll reply within 24–48 hours.");
+      } else {
+        setToast("Thanks! We usually reply within 24–48 hours.");
+      }
       form.reset();
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err: any) {
@@ -133,7 +165,7 @@ export default function ContactForm() {
     setHasTyped(true);
   };
 
-  const isDisabled = useMemo(() => status === "submitting", [status]);
+  const isDisabled = useMemo(() => status === "submitting" || cooldown > 0, [status, cooldown]);
 
   async function retrySend() {
     try {
@@ -155,6 +187,26 @@ export default function ContactForm() {
 
   return (
     <AnimatePresence mode="wait">
+      {/* Toast */}
+      <div aria-live="polite" className="fixed right-4 top-4 z-50">
+        <AnimatePresence>
+          {toast && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="rounded-md bg-white/10 px-3 py-2 text-sm text-white/90 backdrop-blur-sm border border-white/10 shadow-lg"
+              onAnimationComplete={() => {
+                // Auto-dismiss after 3.5s
+                setTimeout(() => setToast(null), 3500);
+              }}
+            >
+              {toast}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
       {status === "success" ? (
         <motion.div
           key="success"
@@ -255,7 +307,11 @@ export default function ContactForm() {
             }}
           >
             <span className="relative z-10 inline-flex items-center justify-center gap-2">
-              {status === "submitting" ? "Sending..." : "Send Message"}
+              {status === "submitting"
+                ? "Sending..."
+                : cooldown > 0
+                ? `Wait ${cooldown}s`
+                : "Send Message"}
               <Send size={16} />
             </span>
             {/* sheen */}

@@ -25,10 +25,6 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 - `/contact` — Formspree-powered contact form with validation, anti-spam, and success screen
 
 ## 🛠 Tech Stack
-- Next.js 14 (App Router) + TypeScript
-- Tailwind CSS
-- Framer Motion
-- Lucide Icons
 
 ## 🚀 Getting Started (dev)
 ```powershell
@@ -39,11 +35,19 @@ npm run dev
 Open http://localhost:3000
 
 ## 🔐 Environment Variables
-Create a `.env.local` at project root:
-```
-NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/xzzjjvjl
-```
-Restart the dev server after editing envs.
+
+Environment variables (see `.env.example`):
+
+- `SMTP_HOST` — SMTP server host (e.g., smtp.gmail.com)
+- `SMTP_PORT` — Port (465 for SSL, 587 for STARTTLS)
+- `SMTP_USER` — SMTP username/login
+- `SMTP_PASS` — SMTP password or app password
+- `CONTACT_TO_EMAIL` — Destination mailbox (your inbox)
+- `CONTACT_FROM_EMAIL` — From header (defaults to SMTP_USER)
+
+Deployment notes:
+- On Netlify, add these variables in Site Settings → Environment Variables.
+- For Gmail, use an App Password (recommended) and keep 2FA enabled.
 
 ## 📦 Build
 ```powershell

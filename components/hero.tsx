@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   ArrowRight,
   Github,
@@ -11,6 +12,7 @@ import {
   GraduationCap,
   Globe,
   LayoutGrid,
+  Flame,
 } from "lucide-react";
 
 const TAGS = [
@@ -66,30 +68,30 @@ export function Hero() {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a
+          <Link
             href="/projects"
             className="inline-flex items-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-medium text-white shadow-lg shadow-brand/30 transition hover:shadow-brand/50"
           >
             Explore Projects <ArrowRight size={16} />
-          </a>
-          <a
+          </Link>
+          <Link
             href="/certifications"
             className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 shadow-md shadow-black/0 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(255,255,255,0.08)]"
           >
             <Award size={18} /> Certifications
-          </a>
-          <a
+          </Link>
+          <Link
             href="/internships"
             className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 shadow-md shadow-black/0 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(255,255,255,0.08)]"
           >
             <Briefcase size={18} /> Internships
-          </a>
-          <a
+          </Link>
+          <Link
             href="/contact"
             className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 shadow-md shadow-black/0 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(255,255,255,0.08)]"
           >
             Let’s Talk
-          </a>
+          </Link>
           <a
             href="https://www.linkedin.com/in/mandar-kajbaje-29988531a/"
             target="_blank"
@@ -150,6 +152,17 @@ export function Hero() {
             className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
           >
             <LayoutGrid size={14} className="text-brand" /> Microsoft
+          </motion.a>
+          <motion.a
+            href="https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="View freeCodeCamp proof"
+            whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
+            whileTap={{ y: -1 }}
+            className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
+          >
+            <Flame size={14} className="text-brand" /> freeCodeCamp
           </motion.a>
         </div>
       </motion.div>
