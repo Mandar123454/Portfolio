@@ -14,6 +14,9 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 	- Fallback: Formspree forward (kept for reliability)
 	- 5/min IP rate limit with cooldown UI, anti-spam honeypot, offline retry, success toast
 - Dark-first theme, electric-violet accent, pro icon set (Lucide)
+ - Fast perceived performance:
+   - One-time full-screen spinner overlay on first open only (removed after ~600ms minimum)
+   - Route-level loading states for page navigations and back/forward actions
 
 ## 🧭 Pages & Routes
 - `/` Home — Hero with links: Explore Projects → Certifications → Internships → Let’s Talk → LinkedIn → GitHub
@@ -24,6 +27,10 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 	3. Other Certifications
 - `/internships` — Online internships with role, dates, stack tags, and highlights
 - `/contact` — SMTP-backed contact form with validation, anti-spam, success screen + toast, and delivery fallbacks
+ 
+Loading behavior:
+- First visit: CSS-only preloader overlay with spinner and “MK” tagline; hidden permanently for the session after first load.
+- Navigations/back/forward: Next.js app route `loading.tsx` files provide lightweight in-page loaders per route.
 
 ## 🛠 Tech Stack
 
