@@ -13,6 +13,7 @@ import {
   Globe,
   LayoutGrid,
   Flame,
+  Trophy,
 } from "lucide-react";
 
 const TAGS = [
@@ -114,6 +115,17 @@ export function Hero() {
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
           <span className="text-[12px] font-semibold uppercase tracking-wider text-white/65">Evidence</span>
           <motion.a
+            href="/CTF%20Rank%20August.png"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="View CTF rank proof"
+            whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
+            whileTap={{ y: -1 }}
+            className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
+          >
+            <Trophy size={14} className="text-brand" /> CTF Top 113/3,235
+          </motion.a>
+          <motion.a
             href="#"
             aria-label="CEH v13 proof (coming soon)"
             whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
@@ -172,6 +184,8 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.25),transparent_60%)] blur-2xl"
       />
+
     </section>
   );
 }
+

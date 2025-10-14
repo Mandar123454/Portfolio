@@ -7,7 +7,7 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 - High‑signal hero tags: B.Sc CS ’26 • 20+ Projects • CEH v13 • CTF Top 113/3,235 • NSDC‑DS • Full‑Stack • AI/ML
 - Dedicated pages: Projects, Certifications (3-column categories), Internships, Contact
 - Evidence bar with badges (CEH v13, NSDC, SIDH, Microsoft)
-- Evidence links wired: NSDC, Microsoft (CEH & SIDH placeholders ready)
+- Evidence links wired: NSDC, Microsoft (CEH & SIDH placeholders ready), and a CTF rank chip opening a proof image
 - Professional Contact pipeline (server-side):
 	- Primary: SMTP via Nodemailer (Brevo recommended)
 	- Backup: Google Sheet (Apps Script webhook)
@@ -99,6 +99,7 @@ Vercel works out of the box as well.
 - Theme toggle, scrollspy nav
 
 ## 🔗 Evidence Links
+- CTF Rank (image): /public/CTF Rank August.png
 - NSDC: https://trainings.internshala.com/certificate/view/nsdc/6glr84cp6od/e52s9kdy5a2/
 - Microsoft × freeCodeCamp: https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft
 - CEH v13: coming soon
