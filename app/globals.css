@@ -38,8 +38,13 @@ html {
 }
 *::-webkit-scrollbar { height: 10px; width: 10px; }
 *::-webkit-scrollbar-track { background: rgba(255,255,255,0.06); border-radius: 9999px; }
-*::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(124,58,237,.9), rgba(124,58,237,.6)); border-radius: 9999px; }
-*::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, rgba(124,58,237,1), rgba(124,58,237,.75)); }
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d946ef 0%, #7c3aed 50%, #06b6d4 100%);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f0abfc 0%, #8b5cf6 50%, #22d3ee 100%);
+}
 
 /* Simple custom cursor ring for pointer devices */
 @media (pointer: fine) {
@@ -50,10 +55,35 @@ html {
   .cursor-dot, .cursor-outline {
     position: fixed; top: 0; left: 0; border-radius: 9999px; transform: translate(-50%, -50%);
   }
-  .cursor-dot { width: 6px; height: 6px; background: rgb(124,58,237); box-shadow: 0 0 12px rgba(124,58,237,.6); }
-  .cursor-outline { width: 28px; height: 28px; border: 2px solid rgba(124,58,237,.5); transition: transform .15s ease, width .2s ease, height .2s ease, opacity .2s; opacity: .85; }
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: radial-gradient(circle at 40% 40%, #8b5cf6, #d946ef);
+    box-shadow: 0 0 12px rgba(139,92,246,.5), 0 0 18px rgba(217,70,239,.3);
+    border-radius: 9999px;
+  }
+  .cursor-outline {
+    width: 28px; height: 28px; border: 2px solid rgba(139,92,246,.55);
+    transition: transform .15s ease, width .2s ease, height .2s ease, opacity .2s, filter .5s ease;
+    opacity: .9; filter: hue-rotate(0deg);
+    animation: cursorHue 8s linear infinite;
+  }
   a:hover ~ .cursor-ring .cursor-outline, button:hover ~ .cursor-ring .cursor-outline { width: 36px; height: 36px; }
 }
+
+@keyframes cursorHue { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-outline { animation: none !important; }
+}
+
+/* Animated gradient helper for navbar glows */
+.nav-glow {
+  background: linear-gradient(90deg, #d946ef, #7c3aed, #06b6d4);
+  background-size: 200% 200%;
+  animation: gradientShift 8s linear infinite;
+  filter: blur(8px);
+}
+@keyframes gradientShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
 
 /* CSS-only first-load preloader */

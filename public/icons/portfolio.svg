@@ -1,0 +1,17 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main blue circle -->
+  <circle cx="24" cy="24" r="22" fill="#2458D6" stroke="#4376E2" stroke-width="2"/>
+  <!-- Globe lines (longitudes and latitudes) -->
+  <ellipse cx="24" cy="24" rx="16" ry="9" stroke="#7AA7F9" stroke-width="1"/>
+  <ellipse cx="24" cy="24" rx="12" ry="21" stroke="#7AA7F9" stroke-width="1"/>
+  <ellipse cx="24" cy="24" rx="21" ry="6" stroke="#7AA7F9" stroke-width="1"/>
+  <!-- Four small dots as decoration -->
+  <circle cx="7" cy="24" r="1" fill="#D2E6FB"/>
+  <circle cx="41" cy="24" r="1" fill="#D2E6FB"/>
+  <circle cx="24" cy="7" r="1" fill="#D2E6FB"/>
+  <circle cx="24" cy="41" r="1" fill="#D2E6FB"/>
+  <!-- Central dark circle for text contrast -->
+  <circle cx="24" cy="24" r="10.5" fill="#213A6A"/>
+  <!-- MK text -->
+  <text x="24" y="28" text-anchor="middle" fill="#ffffff" font-size="11" font-family="Montserrat, Arial, sans-serif" font-weight="bold" letter-spacing="1">MK</text>
+</svg>

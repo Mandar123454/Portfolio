@@ -28,7 +28,7 @@ const TAGS = [
 
 export function Hero() {
   return (
-    <section className="container py-24 md:py-32">
+    <section className="container pt-16 pb-14 md:pt-20 md:pb-16">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -141,7 +141,7 @@ export function Hero() {
               whileTap={{ y: -1 }}
               className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
             >
-              <GraduationCap size={14} className="text-brand" /> NSDS-DS
+              <GraduationCap size={14} className="text-brand" /> NSDC-DS
             </motion.span>
           </Link>
           {/* SIDH */}

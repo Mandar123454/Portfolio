@@ -5,7 +5,7 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 ## ✨ Highlights
 - Animated Hero with polished CTAs, “Class of 2026” badge, and micro‑motion
 - High‑signal hero tags: B.Sc CS ’26 • 20+ Projects • CEH v13 • CTF Top 113/3,235 • NSDC‑DS • Full‑Stack • AI/ML
-- Global, centered navbar (Home • Explore Projects • Internships • Let’s talk • About) and a polished footer (GitHub, LinkedIn, Portfolio icon + © 2025)
+- Global, centered navbar (Home • Certifications • Explore Projects • Internships • Let’s talk • About) with animated glow on the active item, and a polished footer (GitHub, LinkedIn, Portfolio icon + © 2025)
 - Certifications page with professional category tabs (Cybersecurity • Data Science • Other) and animated cards showing exactly: Title • Issued by • Issued on; tap to open an image‑only lightview
 - Smooth anchor scrolling and tasteful animations across category switches
 - Evidence bar with badges (CEH v13, NSDC, SIDH, Microsoft) — hero chips open a local lightview; “See all proofs” jumps to Certifications
@@ -18,7 +18,7 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 - Fast perceived performance:
 	- One-time full-screen spinner overlay on first open only (removed after ~600ms minimum)
 	- Route-level loading states for page navigations and back/forward actions
-	- Desktop-only custom cursor (subtle dot + outline) and branded thin scrollbar; disabled on touch devices
+	- Desktop-only custom cursor (subtle dot + hue-rotating outline) and multi‑color gradient scrollbar (hover responsive); disabled on touch devices and honors reduced-motion
 
 ## 🧭 Pages & Routes
 - `/` Home — Hero with links: Explore Projects → Certifications → Internships → Let’s Talk → LinkedIn → GitHub; global navbar and footer present
@@ -41,6 +41,12 @@ Scrolling & cursors:
 - Desktop-only custom cursor (subtle violet dot + outline). Touch devices keep the default cursor.
 
 ## 🛠 Tech Stack
+- Next.js 14 (App Router) + React 18 + TypeScript
+- Tailwind CSS for styling
+- Framer Motion for micro-interactions and tab transitions
+- Lucide icons
+- Email: Nodemailer (Brevo SMTP), Google Apps Script logging, Formspree fallback
+- Deploy: Netlify with `@netlify/plugin-nextjs` or Vercel
 
 ## 🚀 Getting Started (dev)
 ```powershell
@@ -106,7 +112,7 @@ Vercel works out of the box as well.
 - Certifications cards: `components/CertCard.tsx` (only Title, Issued by, Issued on)
 - Certifications tabs & animations: `app/certifications/SectionsClient.tsx`
 - Smooth scroll & scrollbar/cursor styles: `app/globals.css`
-- Image lightview modal: `/certifications/CertModal.tsx` (image‑only with Close)
+- Image lightview modal: `/certifications/CertModal.tsx` (image‑only to keep payloads small on mobile; with Close)
 
 Architecture:
 - The Certifications page is a server component (`app/certifications/page.tsx`) with a small client component (`SectionsClient.tsx`) to manage tab state and animations. Only serializable data is passed to the client to keep SSR stable.
@@ -118,7 +124,7 @@ Architecture:
 - Theme toggle, scrollspy nav
 
 ## 🔗 Evidence Links
-- CTF Rank (image): /public/CTF Rank August.png
+- CTF Rank (image): /public/CTF August Certificate.png
 - NSDC: https://trainings.internshala.com/certificate/view/nsdc/6glr84cp6od/e52s9kdy5a2/
 - Microsoft × freeCodeCamp: https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft
 - CEH v13: coming soon
