@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 // Removed header top progress and Suspense fallback to keep only first-load overlay
+import HeaderNav from "@/components/HeaderNav";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" });
@@ -59,7 +61,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
+        {/* Custom cursor for pointer devices */}
+        <div className="cursor-ring" aria-hidden="true"><div className="cursor-outline"></div><div className="cursor-dot"></div></div>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(
+              function(){
+                if (window.matchMedia('(pointer: coarse)').matches) return; // skip on touch
+                var dot = document.querySelector('.cursor-dot');
+                var outline = document.querySelector('.cursor-outline');
+                var x = window.innerWidth/2, y = window.innerHeight/2, tx=x, ty=y;
+                function move(e){ tx = e.clientX; ty = e.clientY; if(dot){ dot.style.transform='translate(' + tx + 'px,' + ty + 'px)'; } }
+                window.addEventListener('mousemove', move, { passive: true });
+                function tick(){ x += (tx - x) * 0.18; y += (ty - y) * 0.18; if(outline){ outline.style.transform='translate(' + x + 'px,' + y + 'px)'; } requestAnimationFrame(tick); }
+                requestAnimationFrame(tick);
+              }
+            )();`,
+          }}
+        />
+        <HeaderNav />
         {children}
+        <Footer />
       </body>
     </html>
   );

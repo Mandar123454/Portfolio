@@ -5,32 +5,40 @@ Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × S
 ## ✨ Highlights
 - Animated Hero with polished CTAs, “Class of 2026” badge, and micro‑motion
 - High‑signal hero tags: B.Sc CS ’26 • 20+ Projects • CEH v13 • CTF Top 113/3,235 • NSDC‑DS • Full‑Stack • AI/ML
-- Dedicated pages: Projects, Certifications (3-column categories), Internships, Contact
-- Evidence bar with badges (CEH v13, NSDC, SIDH, Microsoft)
-- Evidence links wired: NSDC, Microsoft (CEH & SIDH placeholders ready), and a CTF rank chip opening a proof image
+- Global, centered navbar (Home • Explore Projects • Internships • Let’s talk • About) and a polished footer (GitHub, LinkedIn, Portfolio icon + © 2025)
+- Certifications page with professional category tabs (Cybersecurity • Data Science • Other) and animated cards showing exactly: Title • Issued by • Issued on; tap to open an image‑only lightview
+- Smooth anchor scrolling and tasteful animations across category switches
+- Evidence bar with badges (CEH v13, NSDC, SIDH, Microsoft) — hero chips open a local lightview; “See all proofs” jumps to Certifications
 - Professional Contact pipeline (server-side):
 	- Primary: SMTP via Nodemailer (Brevo recommended)
 	- Backup: Google Sheet (Apps Script webhook)
 	- Fallback: Formspree forward (kept for reliability)
 	- 5/min IP rate limit with cooldown UI, anti-spam honeypot, offline retry, success toast
 - Dark-first theme, electric-violet accent, pro icon set (Lucide)
- - Fast perceived performance:
-   - One-time full-screen spinner overlay on first open only (removed after ~600ms minimum)
-   - Route-level loading states for page navigations and back/forward actions
+- Fast perceived performance:
+	- One-time full-screen spinner overlay on first open only (removed after ~600ms minimum)
+	- Route-level loading states for page navigations and back/forward actions
+	- Desktop-only custom cursor (subtle dot + outline) and branded thin scrollbar; disabled on touch devices
 
 ## 🧭 Pages & Routes
-- `/` Home — Hero with links: Explore Projects → Certifications → Internships → Let’s Talk → LinkedIn → GitHub
+- `/` Home — Hero with links: Explore Projects → Certifications → Internships → Let’s Talk → LinkedIn → GitHub; global navbar and footer present
 - `/projects` — Placeholder grid for animated project cards & filters (coming next)
-- `/certifications` — Three sections:
+- `/certifications` — Category tabs with animated sections:
 	1. Ethical Hacking & Cybersecurity
 	2. Data Science
 	3. Other Certifications
+	Cards show Title • Issued by • Issued on. Tap to open the image‑only lightview (mobile friendly).
 - `/internships` — Online internships with role, dates, stack tags, and highlights
 - `/contact` — SMTP-backed contact form with validation, anti-spam, success screen + toast, and delivery fallbacks
+- `/about` — Placeholder page wired to the global navbar
  
 Loading behavior:
 - First visit: CSS-only preloader overlay with spinner and “MK” tagline; hidden permanently for the session after first load.
 - Navigations/back/forward: Next.js app route `loading.tsx` files provide lightweight in-page loaders per route.
+
+Scrolling & cursors:
+- Smooth anchor scroll is enabled globally; section anchors use a modest scroll margin to avoid header overlap.
+- Desktop-only custom cursor (subtle violet dot + outline). Touch devices keep the default cursor.
 
 ## 🛠 Tech Stack
 
@@ -92,8 +100,19 @@ Netlify (recommended):
 
 Vercel works out of the box as well.
 
+## 🧩 Customization quick notes
+- Navbar links: `components/HeaderNav.tsx` (edit the `links` array)
+- Footer icons: `components/Footer.tsx` (SVGs at `public/icons/*.svg`)
+- Certifications cards: `components/CertCard.tsx` (only Title, Issued by, Issued on)
+- Certifications tabs & animations: `app/certifications/SectionsClient.tsx`
+- Smooth scroll & scrollbar/cursor styles: `app/globals.css`
+- Image lightview modal: `/certifications/CertModal.tsx` (image‑only with Close)
+
+Architecture:
+- The Certifications page is a server component (`app/certifications/page.tsx`) with a small client component (`SectionsClient.tsx`) to manage tab state and animations. Only serializable data is passed to the client to keep SSR stable.
+
 ## 🗺️ Roadmap
-- Home sections: About, Skills
+- Home sections: Skills
 - Projects page: animated cards, category filters (AI, Security, Web, Games)
 - SEO/OG polish, sitemap/robots
 - Theme toggle, scrollspy nav
