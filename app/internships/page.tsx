@@ -1,8 +1,10 @@
 import { Briefcase, ExternalLink } from "lucide-react";
 
+const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const metadata = {
   title: "Internships — Mandar Kajbaje",
   description: "Online internships and practical experience.",
+  alternates: { canonical: `${site}/internships` },
 };
 
 type Internship = {
@@ -96,7 +98,7 @@ const INTERNSHIPS: Internship[] = [
 
 export default function InternshipsPage() {
   return (
-    <main className="container py-16 md:py-24">
+  <main className="container py-12 md:py-16">
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Internships</h1>
       <p className="mt-3 max-w-2xl text-white/80">All internships completed online, focused on building real solutions fast.</p>
 

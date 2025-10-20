@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-  <footer className="mt-8 border-t border-white/10 py-5">
+  <footer className="mt-4 py-3.5">
       <div className="container flex flex-col items-center gap-3">
         <div className="flex items-center gap-6">
           <Link href="/" aria-label="Portfolio">

@@ -2,39 +2,13 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Github,
-  Linkedin,
-  Award,
-  Briefcase,
-  ShieldCheck,
-  GraduationCap,
-  Globe,
-  LayoutGrid,
-  Flame,
-  Trophy,
-} from "lucide-react";
+import { ShieldCheck, GraduationCap, Globe, LayoutGrid, Flame, Trophy } from "lucide-react";
 
-const TAGS = [
-  "B.Sc CS ’26",
-  "20+ Projects",
-  "CEH v13",
-  "CTF Top 113/3,235",
-  "NSDC-DS",
-  "Full‑Stack",
-  "AI/ML",
-];
 
 export function Hero() {
   return (
-    <section className="container pt-16 pb-14 md:pt-20 md:pb-16">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center"
-      >
+  <section className="container pt-10 pb-8 md:pt-14 md:pb-10">
+      <motion.div className="text-center">
         <motion.div
           whileHover={{ y: -1, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 6px 18px rgba(255,255,255,0.14)" }}
           whileTap={{ y: -0.5 }}
@@ -52,67 +26,31 @@ export function Hero() {
           I turn theory into tools, data into decisions, and code into impact. From ML predictions to ethical hacking and full‑stack systems, I build, break, analyze, and rebuild smarter—fast and clean.
         </p>
 
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-          {TAGS.map((t) => (
-            <motion.span
-              key={t}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
-              whileTap={{ y: -1 }}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 transition will-change-transform hover:bg-white/7 hover:text-white"
-            >
-              {t}
-            </motion.span>
-          ))}
-        </div>
+        {/* Tags removed per request — evidence chips remain below */}
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-medium text-white shadow-lg shadow-brand/30 transition hover:shadow-brand/50"
-          >
-            Explore Projects <ArrowRight size={16} />
-          </Link>
-          <Link
-            href="/certifications"
-            className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 shadow-md shadow-black/0 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(255,255,255,0.08)]"
-          >
-            <Award size={18} /> Certifications
-          </Link>
-          <Link
-            href="/internships"
-            className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 shadow-md shadow-black/0 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(255,255,255,0.08)]"
-          >
-            <Briefcase size={18} /> Internships
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 shadow-md shadow-black/0 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(255,255,255,0.08)]"
-          >
-            Let’s Talk
-          </Link>
-          <a
-            href="https://www.linkedin.com/in/mandar-kajbaje-29988531a/"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/90 hover:bg-white/10 shadow-md shadow-black/0 transition hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(255,255,255,0.08)]"
-          >
-            <Linkedin size={18} /> LinkedIn
-          </a>
-          <a
-            href="https://github.com/Mandar123454?tab=repositories"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/90 hover:bg-white/10 shadow-md shadow-black/0 transition hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(255,255,255,0.08)]"
-          >
-            <Github size={18} /> GitHub
-          </a>
+        {/* Polished snapshot and "What I do" */}
+        <div className="mx-auto mt-6 grid max-w-3xl grid-cols-1 gap-3 text-left">
+          <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
+            <h3 className="text-sm font-semibold text-white">Snapshot</h3>
+            <p className="mt-2 text-sm leading-relaxed text-white/80">
+              B.Sc Computer Science ’26 • Certified Ethical Hacker (CEH v13) • 20+ shipped projects • Ranked Top 113 / 3,235 in CTFs.
+              I design and ship pragmatic, production-ready solutions across AI/ML, full-stack web, and security — with clean code,
+              rapid iteration, and measurable impact.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
+            <h3 className="text-sm font-semibold text-white">What I do</h3>
+            <ul className="mt-2 space-y-1.5 text-sm text-white/85">
+              <li>🔍 Predictive ML features that drive decisions</li>
+              <li>🔐 Secure, scalable web apps with defense-in-depth</li>
+              <li>⚙️ Automation tools that turn ideas into outcomes — fast</li>
+            </ul>
+            <p className="mt-2 text-sm text-white/70">I measure everything. Harden surfaces. Iterate with evidence.</p>
+          </div>
         </div>
 
         {/* Evidence bar */}
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+  <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
           <span className="text-[12px] font-semibold uppercase tracking-wider text-white/65">Evidence</span>
           {/* CTF evidence (open local modal) */}
           <Link href={{ pathname: "/", query: { proof: "ctf-aug-2025" } }} scroll={false} className="inline-block" aria-label="View CTF rank proof">

@@ -1,14 +1,16 @@
 import { Mail } from "lucide-react";
 import ContactForm from "@/components/contact-form";
 
+const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const metadata = {
   title: "Contact — Mandar Kajbaje",
   description: "Get in touch via a secure SMTP-backed form.",
+  alternates: { canonical: `${site}/contact` },
 };
 
 export default function ContactPage() {
   return (
-    <main className="container py-24 md:py-32">
+  <main className="container py-12 md:py-16">
       <div className="mx-auto max-w-2xl">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-md bg-white/5">

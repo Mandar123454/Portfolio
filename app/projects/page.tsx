@@ -1,11 +1,13 @@
+const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const metadata = {
   title: "Projects — Mandar Kajbaje",
   description: "Selected projects across AI/ML, Security, and Full‑Stack.",
+  alternates: { canonical: `${site}/projects` },
 };
 
 export default function ProjectsPage() {
   return (
-    <main className="container py-24 md:py-32">
+  <main className="container py-12 md:py-16">
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Projects</h1>
       <p className="mt-3 max-w-2xl text-white/80">
         Curated work across AI/ML, cybersecurity tools, scalable web apps, and playful interactions.

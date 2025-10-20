@@ -14,9 +14,11 @@ import {
   Calendar,
 } from "lucide-react";
 
+const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const metadata = {
   title: "Certifications — Mandar Kajbaje",
   description: "Verified certifications, courses, and internships",
+  alternates: { canonical: `${site}/certifications` },
 };
 
 type Item = {
@@ -36,7 +38,7 @@ const CYBERSECURITY: Item[] = [
     Icon: ShieldCheck,
     slug: "ceh-v13",
     image: "/ECC-CEH-Certificate.png",
-    issuedOn: "Apr 2025",
+    issuedOn: "July 2025",
   },
   {
     title: "Complete Ethical Hacking Masterclass",
@@ -44,7 +46,7 @@ const CYBERSECURITY: Item[] = [
     Icon: GraduationCap,
     slug: "ethical-hacking-masterclass",
     image: "/Ethical%20Hacking.jpg",
-    issuedOn: "Jun 2024",
+    issuedOn: "June 2024",
   },
   {
     title: "Real‑Time OS Hacking — Hands‑On Training",
@@ -52,10 +54,10 @@ const CYBERSECURITY: Item[] = [
     Icon: Shield,
     slug: "os-hacking-nullclass",
     image: "/NullClass-CyberSecurity-Training-Certificate.png",
-    issuedOn: "May 2024",
+    issuedOn: "July 2024",
   },
-  { title: "EC‑Council CTF (August) — Rank 113 of 3,235", provider: "EC‑Council", Icon: ShieldCheck, slug: "ctf-aug-2025", image: "/CTF%20August%20Certificate.png" },
-  { title: "EC‑Council CTF (July) — Rank 206 of 3,009", provider: "EC‑Council", Icon: ShieldCheck, slug: "ctf-jul-2025", image: "/CTF%20July%20Certificate.png" },
+  { title: "Capture The Flag(CTF) — Rank 113 of 3,235", provider: "EC‑Council", Icon: ShieldCheck, slug: "ctf-aug-2025", image: "/CTF%20August%20Certificate.png", issuedOn: "August 2025", },
+  { title: "Capture The Flag(CTF) — Rank 206 of 3,009", provider: "EC‑Council", Icon: ShieldCheck, slug: "ctf-jul-2025", image: "/CTF%20July%20Certificate.png", issuedOn: "July 2025", },
 ];
 
 const DATA_SCIENCE: Item[] = [
@@ -65,7 +67,7 @@ const DATA_SCIENCE: Item[] = [
     Icon: LineChart,
     slug: "nsdc-ds",
     image: "/CAN_37240536_4824911%20(NSDC).png",
-    issuedOn: "Mar 2024",
+    issuedOn: "May 2025",
   },
   {
     title: "Data Science Training",
@@ -73,7 +75,7 @@ const DATA_SCIENCE: Item[] = [
     Icon: LineChart,
     slug: "internshala-ds-training",
     image: "/Data%20Science%20Training.png",
-    issuedOn: "Feb 2024",
+    issuedOn: "April 2025",
   },
   {
     title: "Real‑Time Emotion Detection — Hands‑On Training",
@@ -81,10 +83,10 @@ const DATA_SCIENCE: Item[] = [
     Icon: BrainCircuit,
     slug: "emotion-detection-nullclass",
     image: "/NullClass-Data%20Science-Training-Certificate.png",
-    issuedOn: "May 2024",
+    issuedOn: "September 2025",
   },
-  { title: "Python From Zero to Hero", provider: "Udemy", Icon: GraduationCap, slug: "python-zero-hero", image: "/Python%20From%20Zero%20to%20Hero.jpg" },
-  { title: "Fundamental of Python Machine Learning", provider: "Udemy", Icon: GraduationCap, slug: "python-ml-fundamentals", image: "/Fundamental%20of%20Python%20Machine%20Learning.jpg" },
+  { title: "Python From Zero to Hero", provider: "Udemy", Icon: GraduationCap, slug: "python-zero-hero", image: "/Python%20From%20Zero%20to%20Hero.jpg", issuedOn: "August 2025", },
+  { title: "Fundamental of Python Machine Learning", provider: "Udemy", Icon: GraduationCap, slug: "python-ml-fundamentals", image: "/Fundamental%20of%20Python%20Machine%20Learning.jpg", issuedOn: "August 2025", },
 ];
 
 const OTHER: Item[] = [
@@ -94,7 +96,7 @@ const OTHER: Item[] = [
     Icon: Code2,
     slug: "web-design-sidh",
     image: "/Web%20Design%20%26%20Development%20Certificate%20(SIDH).png",
-    issuedOn: "Jan 2024",
+    issuedOn: "July 2025",
   },
   {
     title: "AI + ChatGPT for MS Office",
@@ -102,7 +104,7 @@ const OTHER: Item[] = [
     Icon: BrainCircuit,
     slug: "ai-chatgpt-ms-office",
     image: "/AI%20+%20ChatGPT%20For%20MS%20Office.png",
-    issuedOn: "Nov 2023",
+    issuedOn: "July 2024",
   },
   {
     title: "Foundational C# with Microsoft",
@@ -111,16 +113,17 @@ const OTHER: Item[] = [
     slug: "fcc-csharp",
     image: "/C%23%20Microsoft%20%2B%20Freecodecamp.png",
     href: "https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft",
+    issuedOn: "August 2025",
   },
-  { title: "Internship & Job Readiness", provider: "Internshala", Icon: BadgeCheck, slug: "internshala-job-readiness", image: "/Internship%20%26%20Job%20Readiness.png" },
-  { title: "Full Stack Programming Course", provider: "Udemy", Icon: Code2, slug: "full-stack-programming", image: "/Full%20Stack%20Programming%20Course.jpg" },
+  { title: "Internship & Job Readiness", provider: "Internshala", Icon: BadgeCheck, slug: "internshala-job-readiness", image: "/Internship%20%26%20Job%20Readiness.png", issuedOn: "May 2025", },
+  { title: "Full Stack Programming Course", provider: "Udemy", Icon: Code2, slug: "full-stack-programming", image: "/Full%20Stack%20Programming%20Course.jpg", issuedOn: "August 2025", },
   {
     title: "Microsoft Azure Fundamentals",
     provider: "Udemy",
     Icon: Cloud,
     slug: "azure-fundamentals-udemy",
     image: "/Microsoft%20Azure%20Fundamentals.png",
-    issuedOn: "Aug 2023",
+    issuedOn: "December 2023",
   },
 ];
 
@@ -149,7 +152,7 @@ export default function CertificationsPage() {
   const totalCount = cyberCount + dataCount + otherCount;
   const lastUpdated = "Oct 2025";
   return (
-    <main className="container py-16 md:py-24">
+  <main className="container py-12 md:py-16">
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Certifications</h1>
       <p className="mt-3 max-w-3xl text-white/80">
         A curated collection of industry‑recognized credentials and hands‑on trainings spanning Cybersecurity, Data Science,

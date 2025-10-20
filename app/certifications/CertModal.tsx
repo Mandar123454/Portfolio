@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
@@ -24,6 +24,18 @@ export default function CertModal({ items }: { items: Item[] }) {
     if (current) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [current, router]);
+
+  // Prevent background scroll and focus close on open
+  const closeRef = useRef<HTMLButtonElement | null>(null);
+  useEffect(() => {
+    if (!current) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    setTimeout(() => closeRef.current?.focus(), 0);
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [current]);
 
   // Compute a tight panel size around the image (max within viewport while preserving aspect ratio)
   useEffect(() => {
@@ -65,6 +77,9 @@ export default function CertModal({ items }: { items: Item[] }) {
   return (
     <motion.div
       className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-label={current.title}
       onClick={close}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -89,7 +104,8 @@ export default function CertModal({ items }: { items: Item[] }) {
                 whileHover={{ y: -1, backgroundColor: "#ef4444" }}
                 whileTap={{ y: 0 }}
                 onClick={close}
-                className="inline-flex items-center gap-1 rounded-full bg-red-500/95 px-3 py-1.5 text-[12px] font-semibold text-white shadow-lg shadow-black/30 ring-1 ring-red-300/50"
+                ref={closeRef}
+                className="inline-flex items-center gap-1 rounded-full bg-red-500/95 px-3 py-1.5 text-[12px] font-semibold text-white shadow-lg shadow-black/30 ring-1 ring-red-300/50 cursor-default"
               >
                 Close <X size={14} />
               </motion.button>

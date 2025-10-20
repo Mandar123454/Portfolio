@@ -4,18 +4,24 @@ import "./globals.css";
 // Removed header top progress and Suspense fallback to keep only first-load overlay
 import HeaderNav from "@/components/HeaderNav";
 import Footer from "@/components/Footer";
+import { Analytics, AnalyticsConsent } from "../components/analytics";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
+
 export const metadata: Metadata = {
   title: "Mandar Kajbaje — Portfolio",
   description: "Full‑Spectrum Technologist & Certified Builder. B.Sc CS ’26 | CEH v12 | Azure Fundamentals | 20+ Projects.",
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Mandar Kajbaje — Portfolio",
     description: "Full‑Spectrum Technologist & Certified Builder.",
-    url: "https://example.com",
+    url: siteUrl,
     siteName: "Mandar Kajbaje",
     images: [
       { url: "/og.png", width: 1200, height: 630, alt: "Mandar Kajbaje" }
@@ -32,6 +38,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${grotesk.variable}`}>
       <body>
+        {/* Skip to content for keyboard users */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10001] focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-black"
+        >
+          Skip to content
+        </a>
         {/* First-load preloader overlay */}
         <div id="preloader">
           <div className="preloader-inner">
@@ -79,8 +92,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             )();`,
           }}
         />
+  {/* Analytics gated by consent */}
+  <Analytics />
+  <AnalyticsConsent />
         <HeaderNav />
-        {children}
+        <main id="main-content">{children}</main>
         <Footer />
       </body>
     </html>

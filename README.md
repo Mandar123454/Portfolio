@@ -1,54 +1,46 @@
 # MK Portfolio
 
-Professional, stylish, animated portfolio for Mandar Kajbaje — joining AI × Security × Web into one experience. Built with Next.js, TypeScript, Tailwind, and Framer Motion.
+A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It showcases work across AI, security, and web engineering. Built with Next.js (App Router), TypeScript, Tailwind CSS, and Framer Motion.
 
-## ✨ Highlights
-- Animated Hero with polished CTAs, “Class of 2026” badge, and micro‑motion
-- High‑signal hero tags: B.Sc CS ’26 • 20+ Projects • CEH v13 • CTF Top 113/3,235 • NSDC‑DS • Full‑Stack • AI/ML
-- Global, centered navbar (Home • Certifications • Explore Projects • Internships • Let’s talk • About) with animated glow on the active item, and a polished footer (GitHub, LinkedIn, Portfolio icon + © 2025)
-- Certifications page with professional category tabs (Cybersecurity • Data Science • Other) and animated cards showing exactly: Title • Issued by • Issued on; tap to open an image‑only lightview
-- Smooth anchor scrolling and tasteful animations across category switches
-- Evidence bar with badges (CEH v13, NSDC, SIDH, Microsoft) — hero chips open a local lightview; “See all proofs” jumps to Certifications
-- Professional Contact pipeline (server-side):
-	- Primary: SMTP via Nodemailer (Brevo recommended)
-	- Backup: Google Sheet (Apps Script webhook)
-	- Fallback: Formspree forward (kept for reliability)
-	- 5/min IP rate limit with cooldown UI, anti-spam honeypot, offline retry, success toast
-- Dark-first theme, electric-violet accent, pro icon set (Lucide)
-- Fast perceived performance:
-	- One-time full-screen spinner overlay on first open only (removed after ~600ms minimum)
-	- Route-level loading states for page navigations and back/forward actions
-	- Desktop-only custom cursor (subtle dot + hue-rotating outline) and multi‑color gradient scrollbar (hover responsive); disabled on touch devices and honors reduced-motion
+<div align="left">
 
-## 🧭 Pages & Routes
-- `/` Home — Hero with links: Explore Projects → Certifications → Internships → Let’s Talk → LinkedIn → GitHub; global navbar and footer present
-- `/projects` — Placeholder grid for animated project cards & filters (coming next)
-- `/certifications` — Category tabs with animated sections:
-	1. Ethical Hacking & Cybersecurity
-	2. Data Science
-	3. Other Certifications
-	Cards show Title • Issued by • Issued on. Tap to open the image‑only lightview (mobile friendly).
-- `/internships` — Online internships with role, dates, stack tags, and highlights
-- `/contact` — SMTP-backed contact form with validation, anti-spam, success screen + toast, and delivery fallbacks
-- `/about` — Placeholder page wired to the global navbar
- 
-Loading behavior:
-- First visit: CSS-only preloader overlay with spinner and “MK” tagline; hidden permanently for the session after first load.
-- Navigations/back/forward: Next.js app route `loading.tsx` files provide lightweight in-page loaders per route.
+<!-- Tech badges -->
+<img alt="Next.js" src="https://img.shields.io/badge/Next.js-14-000000?logo=nextdotjs&logoColor=white" />
+<img alt="React" src="https://img.shields.io/badge/React-18-20232A?logo=react&logoColor=61DAFB" />
+<img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" />
+<img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-3-0EA5E9?logo=tailwindcss&logoColor=white" />
+<img alt="Framer Motion" src="https://img.shields.io/badge/Framer_Motion-11-0055FF?logo=framer&logoColor=white" />
+<img alt="Netlify" src="https://img.shields.io/badge/Netlify-Build-00C7B7?logo=netlify&logoColor=white" />
+<img alt="Vercel" src="https://img.shields.io/badge/Vercel-Ready-000000?logo=vercel&logoColor=white" />
 
-Scrolling & cursors:
-- Smooth anchor scroll is enabled globally; section anchors use a modest scroll margin to avoid header overlap.
-- Desktop-only custom cursor (subtle violet dot + outline). Touch devices keep the default cursor.
+</div>
 
-## 🛠 Tech Stack
-- Next.js 14 (App Router) + React 18 + TypeScript
-- Tailwind CSS for styling
-- Framer Motion for micro-interactions and tab transitions
+## Features
+- Focused home section with a clear snapshot and a concise “What I do” summary
+- In‑site lightviewer for certificates and evidence (mobile friendly), with ESC/overlay close, focus management, and scroll lock
+- Centered navigation with compact link pills and a subtle active glow; minimal footer with social links
+- Contact pipeline: SMTP via Nodemailer (Brevo recommended), optional Google Sheet webhook, and Formspree fallback; per‑IP rate limit (5/min), honeypot, offline retry, and success toast
+- Search optimization: filesystem‑generated sitemap, robots.txt, per‑page canonical URLs, and a stable metadataBase
+- Analytics with consent: a banner gates GA4 loading; IP is anonymized; fully environment‑driven
+- User experience details: one‑time preloader, lightweight micro‑interactions, desktop custom cursor, smooth scrolling, styled scrollbars
+- Accessibility: dialogs use appropriate roles; keyboard and ESC support; a skip‑to‑content link is provided
+
+## Pages and routes
+- `/` Home: snapshot and “What I do.” Evidence chips open the image lightviewer
+- `/certifications`: category tabs (Cybersecurity, Data Science, Other) with animated cards; click to view the certificate
+- `/projects`: projects index (scaffolding in place)
+- `/internships`: online internships with roles, stacks, and highlights
+- `/contact`: SMTP‑backed form with validation and fallbacks
+- `/about`: about page copy placeholder
+
+## Architecture and technology
+- Next.js 14 (App Router), React 18, and TypeScript
+- Tailwind CSS for styling and Framer Motion for micro‑interactions
 - Lucide icons
-- Email: Nodemailer (Brevo SMTP), Google Apps Script logging, Formspree fallback
-- Deploy: Netlify with `@netlify/plugin-nextjs` or Vercel
+- Email: Nodemailer (SMTP), optional Apps Script webhook, and Formspree fallback
+- Deployment: Netlify (with `@netlify/plugin-nextjs`) or Vercel
 
-## 🚀 Getting Started (dev)
+## Getting started (development)
 ```powershell
 cd "e:\Internships and Projects\MK Portfolio"
 npm install
@@ -56,101 +48,107 @@ npm run dev
 ```
 Open http://localhost:3000
 
-## 🔐 Environment & Contact Setup
+## Environment and contact setup
+See `.env.example` for all variables.
 
-Required envs (see `.env.example`):
-- `SMTP_HOST` — SMTP host (Brevo: smtp-relay.brevo.com)
-- `SMTP_PORT` — Port (Brevo: 587; SSL: 465)
-- `SMTP_USER` — SMTP user/login
-- `SMTP_PASS` — SMTP key/password
-- `CONTACT_TO_EMAIL` — Destination mailbox (inbox)
-- Optional: `CONTACT_FROM_EMAIL` — From header (defaults to SMTP_USER)
-- Optional: `CONTACT_WEBHOOK_URL` — Google Apps Script Web App URL to log to a Sheet
+Required (email):
+- SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, CONTACT_TO_EMAIL
 
-Quick start (Brevo recommended):
+Optional (email):
+- CONTACT_FROM_EMAIL, CONTACT_WEBHOOK_URL
+
+Optional (site and analytics):
+- NEXT_PUBLIC_SITE_URL=https://your-domain.com
+- NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+
+Brevo quick start:
 ```env
 SMTP_HOST=smtp-relay.brevo.com
 SMTP_PORT=587
 SMTP_USER=your_brevo_username
 SMTP_PASS=your_brevo_smtp_key
 CONTACT_TO_EMAIL=you@example.com
-# CONTACT_FROM_EMAIL="Portfolio Contact <no-reply@yourdomain.com>"
-# CONTACT_WEBHOOK_URL=https://script.google.com/macros/s/XXXX/exec
 ```
 
-Delivery flow:
-1) Try SMTP → send email
-2) Also log to Google Sheet if `CONTACT_WEBHOOK_URL` is set (fire-and-forget)
-3) If SMTP misconfigured or fails → try Sheet as backup (await)
-4) If Sheet unavailable → fallback to Formspree
+Delivery flow
+1. SMTP email
+2. Fire‑and‑forget webhook to Google Sheet (if configured)
+3. If email fails: log to Sheet (await)
+4. If Sheet unavailable: Formspree fallback
 
-Rate limiting & UX:
-- 5 requests/min per IP, Retry-After header, submit button cooldown timer
-- Honeypot spam trap, client offline retry, success toast (“We reply within 24–48 hours”)
+Rate limiting and user experience
+- 5 requests per minute per IP, with Retry‑After header and submit‑button cooldown
+- Honeypot spam trap, offline retry, and a success toast
 
-Deploy notes:
-- Netlify: set env vars in Site settings → Environment variables; build command `npm run build`, publish `.next`, plugin `@netlify/plugin-nextjs`.
-- Gmail alternative: use an App Password (2FA on) if using smtp.gmail.com:465.
+## Analytics and SEO
+Analytics (GA4)
+- Create a GA4 property and set NEXT_PUBLIC_GA_ID in `.env.local`.
+- A consent banner appears on first visit; selecting Allow loads Google Analytics.
+- Use the Realtime report in Google Analytics to verify events.
 
-## 📦 Build
+SEO (Search Console)
+- Add your site in Google Search Console (domain or URL prefix) and verify ownership (DNS TXT preferred).
+- Submit `https://your-domain.com/sitemap.xml`.
+- Set NEXT_PUBLIC_SITE_URL in `.env.local` so canonical URLs, robots, and sitemap use your real domain.
+
+For a concise checklist, see `remaining.md`.
+
+## Customization notes
+- Navbar links: `components/HeaderNav.tsx` (edit `links`)
+- Footer icons: `components/Footer.tsx` (`public/icons/*.svg`)
+- Certifications cards: `components/CertCard.tsx`
+- Certifications tabs/animations: `app/certifications/SectionsClient.tsx`
+- Global styles/cursor/scrollbar: `app/globals.css`
+- Lightviewer modals: `components/ProofModal.tsx` and `app/certifications/CertModal.tsx`
+
+## Recent updates
+- Removed hero tag chips and redundant social buttons
+- Added a polished “Snapshot” and “What I do” section
+- Slimmer navbar pills; reduced vertical paddings across pages; removed header/footer divider lines
+- Improved lightviewer accessibility (role=dialog, focus, ESC/overlay close, scroll lock)
+- Added consent‑gated GA4, filesystem sitemap, robots, and per‑page canonicals
+
+---
+
+Want this README in a more formal or more friendly tone? I can switch the wording style on request while keeping the content and structure the same.
+
+## Build
 ```powershell
 npm run build
 npm start
 ```
 
-## ☁️ Deploy
+## Deploy
 Netlify (recommended):
 - Build command: `npm run build`
-- Publish directory: `.next`
-- Plugin: `@netlify/plugin-nextjs` (configured in `netlify.toml`)
+- Publish: `.next`
+- Plugin: `@netlify/plugin-nextjs`
 
-Vercel works out of the box as well.
+Vercel works out of the box.
 
-## 🧩 Customization quick notes
-- Navbar links: `components/HeaderNav.tsx` (edit the `links` array)
-- Footer icons: `components/Footer.tsx` (SVGs at `public/icons/*.svg`)
-- Certifications cards: `components/CertCard.tsx` (only Title, Issued by, Issued on)
-- Certifications tabs & animations: `app/certifications/SectionsClient.tsx`
-- Smooth scroll & scrollbar/cursor styles: `app/globals.css`
-- Image lightview modal: `/certifications/CertModal.tsx` (image‑only to keep payloads small on mobile; with Close)
-
-Architecture:
-- The Certifications page is a server component (`app/certifications/page.tsx`) with a small client component (`SectionsClient.tsx`) to manage tab state and animations. Only serializable data is passed to the client to keep SSR stable.
-
-## 🗺️ Roadmap
-- Home sections: Skills
-- Projects page: animated cards, category filters (AI, Security, Web, Games)
-- SEO/OG polish, sitemap/robots
-- Theme toggle, scrollspy nav
-
-## 🔗 Evidence Links
-- CTF Rank (image): /public/CTF August Certificate.png
+## 🔗 Evidence links (examples)
 - NSDC: https://trainings.internshala.com/certificate/view/nsdc/6glr84cp6od/e52s9kdy5a2/
 - Microsoft × freeCodeCamp: https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft
-- CEH v13: coming soon
-- SIDH: coming soon
 
-
-## ♻️ Reuse Policy (TL;DR)
+## Reuse policy (summary)
 Use the code, not the identity.
 
 Do:
-- Fork and adapt the code under MIT
-- Replace all personal content with your own (text, images, badges, proofs)
-- Keep attribution somewhere (e.g., repo README) — example below
+- Fork and adapt under MIT
+- Replace all personal content (text/images/proofs) with your own
+- Keep attribution (e.g., in README)
 
 Don’t:
-- Republish this portfolio with Mandar Kajbaje’s name, content, or branding
-- Reuse screenshots, badges, or proofs that belong to Mandar
+- Republish this portfolio with Mandar’s name, content, or branding
+- Reuse badges/proofs that belong to Mandar
 - Misuse third‑party marks (EC‑Council/CEH, NSDC, SIDH, Microsoft, etc.)
 
 Attribution example:
 > Portfolio template based on Mandar Kajbaje’s MK Portfolio (MIT).
 
-
-## 📄 License
-- Code: MIT (see [LICENSE](./LICENSE)). You may copy, modify, and reuse the code with attribution.
-- Content, media, and branding (text, images, badges, screenshots, profile details): Copyright © 2025 Mandar Kajbaje. Not licensed for republication or redistribution. Do not publish as your own; you may adapt the code for your portfolio and replace my content with yours.
-- Third‑party names, logos, and badges (e.g., EC‑Council/CEH, NSDC, SIDH, Microsoft) are trademarks of their respective owners and used here for identification. See [NOTICE.md](./NOTICE.md).
+## License
+- Code: MIT (see [LICENSE](./LICENSE))
+- Content/media/branding: Copyright © 2025 Mandar Kajbaje
+- Third‑party names and marks belong to their respective owners (see [NOTICE.md](./NOTICE.md))
 
 
