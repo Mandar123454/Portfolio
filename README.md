@@ -110,8 +110,6 @@ For a concise checklist, see `remaining.md`.
 
 ---
 
-Want this README in a more formal or more friendly tone? I can switch the wording style on request while keeping the content and structure the same.
-
 ## Build
 ```powershell
 npm run build
