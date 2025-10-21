@@ -18,6 +18,7 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 ## Features
 - Focused home section with a clear snapshot and a concise “What I do” summary
 - In‑site lightviewer for certificates and evidence (mobile friendly), with ESC/overlay close, focus management, and scroll lock
+- Internships: dual‑document viewer (Certificate and LOR) with animated top‑right Close; per‑card actions “View Internship Certificate” and “View LOR Certificate”
 - Centered navigation with compact link pills and a subtle active glow; minimal footer with social links
 - Contact pipeline: SMTP via Nodemailer (Brevo recommended), optional Google Sheet webhook, and Formspree fallback; per‑IP rate limit (5/min), honeypot, offline retry, and success toast
 - Search optimization: filesystem‑generated sitemap, robots.txt, per‑page canonical URLs, and a stable metadataBase
@@ -30,6 +31,7 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 - `/certifications`: category tabs (Cybersecurity, Data Science, Other) with animated cards; click to view the certificate
 - `/projects`: projects index (scaffolding in place)
 - `/internships`: online internships with roles, stacks, and highlights
+	- Includes a lightviewer for Internship Certificate and LOR; open via the two buttons on each card
 - `/contact`: SMTP‑backed form with validation and fallbacks
 - `/about`: about page copy placeholder
 
@@ -99,7 +101,9 @@ For a concise checklist, see `remaining.md`.
 - Certifications cards: `components/CertCard.tsx`
 - Certifications tabs/animations: `app/certifications/SectionsClient.tsx`
 - Global styles/cursor/scrollbar: `app/globals.css`
-- Lightviewer modals: `components/ProofModal.tsx` and `app/certifications/CertModal.tsx`
+- Lightviewer modals: `components/ProofModal.tsx`, `app/certifications/CertModal.tsx`, and `app/internships/InternModal.tsx`
+- Internships list and actions: `app/internships/SectionsClient.tsx`
+- Internships data and document mapping: `app/internships/page.tsx` (set `certImage` and `lorImage` for each item to filenames in `public/`)
 
 ## Recent updates
 - Removed hero tag chips and redundant social buttons
@@ -107,6 +111,9 @@ For a concise checklist, see `remaining.md`.
 - Slimmer navbar pills; reduced vertical paddings across pages; removed header/footer divider lines
 - Improved lightviewer accessibility (role=dialog, focus, ESC/overlay close, scroll lock)
 - Added consent‑gated GA4, filesystem sitemap, robots, and per‑page canonicals
+- Internships: introduced dual Certificate/LOR viewer; card has two actions (“View Internship Certificate” and “View LOR Certificate”)
+- Adjusted internship modal Close button to top‑right outside the image area to avoid overlap
+- Refined internships page description to highlight cybersecurity, MERN, and data science outcomes
 
 ---
 
@@ -123,6 +130,9 @@ Netlify (recommended):
 - Plugin: `@netlify/plugin-nextjs`
 
 Vercel works out of the box.
+
+## Troubleshooting
+- Stale chunk (ChunkLoadError) during local dev or right after deploy: the app includes a narrow auto‑reload handler to recover from rare stale assets. If you still see it, hard refresh, stop the dev server, clear `.next`, and restart.
 
 ## 🔗 Evidence links (examples)
 - NSDC: https://trainings.internshala.com/certificate/view/nsdc/6glr84cp6od/e52s9kdy5a2/

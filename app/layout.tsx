@@ -74,6 +74,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
+        {/* Defensive auto-reload on rare stale chunk error (local dev or after deploy) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(){
+                function shouldReload(err){
+                  if(!err) return false;
+                  var msg = '' + (err.message || err.reason || '');
+                  return msg.indexOf('ChunkLoadError') !== -1 || msg.indexOf('Loading chunk') !== -1;
+                }
+                window.addEventListener('error', function(e){ if(shouldReload(e)){ location.reload(); } }, true);
+                window.addEventListener('unhandledrejection', function(e){ if(shouldReload(e && e.reason)){ location.reload(); } });
+              })();
+            `,
+          }}
+        />
         {/* Custom cursor for pointer devices */}
         <div className="cursor-ring" aria-hidden="true"><div className="cursor-outline"></div><div className="cursor-dot"></div></div>
         <script

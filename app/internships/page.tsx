@@ -1,4 +1,4 @@
-import { Briefcase, ExternalLink } from "lucide-react";
+import SectionsClient, { InternshipItem } from "./SectionsClient";
 
 const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const metadata = {
@@ -15,6 +15,9 @@ type Internship = {
   stack?: string[];
   highlights: string[];
   link?: string;
+  // New: document images
+  certImage?: string; // Internship certificate (preview)
+  lorImage?: string;  // Letter of Recommendation
 };
 
 const INTERNSHIPS: Internship[] = [
@@ -23,6 +26,8 @@ const INTERNSHIPS: Internship[] = [
     role: "Cybersecurity Intern",
     mode: "Remote",
     dates: "Jul 2025 – Sep 2025",
+    certImage: "/NullClass Internship Certificate.png",
+    lorImage: "/NullClass LOR Certificate.png",
     stack: [
       "Kali Linux",
       "Nmap",
@@ -47,6 +52,8 @@ const INTERNSHIPS: Internship[] = [
     role: "MERN Stack Intern",
     mode: "Remote",
     dates: "Aug 2025 – Oct 2025",
+    certImage: "/MERN Internship Certificate.png",
+    lorImage: undefined,
     stack: [
       "MongoDB",
       "Express.js",
@@ -73,6 +80,8 @@ const INTERNSHIPS: Internship[] = [
     role: "Data Science Intern",
     mode: "Remote",
     dates: "Sep 24, 2025 – Nov 24, 2025",
+    certImage: "/NullClass-Data Science-Training-Certificate.png",
+    lorImage: "/Data Science Training.png",
     stack: [
       "Python",
       "OpenCV",
@@ -97,59 +106,16 @@ const INTERNSHIPS: Internship[] = [
 ];
 
 export default function InternshipsPage() {
+  const items = INTERNSHIPS satisfies InternshipItem[];
   return (
-  <main className="container py-12 md:py-16">
+    <main className="container py-12 md:py-16">
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Internships</h1>
-      <p className="mt-3 max-w-2xl text-white/80">All internships completed online, focused on building real solutions fast.</p>
+      <p className="mt-3 max-w-2xl text-white/80">
+        Hands‑on internships across cybersecurity, MERN development, and data science—covering penetration testing, secure systems hardening,
+        full‑stack application delivery, and real‑time ML projects. Selected highlights and certifications are available for verification.
+      </p>
 
-  <div className="mt-8 grid grid-cols-1 gap-6">
-        {INTERNSHIPS.map((it) => (
-          <article key={it.company} className="rounded-2xl border border-white/10 bg-white/5 p-5">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-white/5">
-                  <Briefcase className="text-brand" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold">{it.role} • {it.company}</h2>
-                  <p className="text-xs text-white/70">{it.mode} • {it.dates}</p>
-                </div>
-              </div>
-              {it.link ? (
-                <a
-                  href={it.link}
-                  target={it.link.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/90 hover:bg-white/10"
-                >
-                  View <ExternalLink size={14} />
-                </a>
-              ) : (
-                <span
-                  className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/60 opacity-60 cursor-not-allowed"
-                  title="Link coming soon"
-                >
-                  View <ExternalLink size={14} />
-                </span>
-              )}
-            </div>
-
-            {it.stack && it.stack.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {it.stack.map((s) => (
-                  <span key={s} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white/80">{s}</span>
-                ))}
-              </div>
-            )}
-
-            <ul className="mt-4 list-disc space-y-1 pl-6 text-sm text-white/85">
-              {it.highlights.map((h, i) => (
-                <li key={i}>{h}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
+      <SectionsClient internships={items} />
     </main>
   );
 }
