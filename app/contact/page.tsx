@@ -1,5 +1,6 @@
 import { Mail } from "lucide-react";
 import ContactForm from "@/components/contact-form";
+import SentimentWidget from "@/components/sentiment-widget";
 
 const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const metadata = {
@@ -23,6 +24,8 @@ export default function ContactPage() {
 
         <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
           <ContactForm />
+          {/* Optional sentiment mini-demo (shown only if NEXT_PUBLIC_AZURE_SENTIMENT_URL is set) */}
+          <SentimentWidget />
         </div>
       </div>
     </main>

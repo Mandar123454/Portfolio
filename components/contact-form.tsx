@@ -49,37 +49,52 @@ export default function ContactForm() {
   }
 
   async function send(formData: FormData) {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { Accept: "application/json" },
-      body: formData,
-    });
-    if (!res.ok) {
+    const azureUrl = process.env.NEXT_PUBLIC_AZURE_FUNCTION_CONTACT_URL;
+    // helper to apply cooldown handling for Next API fallback responses
+    const handleRateLimit = async (res: Response) => {
       const json = await res.json().catch(() => ({} as any));
       if (res.status === 429 && typeof json?.retryAfter === "number") {
         const seconds = Math.max(1, Math.floor(json.retryAfter));
         setCooldown(seconds);
-        // start ticking
         const id = setInterval(() => {
           setCooldown((s) => {
-            if (s <= 1) {
-              clearInterval(id);
-              return 0;
-            }
+            if (s <= 1) { clearInterval(id); return 0; }
             return s - 1;
           });
         }, 1000);
         throw new Error(`Too many requests. Wait ${seconds}s and try again.`);
       }
-      throw new Error(json?.error || "Submission failed.");
-    }
-    // success: return response JSON for context (email vs sheet-only)
-    try {
-      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || "Submission failed.");
       return json as { ok?: boolean; note?: string };
-    } catch {
-      return {} as any;
+    };
+
+    // Try Azure Function first (JSON payload)
+    if (azureUrl) {
+      try {
+        const obj: Record<string, string> = {};
+        formData.forEach((v, k) => { if (k !== "_gotcha") obj[k] = String(v); });
+        const res = await fetch(azureUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(obj),
+        });
+        if (res.ok) {
+          // return note that function handled it
+          return { ok: true, note: "handled_by_azure_function" };
+        }
+        // if function returns error, fall through to Next API
+      } catch {
+        // network/CORS error — fall back
+      }
     }
+
+    // Fallback to local Next.js API with FormData
+    const res2 = await fetch("/api/contact", {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: formData,
+    });
+    return handleRateLimit(res2);
   }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {

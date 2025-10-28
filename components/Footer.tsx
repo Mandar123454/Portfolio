@@ -1,4 +1,7 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const AzureStatus = dynamic(() => import("@/components/azure-status"), { ssr: false });
 
 export default function Footer() {
   return (
@@ -14,6 +17,7 @@ export default function Footer() {
           <a href="https://github.com/Mandar123454" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <img src="/icons/github.svg" alt="GitHub" className="h-6 w-6" />
           </a>
+          <AzureStatus />
         </div>
         <p className="text-xs text-white/60">© 2025 Mandar Kajbaje. All Rights Reserved.</p>
       </div>

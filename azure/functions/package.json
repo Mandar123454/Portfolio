@@ -1,0 +1,11 @@
+{
+  "name": "mk-portfolio-azure-functions",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.2.0"
+  }
+}
