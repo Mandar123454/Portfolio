@@ -5,7 +5,6 @@ import "./globals.css";
 import HeaderNav from "@/components/HeaderNav";
 import Footer from "@/components/Footer";
 import { Analytics, AnalyticsConsent } from "../components/analytics";
-import AppInsightsClient from "@/components/app-insights";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" });
@@ -111,7 +110,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
   {/* Analytics gated by consent */}
   <Analytics />
-  <AppInsightsClient />
   <AnalyticsConsent />
         <HeaderNav />
         <main id="main-content">{children}</main>

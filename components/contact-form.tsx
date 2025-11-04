@@ -49,8 +49,7 @@ export default function ContactForm() {
   }
 
   async function send(formData: FormData) {
-    const azureUrl = process.env.NEXT_PUBLIC_AZURE_FUNCTION_CONTACT_URL;
-    // helper to apply cooldown handling for Next API fallback responses
+    // helper to apply cooldown handling for API responses
     const handleRateLimit = async (res: Response) => {
       const json = await res.json().catch(() => ({} as any));
       if (res.status === 429 && typeof json?.retryAfter === "number") {
@@ -68,27 +67,7 @@ export default function ContactForm() {
       return json as { ok?: boolean; note?: string };
     };
 
-    // Try Azure Function first (JSON payload)
-    if (azureUrl) {
-      try {
-        const obj: Record<string, string> = {};
-        formData.forEach((v, k) => { if (k !== "_gotcha") obj[k] = String(v); });
-        const res = await fetch(azureUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(obj),
-        });
-        if (res.ok) {
-          // return note that function handled it
-          return { ok: true, note: "handled_by_azure_function" };
-        }
-        // if function returns error, fall through to Next API
-      } catch {
-        // network/CORS error — fall back
-      }
-    }
-
-    // Fallback to local Next.js API with FormData
+    // Send to local Next.js API with FormData
     const res2 = await fetch("/api/contact", {
       method: "POST",
       headers: { Accept: "application/json" },

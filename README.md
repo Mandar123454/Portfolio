@@ -13,15 +13,7 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 <img alt="Netlify" src="https://img.shields.io/badge/Netlify-Build-00C7B7?logo=netlify&logoColor=white" />
 <img alt="Vercel" src="https://img.shields.io/badge/Vercel-Ready-000000?logo=vercel&logoColor=white" />
 
-<!-- Azure & CI badges -->
-<img alt="Microsoft Azure" src="https://img.shields.io/badge/Azure-Cloud_Ready-0078D4?logo=microsoftazure&logoColor=white" />
-<img alt="Azure Functions" src="https://img.shields.io/badge/Azure_Functions-Node_18-0062AD?logo=azurefunctions&logoColor=white" />
-<img alt="Application Insights" src="https://img.shields.io/badge/Application_Insights-Enabled-5E5E5E?logo=microsoftazure&logoColor=white" />
-<img alt="Azure Cosmos DB" src="https://img.shields.io/badge/Cosmos_DB-Optional-2E7BCF?logo=azurecosmosdb&logoColor=white" />
-<img alt="Azure Bicep" src="https://img.shields.io/badge/Azure_Bicep-IaC-2C7DF7?logo=microsoftazure&logoColor=white" />
-<img alt="GitHub Actions" src="https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?logo=githubactions&logoColor=white" />
-
-[![Deploy Azure Functions](https://github.com/Mandar123454/Portfolio/actions/workflows/azure-functions-deploy.yml/badge.svg?branch=main)](https://github.com/Mandar123454/Portfolio/actions/workflows/azure-functions-deploy.yml)
+<!-- CI badges removed -->
 
 </div>
 
@@ -31,8 +23,7 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 - Internships: dual‑document viewer (Certificate and LOR) with animated top‑right Close; per‑card actions “View Internship Certificate” and “View LOR Certificate”
 - Centered navigation with compact link pills and a subtle active glow; minimal footer with social links
 - Contact pipeline: SMTP via Nodemailer (Brevo recommended), optional Google Sheet webhook, and Formspree fallback; per‑IP rate limit (5/min), honeypot, offline retry, and success toast
-- Azure‑powered evidence: Contact prioritizes Azure Functions (fallback to Next API), consent‑gated Application Insights telemetry, and an Azure status chip in the footer
-- Optional sentiment mini‑demo on Contact page (uses Azure Text Analytics via a Function)
+- Privacy‑respecting analytics (GA4) gated by consent
 - Search optimization: filesystem‑generated sitemap, robots.txt, per‑page canonical URLs, and a stable metadataBase
 - Analytics with consent: a banner gates GA4 loading; IP is anonymized; fully environment‑driven
 - User experience details: one‑time preloader, lightweight micro‑interactions, desktop custom cursor, smooth scrolling, styled scrollbars
@@ -44,7 +35,7 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 - `/projects`: projects index (scaffolding in place)
 - `/internships`: online internships with roles, stacks, and highlights
 	- Includes a lightviewer for Internship Certificate and LOR; open via the two buttons on each card
-- `/contact`: SMTP‑backed form with validation and fallbacks; shows an optional “Feedback sentiment” widget when Azure Sentiment is configured
+- `/contact`: SMTP‑backed form with validation and fallbacks
 - `/about`: about page copy placeholder
 
 ## Architecture and technology
@@ -75,10 +66,7 @@ Optional (site and analytics):
 - NEXT_PUBLIC_SITE_URL=https://your-domain.com
 - NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 
-Optional (Azure front‑end endpoints):
-- NEXT_PUBLIC_AZURE_FUNCTION_CONTACT_URL
-- NEXT_PUBLIC_AZURE_FUNCTION_PING_URL
-- NEXT_PUBLIC_AZURE_SENTIMENT_URL
+
 
 Brevo quick start:
 ```env
@@ -112,40 +100,7 @@ SEO (Search Console)
 
 For a concise checklist, see `remaining.md`.
 
-## Azure integration (Functions, App Insights, Cosmos)
-Phased adoption — enable what you need:
 
-1) Azure Functions backend (Contact)
-- Set `NEXT_PUBLIC_AZURE_FUNCTION_CONTACT_URL` to your deployed HTTP trigger (e.g., `https://<app>.azurewebsites.net/api/contact?code=...`).
-- The contact form will call this first; if unavailable, it falls back to the built‑in Next.js API.
-- Function source: `azure/functions/contact` (Node 18). Local settings sample: `azure/functions/local.settings.sample.json`.
-
-2) Application Insights (consent‑gated)
-- Set `NEXT_PUBLIC_APPINSIGHTS_CONNECTION_STRING`.
-- Client loader lives in `components/app-insights.tsx`; loaded only when consent is granted (similar to GA).
-- Tracks page views and a `contact_submit` event.
-
-3) Cosmos DB persistence (optional)
-- Configure `COSMOS_ENDPOINT`, `COSMOS_KEY`, `COSMOS_DB`, `COSMOS_CONTAINER` in Function App settings.
-- Contact function writes one document per submission (email partition suggested).
-
-4) Azure status chip (optional)
-- Set `NEXT_PUBLIC_AZURE_FUNCTION_PING_URL` (from `azure/functions/ping`).
-- Footer shows a small “Azure” dot: green when reachable.
-
-5) Sentiment analysis mini‑demo (optional)
-- Deploy `azure/functions/sentiment` (Node 18) and note the HTTP trigger URL.
-- Set `NEXT_PUBLIC_AZURE_SENTIMENT_URL` to that endpoint (no key needed if you secure at the function level or via CORS).
-- UI component: `components/sentiment-widget.tsx` (only renders when the env is present). It posts `{ text }` and shows positive/neutral/negative with a confidence score.
-
-CI/CD
-- Workflow: `.github/workflows/azure-functions-deploy.yml` (Deploys the `azure/functions` folder with publish profile).
-- Required GitHub Secrets: `AZURE_FUNCTIONAPP_NAME`, `AZURE_FUNCTIONAPP_PUBLISH_PROFILE`.
-- Status: see the badge above or open the workflow run history.
-
-Infrastructure as Code (IaC)
-- Bicep template: `azure/bicep/main.bicep` (Function App, App Insights, Storage; optional Cosmos DB).
-- Suggested flow: deploy Bicep → set Function App settings (Cosmos/CORS/keys) → update Next.js envs → redeploy site.
 
 ## Customization notes
 - Navbar links: `components/HeaderNav.tsx` (edit `links`)
@@ -156,7 +111,7 @@ Infrastructure as Code (IaC)
 - Lightviewer modals: `components/ProofModal.tsx`, `app/certifications/CertModal.tsx`, and `app/internships/InternModal.tsx`
 - Internships list and actions: `app/internships/SectionsClient.tsx`
 - Internships data and document mapping: `app/internships/page.tsx` (set `certImage` and `lorImage` for each item to filenames in `public/`)
-- Contact page sentiment widget: `components/sentiment-widget.tsx` (gates on `NEXT_PUBLIC_AZURE_SENTIMENT_URL`)
+
 
 ## Recent updates
 - Removed hero tag chips and redundant social buttons
@@ -167,9 +122,7 @@ Infrastructure as Code (IaC)
 - Internships: introduced dual Certificate/LOR viewer; card has two actions (“View Internship Certificate” and “View LOR Certificate”)
 - Adjusted internship modal Close button to top‑right outside the image area to avoid overlap
 - Refined internships page description to highlight cybersecurity, MERN, and data science outcomes
-- Azure: added Functions scaffold (contact, ping, sentiment), CI workflow, and Bicep IaC; contact now prefers Azure Function and falls back to Next API
-- Footer: added Azure status chip (pings Function health)
-- Contact: added optional “Feedback sentiment” widget powered by Azure Sentiment Function
+
 
 ---
 
