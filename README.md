@@ -32,7 +32,8 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 ## Pages and routes
 - `/` Home: snapshot and “What I do.” Evidence chips open the image lightviewer
 - `/certifications`: category tabs (Cybersecurity, Data Science, Other) with animated cards; click to view the certificate
-- `/projects`: projects index (scaffolding in place)
+- `/projects`: polished projects index with domain filters, summaries, "Watch Demo" modal, GitHub/Live links, and "Read Case Study" for each project
+- `/projects/[slug]`: individual case study pages (video‑first) with sections: What it is, Key Features, How it works, How it was built, and Proof & Links
 - `/internships`: online internships with roles, stacks, and highlights
 	- Includes a lightviewer for Internship Certificate and LOR; open via the two buttons on each card
 - `/contact`: SMTP‑backed form with validation and fallbacks
@@ -44,6 +45,21 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 - Lucide icons
 - Email: Nodemailer (SMTP), optional Apps Script webhook, and Formspree fallback
 - Deployment: Netlify (with `@netlify/plugin-nextjs`) or Vercel
+
+## Projects & demos
+- Video‑first demos: All projects use a modal on the index page and a preview on case studies. Both support local MP4s or external embeds (YouTube/Vimeo).
+- Local videos: place `.mp4` files and optional posters in `public/demos/`.
+- Wire demos on index: update the DEMOS registry in [app/projects/SectionsClient.tsx](app/projects/SectionsClient.tsx) and set `fileSrc` or `embedUrl`.
+- Wire demos on case study: set the `video` field per project in [app/projects/[slug]/page.tsx](app/projects/%5Bslug%5D/page.tsx).
+- Typed routes: internal links use Next `Link`; external links use `<a>` to satisfy typedRoutes.
+
+Example (case study video config):
+
+```ts
+video: { fileSrc: "/demos/my-project.mp4", poster: "/demos/my-project.jpg" }
+// or
+video: { embedUrl: "https://www.youtube.com/embed/XXXX" }
+```
 
 ## Getting started (development)
 ```powershell
@@ -122,6 +138,10 @@ For a concise checklist, see `remaining.md`.
 - Internships: introduced dual Certificate/LOR viewer; card has two actions (“View Internship Certificate” and “View LOR Certificate”)
 - Adjusted internship modal Close button to top‑right outside the image area to avoid overlap
 - Refined internships page description to highlight cybersecurity, MERN, and data science outcomes
+- Projects: built a complete listing with filters, summaries, GitHub/Live links, and a "Watch Demo" modal
+- Case studies: added `/projects/[slug]` pages for all projects with video‑first evidence and clean sections
+- Video workflow: local MP4s under `public/demos` or external embeds; accessible controls and focus management
+- Cleanup: removed deployed/non‑deployed badges; improved typography and spacing for readability
 
 
 ---
