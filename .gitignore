@@ -52,3 +52,7 @@ Thumbs.db
 .cache/
 tmp/
 temp/
+
+# Local demo videos (ignored; keep folder via .gitkeep)
+public/demos/**
+!public/demos/.gitkeep

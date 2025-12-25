@@ -170,18 +170,23 @@ function ProjectCard({ p }: { p: Project }) {
   const DomainIcon = p.domain === "Cybersecurity" ? Shield : p.domain === "Data Science" ? BarChart3 : Puzzle;
   const actions = (
     <div className="mt-4 flex flex-wrap gap-2">
-      {/* Watch Demo */}
-      <Link
-        href={{ pathname: "/projects", query: { demo: p.demoSlug } }}
-        scroll={false}
-        className={cn(
-          "inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/15",
-          p.demoSlug ? "" : "pointer-events-none opacity-50"
-        )}
-        aria-label={`Watch demo for ${p.title}`}
-      >
-        <Play size={16} /> Watch Demo
-      </Link>
+      {/* Watch Demo (only when demoSlug is present) */}
+      {p.demoSlug ? (
+        <Link
+          href={{ pathname: "/projects", query: { demo: p.demoSlug } }}
+          scroll={false}
+          className={cn(
+            "inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/15"
+          )}
+          aria-label={`Watch demo for ${p.title}`}
+        >
+          <Play size={16} /> Watch Demo
+        </Link>
+      ) : (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-sm text-white/70 ring-1 ring-white/10">
+          <Play size={16} /> Watch Demo
+        </span>
+      )}
       {/* Read Case Study */}
       <Link
         href={`/projects/${p.slug}`}

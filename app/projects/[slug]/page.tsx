@@ -100,7 +100,7 @@ const DETAILS: DetailMap = {
     title: "CyberSecurity-Journey",
     badge: "Flagship" as Badge,
     subtitle: "Dashboard-style timeline of security learning, labs, and shipped artifacts.",
-    video: { fileSrc: "/demos/CyberSecurity%20Journey.mp4" },
+    video: { fileSrc: "/demos/Cybersecurity%20Journey.mp4" },
     whatItIs: [
       "A navigable dashboard documenting practical security progression and milestones.",
       "Built for reviewers to assess depth via labs, notes, and artifacts.",
@@ -126,7 +126,7 @@ const DETAILS: DetailMap = {
     title: "Campus-Connect — Social Media Application",
     badge: "Capstone" as Badge,
     subtitle: "A MERN app focused on clean data flows, auth, and content moderation primitives.",
-    video: { fileSrc: "/demos/Campus%20Connect%20.mp4" },
+    video: { fileSrc: "/demos/Campus%20Connect.mp4" },
     whatItIs: [
       "A social application enabling posts, follows, and messaging with sane defaults.",
       "Built for student communities with straightforward moderation hooks.",

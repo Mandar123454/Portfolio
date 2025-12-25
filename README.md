@@ -53,6 +53,13 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 - Wire demos on case study: set the `video` field per project in [app/projects/[slug]/page.tsx](app/projects/%5Bslug%5D/page.tsx).
 - Typed routes: internal links use Next `Link`; external links use `<a>` to satisfy typedRoutes.
 
+### Important: Git + video assets
+- Do not commit large `.mp4` files to GitHub. GitHub rejects files >100MB and recommends Git LFS for big binaries.
+- Keep videos only for local development in `public/demos/` and deploy them with the site on Netlify/Vercel. The folder exists at runtime but is ignored by git.
+- If you need Git LFS, set it up before adding videos: `git lfs install && git lfs track "*.mp4"` and commit the generated `.gitattributes`. Otherwise, prefer uploading videos to a host (YouTube/Vimeo) and use `embedUrl`.
+
+We include a `public/demos/.gitkeep` so the folder is present without committing large files.
+
 Example (case study video config):
 
 ```ts

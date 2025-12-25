@@ -1,23 +1,11 @@
 const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const metadata = {
   title: "Projects — Mandar Kajbaje",
-  description: "Selected projects across AI/ML, Security, and Full‑Stack.",
+  description: "A growing collection of hands-on work across cybersecurity, machine learning, full-stack systems, and foundational engineering.",
   alternates: { canonical: `${site}/projects` },
 };
+import SectionsClient from "./SectionsClient";
 
 export default function ProjectsPage() {
-  return (
-  <main className="container py-12 md:py-16">
-      <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Projects</h1>
-      <p className="mt-3 max-w-2xl text-white/80">
-        Curated work across AI/ML, cybersecurity tools, scalable web apps, and playful interactions.
-      </p>
-      {/* TODO: Replace with real project cards with animations and filters */}
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-white/5 p-5">Coming soon…</div>
-        <div className="rounded-xl border border-white/10 bg-white/5 p-5">Coming soon…</div>
-        <div className="rounded-xl border border-white/10 bg-white/5 p-5">Coming soon…</div>
-      </div>
-    </main>
-  );
+  return <SectionsClient />;
 }
