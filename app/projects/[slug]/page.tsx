@@ -1,5 +1,6 @@
 import ProjectDetail, { Badge, ProjectDetailProps } from "@/components/project-detail";
 import { notFound } from "next/navigation";
+import { getYoutubeEmbed } from "@/lib/youtube";
 
 const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 
@@ -11,7 +12,7 @@ const DETAILS: DetailMap = {
     title: "AI-Powered Network Intrusion Detection System (AI-NIDS)",
     badge: "System-Level Project" as Badge,
     subtitle: "Detect malicious traffic using an explainable ML ensemble tuned for SOC workflows.",
-    video: { fileSrc: "/demos/AI-NIDS.mp4" },
+    video: { provider: "youtube", id: "T3gCpjjgBt0", embedUrl: getYoutubeEmbed("T3gCpjjgBt0") },
     whatItIs: [
       "An intrusion detection system that analyzes network telemetry to flag anomalous and known attack patterns.",
       "Designed for SOC teams and lab environments where explainability and iterative tuning matter.",
@@ -44,7 +45,7 @@ const DETAILS: DetailMap = {
     title: "Smartphone Purchase Prediction (ML)",
     badge: "Featured" as Badge,
     subtitle: "Predict device purchase intent from structured inputs with clear segment insights.",
-    video: { fileSrc: "/demos/Smartphone%20Purchase.mp4" },
+    video: { provider: "youtube", id: "GRWtzNy9Z8E", embedUrl: getYoutubeEmbed("GRWtzNy9Z8E") },
     whatItIs: [
       "A classification pipeline that predicts purchase decisions using demographic and behavior signals.",
       "Built for product teams and analysts who need interpretable outputs to drive campaigns.",
@@ -72,7 +73,7 @@ const DETAILS: DetailMap = {
     title: "Custom Phishing Detection Chrome Extension",
     badge: "Production-Grade" as Badge,
     subtitle: "Client-side checks and ML signals to flag risky pages before credential entry.",
-    video: { fileSrc: "/demos/Custom%20Phishing.mp4" },
+    video: { provider: "youtube", id: "J1LkMogTM7k", embedUrl: getYoutubeEmbed("J1LkMogTM7k") },
     whatItIs: [
       "A browser extension that evaluates current pages for phishing indicators.",
       "Intended for everyday users and internal teams to catch obvious risks early.",
@@ -100,7 +101,7 @@ const DETAILS: DetailMap = {
     title: "CyberSecurity-Journey",
     badge: "Flagship" as Badge,
     subtitle: "Dashboard-style timeline of security learning, labs, and shipped artifacts.",
-    video: { fileSrc: "/demos/Cybersecurity%20Journey.mp4" },
+    video: { provider: "youtube", id: "exNka5mQx68", embedUrl: getYoutubeEmbed("exNka5mQx68") },
     whatItIs: [
       "A navigable dashboard documenting practical security progression and milestones.",
       "Built for reviewers to assess depth via labs, notes, and artifacts.",
@@ -126,7 +127,7 @@ const DETAILS: DetailMap = {
     title: "Campus-Connect — Social Media Application",
     badge: "Capstone" as Badge,
     subtitle: "A MERN app focused on clean data flows, auth, and content moderation primitives.",
-    video: { fileSrc: "/demos/Campus%20Connect.mp4" },
+    video: { provider: "youtube", id: "7g9cysI05NA", embedUrl: getYoutubeEmbed("7g9cysI05NA") },
     whatItIs: [
       "A social application enabling posts, follows, and messaging with sane defaults.",
       "Built for student communities with straightforward moderation hooks.",
@@ -153,7 +154,7 @@ const DETAILS: DetailMap = {
     title: "Python Journey",
     badge: "Featured" as Badge,
     subtitle: "A dashboard tracking Python foundations, exercises, and small utilities.",
-    video: { fileSrc: "/demos/Python%20Journey.mp4" },
+    video: { provider: "youtube", id: "I0c8GSxFX4k", embedUrl: getYoutubeEmbed("I0c8GSxFX4k") },
     whatItIs: [
       "A structured journey through Python concepts with runnable examples.",
       "Intended for reviewers to verify fundamentals via exercises and tools.",
@@ -180,7 +181,7 @@ const DETAILS: DetailMap = {
     title: "Network-Sniffer Dashboard",
     badge: "System-Level Project" as Badge,
     subtitle: "Web dashboard that visualizes captured packets/flows for quick triage and filtering.",
-    video: { fileSrc: "/demos/Network%20Sniffer.mp4" },
+    video: { provider: "youtube", id: "NYwZuEuppVI", embedUrl: getYoutubeEmbed("NYwZuEuppVI") },
     whatItIs: [
       "A dashboard that renders network traffic from capture tools for fast inspection.",
       "Built for analysts to filter, search, and spot anomalies during investigations.",
@@ -205,7 +206,7 @@ const DETAILS: DetailMap = {
     title: "Network Intrusion Detection System",
     badge: "System-Level Project" as Badge,
     subtitle: "Baseline NIDS using signatures and heuristics to surface suspicious activity.",
-    video: { fileSrc: "/demos/NIDS.mp4" },
+    video: { provider: "youtube", id: "biFX-quTFRs", embedUrl: getYoutubeEmbed("biFX-quTFRs") },
     whatItIs: [
       "A foundational NIDS combining signature checks with heuristic rules.",
       "Useful for labs and teaching core detection ideas.",
@@ -281,7 +282,7 @@ const DETAILS: DetailMap = {
     title: "Traffic Anomaly Detection",
     badge: "Featured" as Badge,
     subtitle: "Time-series analysis of traffic sensors to flag anomalies and trend shifts.",
-    video: { fileSrc: "/demos/Traffic%20Anomaly.mp4" },
+    video: { provider: "youtube", id: "JBthPLM7Kas", embedUrl: getYoutubeEmbed("JBthPLM7Kas") },
     whatItIs: [
       "A pipeline to detect anomalies in traffic sensor streams.",
       "Targets planners and operators needing early warnings.",
@@ -331,7 +332,7 @@ const DETAILS: DetailMap = {
     title: "Physics-Wallah Survey",
     badge: "Featured" as Badge,
     subtitle: "Survey analysis pipeline delivering segment insights and reproducible charts.",
-    video: { fileSrc: "/demos/Physics%20Wallah.mp4" },
+    video: { provider: "youtube", id: "iXY-97XZ7C0", embedUrl: getYoutubeEmbed("iXY-97XZ7C0") },
     whatItIs: [
       "A data cleaning and analysis workflow for survey responses.",
       "Built for stakeholders to quickly read segment trends.",
@@ -357,7 +358,7 @@ const DETAILS: DetailMap = {
     title: "MERN E-Commerce Store",
     badge: "Capstone" as Badge,
     subtitle: "Store prototype with catalog, cart, checkout, and admin surfaces.",
-    video: { fileSrc: "/demos/MERN%20Store.mp4" },
+    video: { provider: "youtube", id: "hx5QQ7zZUCM", embedUrl: getYoutubeEmbed("hx5QQ7zZUCM") },
     whatItIs: [
       "A full-stack store exploring essentials of commerce flows.",
       "Targets small teams testing catalog and cart behaviors.",
@@ -382,7 +383,7 @@ const DETAILS: DetailMap = {
     title: "Login / Dynamic Login Form",
     badge: "Featured" as Badge,
     subtitle: "Robust login/validation module with clear UX states and errors.",
-    video: { fileSrc: "/demos/Login%20Form.mp4" },
+    video: { provider: "youtube", id: "u9A9Tud7XU8", embedUrl: getYoutubeEmbed("u9A9Tud7XU8") },
     whatItIs: [
       "A focused module for authentication and input validation.",
       "Useful for teaching UX states around auth flows.",
@@ -407,7 +408,7 @@ const DETAILS: DetailMap = {
     title: "MovieBox",
     badge: "Featured" as Badge,
     subtitle: "Movie browsing interface with search, detail views, and favorites.",
-    video: { fileSrc: "/demos/MovieBox.mp4" },
+    video: { provider: "youtube", id: "n2A-hJg-d_4", embedUrl: getYoutubeEmbed("n2A-hJg-d_4") },
     whatItIs: [
       "A small app for exploring and saving movies.",
       "Targets UI polish and data fetching patterns.",
@@ -432,7 +433,7 @@ const DETAILS: DetailMap = {
     title: "Digital Clock",
     badge: "Featured" as Badge,
     subtitle: "Responsive digital clock utility with clean formatting.",
-    video: { fileSrc: "/demos/Digital%20Clock.mp4" },
+    video: { provider: "youtube", id: "LnWEBQ4-M6s", embedUrl: getYoutubeEmbed("LnWEBQ4-M6s") },
     whatItIs: [
       "A tiny utility rendering time accurately with smooth updates.",
       "Built to demonstrate basic UI updates.",
@@ -457,7 +458,7 @@ const DETAILS: DetailMap = {
     title: "MK Calculator",
     badge: "Featured" as Badge,
     subtitle: "Simple calculator with clear operations and keyboard support.",
-    video: { fileSrc: "/demos/Calculator.mp4" },
+    video: { provider: "youtube", id: "QsAB3MyTxzE", embedUrl: getYoutubeEmbed("QsAB3MyTxzE") },
     whatItIs: [
       "A lightweight calculator application.",
       "Focus on predictable operations and edge cases.",
@@ -482,7 +483,7 @@ const DETAILS: DetailMap = {
     title: "Admission Form",
     badge: "Featured" as Badge,
     subtitle: "Form flow with validation, structured fields, and exportable submissions.",
-    video: { fileSrc: "/demos/Admission%20Form.mp4" },
+    video: { provider: "youtube", id: "Wh_7Ei3DKh4", embedUrl: getYoutubeEmbed("Wh_7Ei3DKh4") },
     whatItIs: [
       "A structured admission form demo.",
       "Targets validation and clean submission UX.",
@@ -507,7 +508,7 @@ const DETAILS: DetailMap = {
     title: "Hotel Menu Card",
     badge: "Featured" as Badge,
     subtitle: "Menu card UI exploring layout, pricing visibility, and accessibility.",
-    video: { fileSrc: "/demos/Menu%20Card.mp4" },
+    video: { provider: "youtube", id: "lkyjHc0Qj9M", embedUrl: getYoutubeEmbed("lkyjHc0Qj9M") },
     whatItIs: [
       "A static menu interface for quick browsing.",
       "Focus on legibility and clear pricing.",
@@ -532,7 +533,7 @@ const DETAILS: DetailMap = {
     title: "Vote Eligibility",
     badge: "Featured" as Badge,
     subtitle: "Tiny utility that checks vote eligibility via clear rules.",
-    video: { fileSrc: "/demos/Voter%20Eligibility.mp4" },
+    video: { provider: "youtube", id: "FAqOw1XOKTo", embedUrl: getYoutubeEmbed("FAqOw1XOKTo") },
     whatItIs: [
       "A small helper that evaluates eligibility based on inputs.",
       "Designed to show clean conditional logic.",
@@ -557,7 +558,7 @@ const DETAILS: DetailMap = {
     title: "Puzzle Game",
     badge: "Featured" as Badge,
     subtitle: "Small puzzle game focusing on interactions, level state, and replayability.",
-    video: { fileSrc: "/demos/Puzzle%20Game.mp4" },
+    video: { provider: "youtube", id: "u-Z6I0VWYN8", embedUrl: getYoutubeEmbed("u-Z6I0VWYN8") },
     whatItIs: [
       "A browser game with simple mechanics and level state.",
       "Built to practice interaction loops and state management.",
@@ -582,7 +583,7 @@ const DETAILS: DetailMap = {
     title: "MKStream",
     badge: "Featured" as Badge,
     subtitle: "Experimental media interface exploring queues and playback controls.",
-    video: { fileSrc: "/demos/MK%20Stream.mp4" },
+    video: { provider: "youtube", id: "133dE-bHWnQ", embedUrl: getYoutubeEmbed("133dE-bHWnQ") },
     whatItIs: [
       "A prototype for queuing and controlling media playback.",
       "Useful to explore UX and state around playlists.",
@@ -607,7 +608,7 @@ const DETAILS: DetailMap = {
     title: "Amazon / Netflix Clone",
     badge: "Featured" as Badge,
     subtitle: "Educational UI clone for layout practice; no branding or proprietary assets claimed.",
-    video: { fileSrc: "/demos/Amazon%20Clone.mp4" },
+    video: { provider: "youtube", id: "x6CedC0ncuI", embedUrl: getYoutubeEmbed("x6CedC0ncuI") },
     whatItIs: [
       "A UI clone replicating common marketplace layout elements.",
       "Built purely for educational, layout-practice purposes.",
@@ -640,5 +641,5 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default function ProjectPage({ params }: { params: { slug: string } }) {
   const data = DETAILS[params.slug];
   if (!data) return notFound();
-  return <ProjectDetail {...data} />;
+  return <ProjectDetail {...data} slug={params.slug} />;
 }

@@ -3,15 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
-import { X } from "lucide-react";
+import { X, Maximize } from "lucide-react";
 
 export type DemoItem = {
   slug: string;
   title: string;
-  embedUrl?: string; // e.g., https://www.youtube.com/embed/...
-  fileSrc?: string; // e.g., /demos/ai-nids.mp4 (placed under public/demos)
-  autoplay?: boolean;
-  poster?: string; // optional poster image
+  embedUrl?: string; // youtube-nocookie embed URL
+  poster?: string; // poster image (YouTube-derived)
 };
 
 export default function VideoModal({ items }: { items: DemoItem[] }) {
@@ -22,7 +20,7 @@ export default function VideoModal({ items }: { items: DemoItem[] }) {
 
   const [panel, setPanel] = useState<{ w: number; h: number } | null>(null);
   const closeRef = useRef<HTMLButtonElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  // HTML5 fallback removed; using YouTube-only embeds.
 
   // Close on Escape
   useEffect(() => {
@@ -67,31 +65,14 @@ export default function VideoModal({ items }: { items: DemoItem[] }) {
   }, [current]);
 
   const close = () => router.push("/projects", { scroll: false });
-  const hasVideo = Boolean(current && (current.embedUrl || current.fileSrc));
+  const hasVideo = Boolean(current?.embedUrl);
+  const hasPoster = Boolean(current?.poster);
 
-  // Enforce permanent mute on HTML5 video
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const enforce = () => {
-      try {
-        v.muted = true;
-        if (typeof v.volume === "number") v.volume = 0;
-      } catch {}
-    };
-    enforce();
-    const onVolume = () => enforce();
-    const onPlay = () => enforce();
-    const onLoaded = () => enforce();
-    v.addEventListener("volumechange", onVolume);
-    v.addEventListener("play", onPlay);
-    v.addEventListener("loadedmetadata", onLoaded);
-    return () => {
-      v.removeEventListener("volumechange", onVolume);
-      v.removeEventListener("play", onPlay);
-      v.removeEventListener("loadedmetadata", onLoaded);
-    };
-  }, [current?.fileSrc]);
+  // Compute iframe src with permanent mute (and optional autoplay)
+  // Use provided embed URL when present (YouTube nocookie with params)
+  const embedSrc = current?.embedUrl;
+
+  // No HTML5 video; mute is enforced via YouTube embed params.
 
   // Guard rendering after hooks are declared to keep hook order stable
   if (!current) return null;
@@ -133,29 +114,17 @@ export default function VideoModal({ items }: { items: DemoItem[] }) {
               </motion.button>
             </div>
             {/* Video content */}
-            {hasVideo ? (
-              current.embedUrl ? (
-                <iframe
-                  src={current.embedUrl}
-                  title={current.title}
-                  className="h-full w-full rounded-[1rem]"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  style={{ pointerEvents: "none" }}
-                  allowFullScreen
-                />
-              ) : (
-                <video
-                  src={current.fileSrc}
-                  className="h-full w-full rounded-[1rem]"
-                  controls
-                  playsInline
-                  muted
-                  autoPlay={Boolean(current.autoplay)}
-                  poster={current.poster}
-                  ref={videoRef}
-                />
-              )
+            {embedSrc ? (
+              <iframe
+                src={embedSrc}
+                title={current.title}
+                className="h-full w-full rounded-[1rem]"
+                allow="autoplay; fullscreen; picture-in-picture"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            ) : hasPoster ? (
+              <img src={current.poster} alt={current.title} className="h-full w-full rounded-[1rem] object-contain bg-black/60" />
             ) : (
               <div className="flex h-full w-full items-center justify-center p-6 text-center text-white/80">
                 <p className="text-sm">Demo video will appear here once linked.</p>

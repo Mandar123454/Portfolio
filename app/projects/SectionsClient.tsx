@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { Play, ExternalLink, Github, Shield, BarChart3, Puzzle } from "lucide-react";
 import VideoModal, { DemoItem } from "@/components/video-modal";
+import { getYoutubeEmbedBySlug, getYoutubePosterBySlug } from "@/lib/youtube";
 
 type Domain = "Cybersecurity" | "Data Science" | "Other";
 
@@ -125,29 +126,29 @@ const CLONE: Project = {
   liveUrl: "https://mkamazonclone.netlify.app/",
 };
 
-// Demo items for modal (provide real embed URLs later)
+// Demo items for modal (HTML5 video via external CDN)
 const DEMOS: DemoItem[] = [
-  { slug: "ai-nids", title: "AI-NIDS Demo", fileSrc: "/demos/AI-NIDS.mp4" },
-  { slug: "smartphone-purchase-ml", title: "Smartphone Purchase Prediction Demo", fileSrc: "/demos/Smartphone%20Purchase.mp4" },
-  { slug: "phishing-chrome-ext", title: "Phishing Detection Chrome Extension Demo", fileSrc: "/demos/Custom%20Phishing.mp4" },
-  { slug: "cybersecurity-journey", title: "CyberSecurity-Journey Demo", fileSrc: "/demos/Cybersecurity%20Journey.mp4" },
-  { slug: "campus-connect", title: "Campus-Connect Demo", fileSrc: "/demos/Campus%20Connect.mp4" },
-  { slug: "python-journey", title: "Python Journey Demo", fileSrc: "/demos/Python%20Journey.mp4" },
-  { slug: "network-sniffer-dashboard", title: "Network Sniffer Dashboard Demo", fileSrc: "/demos/Network%20Sniffer.mp4" },
-  { slug: "nids-basic", title: "NIDS Demo", fileSrc: "/demos/NIDS.mp4" },
-  { slug: "traffic-anomaly-ml", title: "Traffic Anomaly Detection Demo", fileSrc: "/demos/Traffic%20Anomaly.mp4" },
-  { slug: "pw-survey", title: "Physics-Wallah Survey Demo", fileSrc: "/demos/Physics%20Wallah.mp4" },
-  { slug: "mern-ecommerce", title: "MERN E-Commerce Demo", fileSrc: "/demos/MERN%20Store.mp4" },
-  { slug: "dynamic-login", title: "Dynamic Login Demo", fileSrc: "/demos/Login%20Form.mp4" },
-  { slug: "moviebox", title: "MovieBox Demo", fileSrc: "/demos/MovieBox.mp4" },
-  { slug: "digital-clock", title: "Digital Clock Demo", fileSrc: "/demos/Digital%20Clock.mp4" },
-  { slug: "mk-calculator", title: "MK Calculator Demo", fileSrc: "/demos/Calculator.mp4" },
-  { slug: "admission-form", title: "Admission Form Demo", fileSrc: "/demos/Admission%20Form.mp4" },
-  { slug: "hotel-menu-card", title: "Hotel Menu Card Demo", fileSrc: "/demos/Menu%20Card.mp4" },
-  { slug: "vote-eligibility", title: "Vote Eligibility Demo", fileSrc: "/demos/Voter%20Eligibility.mp4" },
-  { slug: "puzzle-game", title: "Puzzle Game Demo", fileSrc: "/demos/Puzzle%20Game.mp4" },
-  { slug: "mkstream", title: "MKStream Demo", fileSrc: "/demos/MK%20Stream.mp4" },
-  { slug: "amazon-clone", title: "Amazon UI Clone Demo", fileSrc: "/demos/Amazon%20Clone.mp4" },
+  { slug: "puzzle-game", title: "Puzzle Game Demo", embedUrl: getYoutubeEmbedBySlug("puzzle-game"), poster: getYoutubePosterBySlug("puzzle-game") },
+  { slug: "python-journey", title: "Python Journey Demo", embedUrl: getYoutubeEmbedBySlug("python-journey"), poster: getYoutubePosterBySlug("python-journey") },
+  { slug: "vote-eligibility", title: "Vote Eligibility Demo", embedUrl: getYoutubeEmbedBySlug("vote-eligibility"), poster: getYoutubePosterBySlug("vote-eligibility") },
+  { slug: "traffic-anomaly-ml", title: "Traffic Anomaly Detection Demo", embedUrl: getYoutubeEmbedBySlug("traffic-anomaly-ml"), poster: getYoutubePosterBySlug("traffic-anomaly-ml") },
+  { slug: "campus-connect", title: "Campus-Connect Demo", embedUrl: getYoutubeEmbedBySlug("campus-connect"), poster: getYoutubePosterBySlug("campus-connect") },
+  { slug: "smartphone-purchase-ml", title: "Smartphone Purchase Prediction Demo", embedUrl: getYoutubeEmbedBySlug("smartphone-purchase-ml"), poster: getYoutubePosterBySlug("smartphone-purchase-ml") },
+  { slug: "pw-survey", title: "Physics-Wallah Survey Demo", embedUrl: getYoutubeEmbedBySlug("pw-survey"), poster: getYoutubePosterBySlug("pw-survey") },
+  { slug: "admission-form", title: "Admission Form Demo", embedUrl: getYoutubeEmbedBySlug("admission-form"), poster: getYoutubePosterBySlug("admission-form") },
+  { slug: "phishing-chrome-ext", title: "Phishing Detection Chrome Extension Demo", embedUrl: getYoutubeEmbedBySlug("phishing-chrome-ext"), poster: getYoutubePosterBySlug("phishing-chrome-ext") },
+  { slug: "nids-basic", title: "NIDS Demo", embedUrl: getYoutubeEmbedBySlug("nids-basic"), poster: getYoutubePosterBySlug("nids-basic") },
+  { slug: "network-sniffer-dashboard", title: "Network Sniffer Dashboard Demo", embedUrl: getYoutubeEmbedBySlug("network-sniffer-dashboard"), poster: getYoutubePosterBySlug("network-sniffer-dashboard") },
+  { slug: "moviebox", title: "MovieBox Demo", embedUrl: getYoutubeEmbedBySlug("moviebox"), poster: getYoutubePosterBySlug("moviebox") },
+  { slug: "mkstream", title: "MKStream Demo", embedUrl: getYoutubeEmbedBySlug("mkstream"), poster: getYoutubePosterBySlug("mkstream") },
+  { slug: "digital-clock", title: "Digital Clock Demo", embedUrl: getYoutubeEmbedBySlug("digital-clock"), poster: getYoutubePosterBySlug("digital-clock") },
+  { slug: "mk-calculator", title: "MK Calculator Demo", embedUrl: getYoutubeEmbedBySlug("mk-calculator"), poster: getYoutubePosterBySlug("mk-calculator") },
+  { slug: "mern-ecommerce", title: "MERN E-Commerce Demo", embedUrl: getYoutubeEmbedBySlug("mern-ecommerce"), poster: getYoutubePosterBySlug("mern-ecommerce") },
+  { slug: "hotel-menu-card", title: "Hotel Menu Card Demo", embedUrl: getYoutubeEmbedBySlug("hotel-menu-card"), poster: getYoutubePosterBySlug("hotel-menu-card") },
+  { slug: "dynamic-login", title: "Dynamic Login Demo", embedUrl: getYoutubeEmbedBySlug("dynamic-login"), poster: getYoutubePosterBySlug("dynamic-login") },
+  { slug: "cybersecurity-journey", title: "CyberSecurity-Journey Demo", embedUrl: getYoutubeEmbedBySlug("cybersecurity-journey"), poster: getYoutubePosterBySlug("cybersecurity-journey") },
+  { slug: "ai-nids", title: "AI-NIDS Demo", embedUrl: getYoutubeEmbedBySlug("ai-nids"), poster: getYoutubePosterBySlug("ai-nids") },
+  { slug: "amazon-clone", title: "Amazon UI Clone Demo", embedUrl: getYoutubeEmbedBySlug("amazon-clone"), poster: getYoutubePosterBySlug("amazon-clone") },
 ];
 
 function Pill({ active, icon: Icon, label, onClick }: { active: boolean; icon: React.ElementType; label: string; onClick: () => void }) {

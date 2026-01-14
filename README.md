@@ -47,26 +47,17 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 - Deployment: Netlify (with `@netlify/plugin-nextjs`) or Vercel
 
 ## Projects & demos
-- Video‑first demos: All projects use a modal on the index page and a preview on case studies. Both support local MP4s or external embeds (YouTube/Vimeo).
-- Local videos: place `.mp4` files and optional posters in `public/demos/`.
-- Wire demos on index: update the DEMOS registry in [app/projects/SectionsClient.tsx](app/projects/SectionsClient.tsx) and set `fileSrc` or `embedUrl`.
-- Wire demos on case study: set the `video` field per project in [app/projects/[slug]/page.tsx](app/projects/%5Bslug%5D/page.tsx).
+- Video‑first demos: All projects use a modal on the index page and a preview on case studies.
+- Backend for videos: Unlisted YouTube videos embedded via privacy‑enhanced `youtube-nocookie.com` iframes. Audio is permanently muted via embed parameters.
+- Posters: Derived from YouTube thumbnails (max‑res/sd/hq fallback) instead of shipping image binaries in the repo.
+- Wire demos on index: update the DEMOS registry in [app/projects/SectionsClient.tsx](app/projects/SectionsClient.tsx). Each item uses `embedUrl` (YouTube‑nocookie) and an optional poster.
+- Wire demos on case study: set the `video` field per project in [app/projects/[slug]/page.tsx](app/projects/%5Bslug%5D/page.tsx) with `{ provider: "youtube", id, embedUrl }`.
 - Typed routes: internal links use Next `Link`; external links use `<a>` to satisfy typedRoutes.
 
 ### Important: Git + video assets
-- Do not commit large `.mp4` files to GitHub. GitHub rejects files >100MB and recommends Git LFS for big binaries.
-- Keep videos only for local development in `public/demos/` and deploy them with the site on Netlify/Vercel. The folder exists at runtime but is ignored by git.
-- If you need Git LFS, set it up before adding videos: `git lfs install && git lfs track "*.mp4"` and commit the generated `.gitattributes`. Otherwise, prefer uploading videos to a host (YouTube/Vimeo) and use `embedUrl`.
-
-We include a `public/demos/.gitkeep` so the folder is present without committing large files.
-
-Example (case study video config):
-
-```ts
-video: { fileSrc: "/demos/my-project.mp4", poster: "/demos/my-project.jpg" }
-// or
-video: { embedUrl: "https://www.youtube.com/embed/XXXX" }
-```
+- No MP4 or large video binaries are committed to this repository.
+- All demos are streamed from YouTube (Unlisted) using IDs stored in code; the repo remains source‑only.
+- If you fork this project, upload your own demo videos to YouTube (Unlisted/Private) and update the ID mapping in [lib/youtube.ts](lib/youtube.ts).
 
 ## Getting started (development)
 ```powershell
