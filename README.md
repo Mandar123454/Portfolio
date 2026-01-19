@@ -18,9 +18,10 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 </div>
 
 ## Features
-- Focused home section with a clear snapshot and a concise “What I do” summary
+- Focused home hero with a clean testimonials section (mobile friendly)
 - In‑site lightviewer for certificates and evidence (mobile friendly), with ESC/overlay close, focus management, and scroll lock
-- Internships: dual‑document viewer (Certificate and LOR) with animated top‑right Close; per‑card actions “View Internship Certificate” and “View LOR Certificate”
+- Experience: tabbed “Filter by category” (Virtual Internships, Workshops) with proof viewers
+- Virtual internships: dual‑document viewer (Certificate and LOR) with animated top‑right Close; per‑card actions “View Internship Certificate” and “View LOR Certificate”
 - Centered navigation with compact link pills and a subtle active glow; minimal footer with social links
 - Contact pipeline: SMTP via Nodemailer (Brevo recommended), optional Google Sheet webhook, and Formspree fallback; per‑IP rate limit (5/min), honeypot, offline retry, and success toast
 - Privacy‑respecting analytics (GA4) gated by consent
@@ -30,14 +31,18 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 - Accessibility: dialogs use appropriate roles; keyboard and ESC support; a skip‑to‑content link is provided
 
 ## Pages and routes
-- `/` Home: snapshot and “What I do.” Evidence chips open the image lightviewer
+- `/` Home: hero + testimonials
 - `/certifications`: category tabs (Cybersecurity, Data Science, Other) with animated cards; click to view the certificate
 - `/projects`: polished projects index with domain filters, summaries, "Watch Demo" modal, GitHub/Live links, and "Read Case Study" for each project
 - `/projects/[slug]`: individual case study pages (video‑first) with sections: What it is, Key Features, How it works, How it was built, and Proof & Links
-- `/internships`: online internships with roles, stacks, and highlights
-	- Includes a lightviewer for Internship Certificate and LOR; open via the two buttons on each card
+- `/experience`: tabbed experience hub
+	- Virtual Internships: roles, stacks, highlights + certificate/LOR lightviewer
+	  - Deep-link via `/experience?intern=<slug>&doc=cert|lor`
+	- Workshops: cards with “What I learned” + certificate lightviewer
+	  - Deep-link via `/experience?workshop=<slug>`
+- `/internships`: redirect alias to `/experience` (preserves query params)
 - `/contact`: SMTP‑backed form with validation and fallbacks
-- `/about`: about page copy placeholder
+- `/about`: cinematic about page (Framer Motion)
 
 ## Architecture and technology
 - Next.js 14 (App Router), React 18, and TypeScript
@@ -122,18 +127,20 @@ For a concise checklist, see `remaining.md`.
 - Certifications cards: `components/CertCard.tsx`
 - Certifications tabs/animations: `app/certifications/SectionsClient.tsx`
 - Global styles/cursor/scrollbar: `app/globals.css`
-- Lightviewer modals: `components/ProofModal.tsx`, `app/certifications/CertModal.tsx`, and `app/internships/InternModal.tsx`
-- Internships list and actions: `app/internships/SectionsClient.tsx`
-- Internships data and document mapping: `app/internships/page.tsx` (set `certImage` and `lorImage` for each item to filenames in `public/`)
+- Lightviewer modals: `components/ProofModal.tsx`, `app/certifications/CertModal.tsx`, `app/internships/InternModal.tsx`, and `app/experience/WorkshopModal.tsx`
+- Experience tabs: `app/experience/SectionsClient.tsx`
+- Virtual internships list/actions (used by Experience): `app/internships/SectionsClient.tsx`
+- Experience data (virtual internships + workshops): `app/experience/page.tsx` (set certificate image paths to filenames in `public/`)
 
 
 ## Recent updates
-- Removed hero tag chips and redundant social buttons
-- Added a polished “Snapshot” and “What I do” section
+- Simplified home hero to a clean testimonials section
 - Slimmer navbar pills; reduced vertical paddings across pages; removed header/footer divider lines
 - Improved lightviewer accessibility (role=dialog, focus, ESC/overlay close, scroll lock)
 - Added consent‑gated GA4, filesystem sitemap, robots, and per‑page canonicals
-- Internships: introduced dual Certificate/LOR viewer; card has two actions (“View Internship Certificate” and “View LOR Certificate”)
+- Experience: added category filter tabs (Virtual Internships + Workshops)
+- Workshops: added certificate viewer + “What I learned” cards
+- Virtual internships: dual Certificate/LOR viewer; card has two actions (“View Internship Certificate” and “View LOR Certificate”)
 - Adjusted internship modal Close button to top‑right outside the image area to avoid overlap
 - Refined internships page description to highlight cybersecurity, MERN, and data science outcomes
 - Projects: built a complete listing with filters, summaries, GitHub/Live links, and a "Watch Demo" modal
@@ -160,6 +167,7 @@ Vercel works out of the box.
 
 ## Troubleshooting
 - Stale chunk (ChunkLoadError) during local dev or right after deploy: the app includes a narrow auto‑reload handler to recover from rare stale assets. If you still see it, hard refresh, stop the dev server, clear `.next`, and restart.
+- Avoid running `next dev` and `next build` at the same time: both write into `.next` and can cause missing chunk/module errors. Stop dev, delete `.next`, then build.
 
 ## 🔗 Evidence links (examples)
 - NSDC: https://trainings.internshala.com/certificate/view/nsdc/6glr84cp6od/e52s9kdy5a2/

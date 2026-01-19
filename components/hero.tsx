@@ -1,13 +1,39 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { ShieldCheck, GraduationCap, Globe, LayoutGrid, Flame, Trophy } from "lucide-react";
+import { Quote } from "lucide-react";
 
+type Testimonial = {
+  org: string;
+  role: string;
+  quote: string;
+  note?: string;
+};
+
+const TESTIMONIALS: Testimonial[] = [
+  {
+    org: "NullClass",
+    role: "Cybersecurity Intern",
+    quote:
+      "Demonstrated interest and learning in real-time OS security. Actively participated — showed keen ability to learn.",
+  },
+  {
+    org: "NullClass",
+    role: "Data Science Intern",
+    quote:
+      "Contributed to building a real-time emotional detector. Showed potential in applying DS techniques + teamwork.",
+  },
+  {
+    org: "Main Flow Services",
+    role: "MERN Stack Intern",
+    quote:
+      "Exceptional performance. Hard work, dedication, enthusiasm set you apart — equipped with essential skills for future success.",
+  },
+];
 
 export function Hero() {
   return (
-  <section className="container pt-10 pb-8 md:pt-14 md:pb-10">
+  <section className="container relative pt-10 pb-8 md:pt-14 md:pb-10">
       <motion.div className="text-center">
         <motion.div
           whileHover={{ y: -1, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 6px 18px rgba(255,255,255,0.14)" }}
@@ -26,103 +52,49 @@ export function Hero() {
           I turn theory into tools, data into decisions, and code into impact. From ML predictions to ethical hacking and full‑stack systems, I build, break, analyze, and rebuild smarter—fast and clean.
         </p>
 
-        {/* Tags removed per request — evidence chips remain below */}
-
-        {/* Polished snapshot and "What I do" */}
-        <div className="mx-auto mt-6 grid max-w-3xl grid-cols-1 gap-3 text-left">
-          <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
-            <h3 className="text-sm font-semibold text-white">Snapshot</h3>
-            <p className="mt-2 text-sm leading-relaxed text-white/80">
-              B.Sc Computer Science ’26 • Certified Ethical Hacker (CEH v13) • 20+ shipped projects • Ranked Top 113 / 3,235 in CTFs.
-              I design and ship pragmatic, production-ready solutions across AI/ML, full-stack web, and security — with clean code,
-              rapid iteration, and measurable impact.
+        {/* Testimonials */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.55 }}
+          className="mx-auto mt-8 max-w-5xl text-left"
+        >
+          <div>
+            <p className="text-[12px] font-semibold uppercase tracking-wider text-white/65">Testimonials</p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white md:text-3xl">
+              Real feedback — verified, not exaggerated
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm text-white/75">
+              Short notes from real internship experience.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
-            <h3 className="text-sm font-semibold text-white">What I do</h3>
-            <ul className="mt-2 space-y-1.5 text-sm text-white/85">
-              <li>🔍 Predictive ML features that drive decisions</li>
-              <li>🔐 Secure, scalable web apps with defense-in-depth</li>
-              <li>⚙️ Automation tools that turn ideas into outcomes — fast</li>
-            </ul>
-            <p className="mt-2 text-sm text-white/70">I measure everything. Harden surfaces. Iterate with evidence.</p>
-          </div>
-        </div>
 
-        {/* Evidence bar */}
-  <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-          <span className="text-[12px] font-semibold uppercase tracking-wider text-white/65">Evidence</span>
-          {/* CTF evidence (open local modal) */}
-          <Link href={{ pathname: "/", query: { proof: "ctf-aug-2025" } }} scroll={false} className="inline-block" aria-label="View CTF rank proof">
-            <motion.span
-              whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
-              whileTap={{ y: -1 }}
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
-            >
-              <Trophy size={14} className="text-brand" /> CTF Top 113/3,235
-            </motion.span>
-          </Link>
-          {/* CEH */}
-          <Link href={{ pathname: "/", query: { proof: "ceh-v13" } }} scroll={false} className="inline-block" aria-label="View CEH v13 proof">
-            <motion.span
-              whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
-              whileTap={{ y: -1 }}
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
-            >
-              <ShieldCheck size={14} className="text-brand" /> CEH v13
-            </motion.span>
-          </Link>
-          {/* NSDC */}
-          <Link href={{ pathname: "/", query: { proof: "nsdc-ds" } }} scroll={false} className="inline-block" aria-label="View NSDC proof">
-            <motion.span
-              whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
-              whileTap={{ y: -1 }}
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
-            >
-              <GraduationCap size={14} className="text-brand" /> NSDC-DS
-            </motion.span>
-          </Link>
-          {/* SIDH */}
-          <Link href={{ pathname: "/", query: { proof: "web-design-sidh" } }} scroll={false} className="inline-block" aria-label="View SIDH proof">
-            <motion.span
-              whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
-              whileTap={{ y: -1 }}
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
-            >
-              <Globe size={14} className="text-brand" /> SIDH
-            </motion.span>
-          </Link>
-          {/* Microsoft */}
-          <Link href={{ pathname: "/", query: { proof: "fcc-csharp" } }} scroll={false} className="inline-block" aria-label="View Microsoft proof">
-            <motion.span
-              whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
-              whileTap={{ y: -1 }}
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
-            >
-              <LayoutGrid size={14} className="text-brand" /> Microsoft
-            </motion.span>
-          </Link>
-          {/* freeCodeCamp */}
-          <Link href={{ pathname: "/", query: { proof: "fcc-csharp" } }} scroll={false} className="inline-block" aria-label="View freeCodeCamp proof">
-            <motion.span
-              whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
-              whileTap={{ y: -1 }}
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/70 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
-            >
-              <Flame size={14} className="text-brand" /> freeCodeCamp
-            </motion.span>
-          </Link>
-          {/* See all proofs LAST */}
-          <Link href="/certifications" className="inline-block">
-            <motion.span
-              whileHover={{ y: -2, boxShadow: "0 0 0 1px rgba(255,255,255,0.12), 0 8px 24px rgba(124,58,237,0.25)" }}
-              whileTap={{ y: -1 }}
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/75 transition hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-brand/40"
-            >
-              <LayoutGrid size={14} className="text-brand" /> See all proofs
-            </motion.span>
-          </Link>
-        </div>
+          {/* Mobile: swipeable cards. Desktop: 3-column grid. */}
+          <div className="mt-5">
+            <div className="mb-2 text-xs text-white/55 lg:hidden">Swipe</div>
+            <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 snap-x snap-mandatory scroll-px-4 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible lg:px-0">
+              {TESTIMONIALS.map((t) => (
+                <div
+                  key={`${t.org}-${t.role}`}
+                  className="min-w-[86%] snap-start rounded-2xl border border-white/10 bg-white/[0.06] p-5 lg:min-w-0"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold text-white">{t.org}</p>
+                      <p className="mt-0.5 text-xs text-white/65">{t.role}</p>
+                    </div>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-black/25">
+                      <Quote className="h-4 w-4 text-brand" aria-hidden />
+                    </div>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-white/80">“{t.quote}”</p>
+                  {t.note ? <p className="mt-3 text-xs text-white/55">{t.note}</p> : null}
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* Subtle gradient glow */}

@@ -27,7 +27,7 @@ export default function SectionsClient({ internships }: { internships: Internshi
     const sp = new URLSearchParams();
     sp.set("intern", slug);
     sp.set("doc", kind);
-    router.push(`/internships?${sp.toString()}`, { scroll: false });
+    router.push(`/experience?${sp.toString()}`, { scroll: false });
   };
 
   return (

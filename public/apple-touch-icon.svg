@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
+  <defs>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(56 52) rotate(45) scale(120)">
+      <stop stop-color="#FFD88A" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="20" y1="26" x2="160" y2="156" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6E7C7"/>
+      <stop offset="1" stop-color="#D1A14D"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="180" height="180" fill="#05070C"/>
+  <circle cx="90" cy="90" r="78" fill="#0B0F19"/>
+  <circle cx="90" cy="90" r="78" fill="url(#glow)"/>
+  <circle cx="90" cy="90" r="75" stroke="url(#ring)" stroke-width="6" opacity="0.95"/>
+  <circle cx="90" cy="90" r="72" stroke="#FFFFFF" stroke-opacity="0.06" stroke-width="2"/>
+
+  <text x="90" y="118" text-anchor="middle" fill="#F6E7C7" font-size="104" font-weight="850" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif" letter-spacing="-4">M</text>
+</svg>

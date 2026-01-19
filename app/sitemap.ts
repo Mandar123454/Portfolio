@@ -35,8 +35,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   try {
     pages = scanPages(path.join(process.cwd(), "app"));
   } catch {
-    pages = ["", "/about", "/certifications", "/contact", "/internships", "/projects"]; // safe fallback
+    pages = ["", "/about", "/certifications", "/contact", "/experience", "/projects"]; // safe fallback
   }
+  pages = pages.filter((p) => p !== "/internships");
   return pages.map((p) => ({
     url: `${base}${p}`,
     lastModified: now,

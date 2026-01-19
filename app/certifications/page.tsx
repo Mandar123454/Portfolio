@@ -99,14 +99,6 @@ const OTHER: Item[] = [
     issuedOn: "July 2025",
   },
   {
-    title: "AI + ChatGPT for MS Office",
-    provider: "Skill Nation",
-    Icon: BrainCircuit,
-    slug: "ai-chatgpt-ms-office",
-    image: "/AI%20+%20ChatGPT%20For%20MS%20Office.png",
-    issuedOn: "July 2024",
-  },
-  {
     title: "Foundational C# with Microsoft",
     provider: "freeCodeCamp × Microsoft",
     Icon: Code2,
