@@ -15,6 +15,7 @@ export type InternshipItem = {
   link?: string;
   certImage?: string;
   lorImage?: string;
+  expImage?: string;
 };
 
 export default function SectionsClient({ internships }: { internships: InternshipItem[] }) {
@@ -22,7 +23,7 @@ export default function SectionsClient({ internships }: { internships: Internshi
 
   const toSlug = (it: InternshipItem) => `${it.company}-${it.role}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-  const open = (it: InternshipItem, kind: "cert" | "lor" = "cert") => {
+  const open = (it: InternshipItem, kind: "cert" | "lor" | "exp" = "cert") => {
     const slug = toSlug(it);
     const sp = new URLSearchParams();
     sp.set("intern", slug);
@@ -66,6 +67,18 @@ export default function SectionsClient({ internships }: { internships: Internshi
                 >
                   View LOR Certificate
                 </motion.button>
+                {it.expImage ? (
+                  <motion.button
+                    type="button"
+                    whileHover={{ y: -1, scale: 1.01 }}
+                    whileTap={{ y: 0, scale: 0.995 }}
+                    onClick={() => open(it, "exp")}
+                    title="Open Experience Letter"
+                    className="inline-flex items-center rounded-md bg-gradient-to-r from-emerald-500/80 to-teal-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
+                  >
+                    View Experience Letter
+                  </motion.button>
+                ) : null}
                 {it.link ? (
                   <a
                     href={it.link}
@@ -107,6 +120,7 @@ export default function SectionsClient({ internships }: { internships: Internshi
           title: `${it.role} • ${it.company}`,
           certImage: it.certImage,
           lorImage: it.lorImage,
+          expImage: it.expImage,
         }))}
       />
     </>

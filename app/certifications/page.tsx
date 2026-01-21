@@ -27,9 +27,12 @@ type Item = {
   Icon: React.ComponentType<{ className?: string }>;
   href?: string; // external link (unused in image-only modal)
   slug?: string; // internal viewer id
-  image?: string; // public path for modal viewing
+  image?: string; // public path for modal viewing (image or PDF)
+  thumb?: string; // optional thumbnail path for cards (when image is a PDF)
   issuedOn?: string; // optional human date
 };
+
+const LIGHTVIEWER_SLUGS = new Set(["fcc-csharp", "ceh-v13"]);
 
 const CYBERSECURITY: Item[] = [
   {
@@ -37,7 +40,8 @@ const CYBERSECURITY: Item[] = [
     provider: "EC‑Council",
     Icon: ShieldCheck,
     slug: "ceh-v13",
-    image: "/ECC-CEH-Certificate.png",
+    image: "/ECC-CEH-Certificate.pdf",
+    thumb: "/ECC-CEH-Certificate.png",
     issuedOn: "July 2025",
   },
   {
@@ -136,7 +140,7 @@ function StatChip({
 
 export default function CertificationsPage() {
   const VIEWABLE = [...CYBERSECURITY, ...DATA_SCIENCE, ...OTHER]
-    .filter((i) => i.slug && i.image)
+    .filter((i) => i.slug && i.image && LIGHTVIEWER_SLUGS.has(i.slug))
     .map((i) => ({ slug: i.slug as string, image: i.image, title: i.title }));
   const cyberCount = CYBERSECURITY.length;
   const dataCount = DATA_SCIENCE.length;
@@ -148,8 +152,7 @@ export default function CertificationsPage() {
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Certifications</h1>
       <p className="mt-3 max-w-3xl text-white/80">
         A curated collection of industry‑recognized credentials and hands‑on trainings spanning Cybersecurity, Data Science,
-        and complementary technologies. Use the category buttons below to view certifications by domain. Tap any item to view
-        the certificate in full.
+        and complementary technologies. Use the category buttons below to view certifications by domain.
       </p>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -161,9 +164,21 @@ export default function CertificationsPage() {
       </div>
 
       <SectionsClient
-        cybersecurity={CYBERSECURITY.map(({ Icon, ...rest }) => ({ ...rest }))}
-        dataScience={DATA_SCIENCE.map(({ Icon, ...rest }) => ({ ...rest }))}
-        other={OTHER.map(({ Icon, ...rest }) => ({ ...rest }))}
+        cybersecurity={CYBERSECURITY.map(({ Icon, ...rest }) => ({
+          ...rest,
+          image: rest.thumb ?? rest.image,
+          slug: rest.slug && LIGHTVIEWER_SLUGS.has(rest.slug) ? rest.slug : undefined,
+        }))}
+        dataScience={DATA_SCIENCE.map(({ Icon, ...rest }) => ({
+          ...rest,
+          image: rest.thumb ?? rest.image,
+          slug: rest.slug && LIGHTVIEWER_SLUGS.has(rest.slug) ? rest.slug : undefined,
+        }))}
+        other={OTHER.map(({ Icon, ...rest }) => ({
+          ...rest,
+          image: rest.thumb ?? rest.image,
+          slug: rest.slug && LIGHTVIEWER_SLUGS.has(rest.slug) ? rest.slug : undefined,
+        }))}
       />
       <CertModal items={VIEWABLE} />
     </main>

@@ -19,6 +19,7 @@ type ExperienceItem = {
   link?: string;
   certImage?: string;
   lorImage?: string;
+  expImage?: string;
 };
 
 const EXPERIENCE: ExperienceItem[] = [
@@ -29,6 +30,7 @@ const EXPERIENCE: ExperienceItem[] = [
     dates: "Jul 2025 – Sep 2025",
     certImage: "/NullClass Internship Certificate.png",
     lorImage: "/NullClass LOR Certificate.png",
+    expImage: "/NullClass%20CyberSecurity%20Experience%20Letter.png",
     stack: [
       "Kali Linux",
       "Nmap",
@@ -53,7 +55,7 @@ const EXPERIENCE: ExperienceItem[] = [
     mode: "Remote",
     dates: "Aug 2025 – Oct 2025",
     certImage: "/MERN Internship Certificate.png",
-    lorImage: undefined,
+    lorImage: "/Main%20Flow-MERN%20Stack%20LOR%20Certificate.png",
     stack: ["MongoDB", "Express.js", "React.js", "Node.js", "JavaScript", "HTML", "CSS"],
     highlights: [
       "Completed six key projects demonstrating end-to-end MERN stack development skills.",
@@ -72,7 +74,8 @@ const EXPERIENCE: ExperienceItem[] = [
     mode: "Remote",
     dates: "Sep 24, 2025 – Nov 24, 2025",
     certImage: "/NullClass-Data Science-Training-Certificate.png",
-    lorImage: "/Data Science Training.png",
+    lorImage: "/NullClass-Data%20Science-LOR-Letter.png",
+    expImage: "/NullClass%20Data%20Science%20Experience%20Letter.png",
     stack: ["Python", "OpenCV", "TensorFlow", "Keras", "Pandas", "NumPy", "Matplotlib"],
     highlights: [
       "Developed six real-time machine learning models including Attendance, Animal, Drowsiness, Nationality, Sign Language, and Car Color Detection systems.",
@@ -83,6 +86,30 @@ const EXPERIENCE: ExperienceItem[] = [
       "Developed a Sign Language Recognition System operational during specific hours (6 PM–10 PM) using deep learning and image processing.",
       "Built a Car Color Detection Model to detect car colors, count vehicles, and identify nearby pedestrians at traffic signals.",
       "Learned to build real-time emotion detection applications integrating multiple ML models with GUIs and live video feeds.",
+    ],
+  },
+    {
+    company: "CodeAlpha",
+    role: "Cybersecurity Intern",
+    mode: "Remote",
+    dates: "Dec 2025 (1 month)",
+    certImage: "/CodeAlpha%20Internship%20Certificate.png",
+    stack: [
+      "Python",
+      "Scapy",
+      "Flask",
+      "Snort",
+      "JSON Logging",
+      "Network Packet Analysis",
+      "Windows/Linux",
+      "Security Documentation",
+    ],
+    highlights: [
+      "Designed and implemented a real-time network sniffer using Python, Flask, and Scapy, enabling live packet capture, protocol analysis, filtering, and authenticated sessions with exportable logs (PCAP/CSV).",
+      "Built a Python-based Network Intrusion Detection System (NIDS) with rule-based inspection, JSON alert logging, and dashboard-style visualization; configured Snort for comparative analysis.",
+      "Performed secure coding reviews and practical security audits, documenting common vulnerability patterns and remediation guidance aligned with secure SDLC principles.",
+      "Created phishing awareness and social-engineering training materials, translating real-world attack techniques into clear, user-friendly security education.",
+      "Maintained clean repository structure, documentation, and deployment steps to support reproducible setup across Windows, macOS, and Linux with administrator-level security considerations.",
     ],
   },
 ];

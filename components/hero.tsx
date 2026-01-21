@@ -32,6 +32,15 @@ const TESTIMONIALS: Testimonial[] = [
 ];
 
 export function Hero() {
+  const formatQuote = (quote: string) => {
+    // Turn sentences into clean lines: break after full stops.
+    // Keeps it premium and readable without changing the text.
+    return quote
+      .replace(/\.\s+/g, ".\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+  };
+
   return (
   <section className="container relative pt-10 pb-8 md:pt-14 md:pb-10">
       <motion.div className="text-center">
@@ -55,12 +64,11 @@ export function Hero() {
         {/* Testimonials */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.55 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
           className="mx-auto mt-8 max-w-5xl text-left"
         >
-          <div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
             <p className="text-[12px] font-semibold uppercase tracking-wider text-white/65">Testimonials</p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white md:text-3xl">
               Real feedback — verified, not exaggerated
@@ -68,29 +76,32 @@ export function Hero() {
             <p className="mt-2 max-w-2xl text-sm text-white/75">
               Short notes from real internship experience.
             </p>
-          </div>
 
-          {/* Mobile: swipeable cards. Desktop: 3-column grid. */}
-          <div className="mt-5">
-            <div className="mb-2 text-xs text-white/55 lg:hidden">Swipe</div>
-            <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 snap-x snap-mandatory scroll-px-4 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-3 lg:overflow-visible lg:px-0">
+            <div className="mt-5 mx-auto max-w-4xl space-y-4">
               {TESTIMONIALS.map((t) => (
-                <div
+                <motion.article
                   key={`${t.org}-${t.role}`}
-                  className="min-w-[86%] snap-start rounded-2xl border border-white/10 bg-white/[0.06] p-5 lg:min-w-0"
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.22 }}
+                  className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/25 p-5"
                 >
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
+                  <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-brand/10 blur-2xl" />
+
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
                       <p className="text-sm font-semibold text-white">{t.org}</p>
                       <p className="mt-0.5 text-xs text-white/65">{t.role}</p>
                     </div>
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-black/25">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black/30">
                       <Quote className="h-4 w-4 text-brand" aria-hidden />
                     </div>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-white/80">“{t.quote}”</p>
+
+                  <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-white/80 text-pretty">“{formatQuote(t.quote)}”</p>
                   {t.note ? <p className="mt-3 text-xs text-white/55">{t.note}</p> : null}
-                </div>
+                </motion.article>
               ))}
             </div>
           </div>

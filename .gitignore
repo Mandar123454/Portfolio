@@ -56,3 +56,6 @@ temp/
 # Local demo videos (ignored; keep folder via .gitkeep)
 public/demos/**
 !public/demos/.gitkeep
+
+# Local PDF archive (keep repo light; add selected PDFs individually)
+public/pdf_certificates/

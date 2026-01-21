@@ -19,9 +19,9 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 
 ## Features
 - Focused home hero with a clean testimonials section (mobile friendly)
-- In‑site lightviewer for certificates and evidence (mobile friendly), with ESC/overlay close, focus management, and scroll lock
+- In‑site lightviewer for certificates and evidence (mobile friendly), supports images and PDFs with ESC/overlay close, focus management, and scroll lock
 - Experience: tabbed “Filter by category” (Virtual Internships, Workshops) with proof viewers
-- Virtual internships: dual‑document viewer (Certificate and LOR) with animated top‑right Close; per‑card actions “View Internship Certificate” and “View LOR Certificate”
+- Virtual internships: multi‑document viewer (Certificate, LOR, and optional Experience Letter); per‑card actions to open available documents
 - Centered navigation with compact link pills and a subtle active glow; minimal footer with social links
 - Contact pipeline: SMTP via Nodemailer (Brevo recommended), optional Google Sheet webhook, and Formspree fallback; per‑IP rate limit (5/min), honeypot, offline retry, and success toast
 - Privacy‑respecting analytics (GA4) gated by consent
@@ -32,12 +32,12 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 
 ## Pages and routes
 - `/` Home: hero + testimonials
-- `/certifications`: category tabs (Cybersecurity, Data Science, Other) with animated cards; click to view the certificate
+- `/certifications`: category tabs (Cybersecurity, Data Science, Other) with animated cards; selected certificates open in the lightviewer (currently: CEH (PDF) + Microsoft × freeCodeCamp C#)
 - `/projects`: polished projects index with domain filters, summaries, "Watch Demo" modal, GitHub/Live links, and "Read Case Study" for each project
 - `/projects/[slug]`: individual case study pages (video‑first) with sections: What it is, Key Features, How it works, How it was built, and Proof & Links
 - `/experience`: tabbed experience hub
 	- Virtual Internships: roles, stacks, highlights + certificate/LOR lightviewer
-	  - Deep-link via `/experience?intern=<slug>&doc=cert|lor`
+	  - Deep-link via `/experience?intern=<slug>&doc=cert|lor|exp`
 	- Workshops: cards with “What I learned” + certificate lightviewer
 	  - Deep-link via `/experience?workshop=<slug>`
 - `/internships`: redirect alias to `/experience` (preserves query params)
@@ -137,10 +137,13 @@ For a concise checklist, see `remaining.md`.
 - Simplified home hero to a clean testimonials section
 - Slimmer navbar pills; reduced vertical paddings across pages; removed header/footer divider lines
 - Improved lightviewer accessibility (role=dialog, focus, ESC/overlay close, scroll lock)
+- Lightviewer: added PDF support (iframe viewer on desktop + mobile fallback)
+- Certifications: CEH proof added as a PDF in the lightviewer (thumbnail stays as image)
 - Added consent‑gated GA4, filesystem sitemap, robots, and per‑page canonicals
 - Experience: added category filter tabs (Virtual Internships + Workshops)
 - Workshops: added certificate viewer + “What I learned” cards
-- Virtual internships: dual Certificate/LOR viewer; card has two actions (“View Internship Certificate” and “View LOR Certificate”)
+- Virtual internships: certificate/LOR viewer, plus optional Experience Letter document (for the two NullClass roles)
+- Experience: added CodeAlpha Cybersecurity internship entry
 - Adjusted internship modal Close button to top‑right outside the image area to avoid overlap
 - Refined internships page description to highlight cybersecurity, MERN, and data science outcomes
 - Projects: built a complete listing with filters, summaries, GitHub/Live links, and a "Watch Demo" modal

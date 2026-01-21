@@ -33,7 +33,7 @@ export default function WorkshopsClient({ items }: { items: WorkshopItem[] }) {
           Focused learning sessions I attended to stay sharp — practical takeaways, tools, and workflows I can apply immediately.
         </p>
 
-        <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="mt-5 mx-auto max-w-4xl space-y-4">
           {items.map((w) => {
             const canView = Boolean(w.image);
             return (
