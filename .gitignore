@@ -57,5 +57,3 @@ temp/
 public/demos/**
 !public/demos/.gitkeep
 
-# Local PDF archive (keep repo light; add selected PDFs individually)
-public/pdf_certificates/
