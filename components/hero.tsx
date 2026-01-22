@@ -78,13 +78,12 @@ export function Hero() {
             </p>
 
             <div className="mt-5 mx-auto max-w-4xl space-y-4">
-              {TESTIMONIALS.map((t) => (
+              {TESTIMONIALS.map((t, i) => (
                 <motion.article
                   key={`${t.org}-${t.role}`}
                   initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.22, delay: 0.06 + i * 0.06 }}
                   className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/25 p-5"
                 >
                   <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-brand/10 blur-2xl" />

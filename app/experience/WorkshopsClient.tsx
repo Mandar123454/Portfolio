@@ -11,7 +11,8 @@ export type WorkshopItem = {
   provider: string;
   slug: string;
   issuedOn?: string;
-  image?: string;
+  image?: string; // viewer source (image or PDF)
+  thumb?: string; // optional card thumbnail (image)
   learned: string[];
 };
 
@@ -36,6 +37,7 @@ export default function WorkshopsClient({ items }: { items: WorkshopItem[] }) {
         <div className="mt-5 mx-auto max-w-4xl space-y-4">
           {items.map((w) => {
             const canView = Boolean(w.image);
+            const cardThumb = w.thumb ?? (w.image && w.image.toLowerCase().endsWith(".pdf") ? undefined : w.image);
             return (
               <motion.article
                 key={w.slug}
@@ -56,8 +58,8 @@ export default function WorkshopsClient({ items }: { items: WorkshopItem[] }) {
                     ) : null}
                   </div>
                   <div className="relative hidden h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5 sm:block">
-                    {w.image ? (
-                      <Image src={w.image} alt={w.title} fill className="object-cover" sizes="64px" />
+                    {cardThumb ? (
+                      <Image src={cardThumb} alt={w.title} fill className="object-cover" sizes="64px" />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center text-[11px] text-white/45">No image</div>
                     )}

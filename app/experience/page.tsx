@@ -28,9 +28,9 @@ const EXPERIENCE: ExperienceItem[] = [
     role: "Cybersecurity Intern",
     mode: "Remote",
     dates: "Jul 2025 – Sep 2025",
-    certImage: "/NullClass Internship Certificate.png",
-    lorImage: "/NullClass LOR Certificate.png",
-    expImage: "/NullClass%20CyberSecurity%20Experience%20Letter.png",
+    certImage: "/pdf_certificates/NullClass-Cybersecurity-Internship-Certificate.pdf",
+    lorImage: "/pdf_certificates/NullClass-Cybersecurity-LOR-Letter.pdf",
+    expImage: "/pdf_certificates/NullClass-Cybersecurity-Experience-Letter.pdf",
     stack: [
       "Kali Linux",
       "Nmap",
@@ -54,8 +54,8 @@ const EXPERIENCE: ExperienceItem[] = [
     role: "MERN Stack Intern",
     mode: "Remote",
     dates: "Aug 2025 – Oct 2025",
-    certImage: "/MERN Internship Certificate.png",
-    lorImage: "/Main%20Flow-MERN%20Stack%20LOR%20Certificate.png",
+    certImage: "/pdf_certificates/Internship%20Certificate.pdf",
+    lorImage: "/pdf_certificates/Main%20Flow-MERN%20Stack%20LOR%20Certificate.pdf",
     stack: ["MongoDB", "Express.js", "React.js", "Node.js", "JavaScript", "HTML", "CSS"],
     highlights: [
       "Completed six key projects demonstrating end-to-end MERN stack development skills.",
@@ -73,9 +73,9 @@ const EXPERIENCE: ExperienceItem[] = [
     role: "Data Science Intern",
     mode: "Remote",
     dates: "Sep 24, 2025 – Nov 24, 2025",
-    certImage: "/NullClass-Data Science-Training-Certificate.png",
-    lorImage: "/NullClass-Data%20Science-LOR-Letter.png",
-    expImage: "/NullClass%20Data%20Science%20Experience%20Letter.png",
+    certImage: "/pdf_certificates/NullClass-Data-Science-Internship-Certificate.pdf",
+    lorImage: "/pdf_certificates/NullClass-Data%20Science-LOR-Letter.pdf",
+    expImage: "/pdf_certificates/NullClass-Data%20Science-Experience-Letter.pdf",
     stack: ["Python", "OpenCV", "TensorFlow", "Keras", "Pandas", "NumPy", "Matplotlib"],
     highlights: [
       "Developed six real-time machine learning models including Attendance, Animal, Drowsiness, Nationality, Sign Language, and Car Color Detection systems.",
@@ -88,12 +88,13 @@ const EXPERIENCE: ExperienceItem[] = [
       "Learned to build real-time emotion detection applications integrating multiple ML models with GUIs and live video feeds.",
     ],
   },
-    {
+  {
     company: "CodeAlpha",
     role: "Cybersecurity Intern",
     mode: "Remote",
     dates: "Dec 2025 (1 month)",
-    certImage: "/CodeAlpha%20Internship%20Certificate.png",
+    certImage: "/pdf_certificates/CodeAlpha-Internship%20Certificate.pdf",
+    lorImage: "/pdf_certificates/CodeAlpha-LOR%20Certificate.pdf",
     stack: [
       "Python",
       "Scapy",
@@ -123,7 +124,8 @@ export default function ExperiencePage() {
       provider: "Futureskills Prime (MeitY × NASSCOM)",
       slug: "futureskills-generative-ai-literacy",
       issuedOn: "—",
-      image: "/Generative%20AI%20Workshop%20Certificate%20(Government).png",
+      image: "/pdf_certificates/Generative%20AI%20Workshop%20Certificate.pdf",
+      thumb: "/Generative%20AI%20Workshop%20Certificate%20(Government).png",
       learned: [
         "Core concepts of Generative AI and where it fits in real workflows",
         "Responsible usage basics (limitations, hallucinations, and verification)",
@@ -135,7 +137,8 @@ export default function ExperiencePage() {
       provider: "Be10x",
       slug: "be10x-ai-tools",
       issuedOn: "—",
-      image: "/Be10x%20AI%20Tools%20Workshop%20Certificate.png",
+      image: "/pdf_certificates/Be10x%20AI%20Tools%20Workshop%20Certificate.pdf",
+      thumb: "/Be10x%20AI%20Tools%20Workshop%20Certificate.png",
       learned: [
         "Using AI tools to speed up research, drafting, and structured thinking",
         "Creating repeatable workflows for productivity and content execution",
@@ -147,7 +150,8 @@ export default function ExperiencePage() {
       provider: "Skill Nation",
       slug: "skillnation-chatgpt-ms-office",
       issuedOn: "July 2024",
-      image: "/AI%20+%20ChatGPT%20For%20MS%20Office.png",
+      image: "/pdf_certificates/ChatGpt%20%26%20AI%20With%20MS%20Office%20Workshop%20certificate.pdf",
+      thumb: "/AI%20+%20ChatGPT%20For%20MS%20Office.png",
       learned: [
         "Using AI to speed up Word/PowerPoint drafting while keeping accuracy",
         "Building better prompts for tables, summaries, and slide structure",
@@ -159,7 +163,8 @@ export default function ExperiencePage() {
       provider: "Skill Dunia",
       slug: "skilldunia-career-guidance-webinar",
       issuedOn: "—",
-      image: "/Career%20Guidance%20Webinar%20Certificate%20(Skill%20Dunia).png",
+      image: "/pdf_certificates/Career%20Guidance%20Webinar%20Certificate.pdf",
+      thumb: "/Career%20Guidance%20Webinar%20Certificate%20(Skill%20Dunia).png",
       learned: [
         "How to present projects and skills clearly for recruiters",
         "Resume and interview basics (storytelling + measurable outcomes)",
