@@ -123,9 +123,10 @@ export default function ExperiencePage() {
       title: "Generative AI Literacy",
       provider: "Futureskills Prime (MeitY × NASSCOM)",
       slug: "futureskills-generative-ai-literacy",
-      issuedOn: "—",
+      issuedOn: "December 2025",
       image: "/pdf_certificates/Generative%20AI%20Workshop%20Certificate.pdf",
       thumb: "/Generative%20AI%20Workshop%20Certificate%20(Government).png",
+      tags: ["Generative AI", "Prompting", "Responsible AI", "Workflows"],
       learned: [
         "Core concepts of Generative AI and where it fits in real workflows",
         "Responsible usage basics (limitations, hallucinations, and verification)",
@@ -136,9 +137,10 @@ export default function ExperiencePage() {
       title: "AI Tools Workshop",
       provider: "Be10x",
       slug: "be10x-ai-tools",
-      issuedOn: "—",
+      issuedOn: "December 2025",
       image: "/pdf_certificates/Be10x%20AI%20Tools%20Workshop%20Certificate.pdf",
       thumb: "/Be10x%20AI%20Tools%20Workshop%20Certificate.png",
+      tags: ["AI Tools", "Productivity", "Automation", "Frameworks"],
       learned: [
         "Using AI tools to speed up research, drafting, and structured thinking",
         "Creating repeatable workflows for productivity and content execution",
@@ -152,6 +154,7 @@ export default function ExperiencePage() {
       issuedOn: "July 2024",
       image: "/pdf_certificates/ChatGpt%20%26%20AI%20With%20MS%20Office%20Workshop%20certificate.pdf",
       thumb: "/AI%20+%20ChatGPT%20For%20MS%20Office.png",
+      tags: ["ChatGPT", "MS Office", "Prompting", "Documentation"],
       learned: [
         "Using AI to speed up Word/PowerPoint drafting while keeping accuracy",
         "Building better prompts for tables, summaries, and slide structure",
@@ -162,9 +165,10 @@ export default function ExperiencePage() {
       title: "Career Guidance Webinar",
       provider: "Skill Dunia",
       slug: "skilldunia-career-guidance-webinar",
-      issuedOn: "—",
+      issuedOn: "November 2025",
       image: "/pdf_certificates/Career%20Guidance%20Webinar%20Certificate.pdf",
       thumb: "/Career%20Guidance%20Webinar%20Certificate%20(Skill%20Dunia).png",
+      tags: ["Career", "Resume", "Interview", "Planning"],
       learned: [
         "How to present projects and skills clearly for recruiters",
         "Resume and interview basics (storytelling + measurable outcomes)",

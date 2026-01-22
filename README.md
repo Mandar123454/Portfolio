@@ -38,7 +38,7 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 - `/experience`: tabbed experience hub
 	- Virtual Internships: roles, stacks, highlights + certificate/LOR lightviewer
 	  - Deep-link via `/experience?intern=<slug>&doc=cert|lor|exp`
-	- Workshops: cards with “What I learned” + certificate lightviewer
+	- Workshops: internship-style cards with tags + bullet points + certificate lightviewer
 	  - Deep-link via `/experience?workshop=<slug>`
 - `/internships`: redirect alias to `/experience` (preserves query params)
 - `/contact`: SMTP‑backed form with validation and fallbacks

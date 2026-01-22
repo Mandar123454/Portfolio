@@ -92,6 +92,12 @@ export default function ExperienceSectionsClient({
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18 }}
             >
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <h2 className="text-lg font-semibold tracking-tight text-white">Workshops</h2>
+                <p className="mt-2 max-w-3xl text-sm text-white/75">
+                  Focused learning sessions I attended to stay sharp — practical takeaways, tools, and workflows I can apply immediately.
+                </p>
+              </div>
               <WorkshopsClient items={workshops} />
             </motion.div>
           )}
