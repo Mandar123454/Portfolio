@@ -71,7 +71,7 @@ export function Hero() {
           <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
             <p className="text-[12px] font-semibold uppercase tracking-wider text-white/65">Testimonials</p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white md:text-3xl">
-              Real feedback — verified, not exaggerated
+              Real feedback — honest, not exaggerated
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-white/75">
               Short notes from real internship experience.
