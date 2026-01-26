@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
@@ -32,6 +33,12 @@ const TESTIMONIALS: Testimonial[] = [
 ];
 
 export function Hero() {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const formatQuote = (quote: string) => {
     // Turn sentences into clean lines: break after full stops.
     // Keeps it premium and readable without changing the text.
@@ -63,9 +70,9 @@ export function Hero() {
 
         {/* Testimonials */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
+          initial={false}
+          animate={mounted ? { opacity: 1, y: 0 } : { opacity: 1, y: 10 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
           className="mx-auto mt-8 max-w-5xl text-left"
         >
           <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
@@ -81,9 +88,9 @@ export function Hero() {
               {TESTIMONIALS.map((t, i) => (
                 <motion.article
                   key={`${t.org}-${t.role}`}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.22, delay: 0.06 + i * 0.06 }}
+                  initial={false}
+                  animate={mounted ? { opacity: 1, y: 0 } : { opacity: 1, y: 8 }}
+                  transition={{ duration: 0.22, ease: "easeOut", delay: 0.06 + i * 0.06 }}
                   className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/25 p-5"
                 >
                   <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-brand/10 blur-2xl" />
