@@ -46,8 +46,6 @@ const EXPERIENCE: ExperienceItem[] = [
       "Discovered and exploited a Local File Inclusion (LFI) vulnerability to gain shell access and escalate privileges.",
       "Created a custom Python script (lfi.py) for automated vulnerability exploitation and file retrieval.",
       "Conducted a system hardening assessment using CIS-CAT on Windows 11, improving security compliance from 20% to 70%.",
-      "Applied remediation through Local Security Policy and Group Policy Editor, addressing critical issues like SMBv1 and Guest Account vulnerabilities.",
-      "Documented all findings, results, and remediations in professional cybersecurity reports and attack flow diagrams.",
     ],
   },
   {
@@ -202,10 +200,8 @@ export default function ExperiencePage() {
         "Strengthened fundamentals in Linux command line usage, basic web security concepts, and crypto/encoding patterns.",
         "Improved problem-solving speed and reasoning under time constraints.",
       ],
-      proof: "/pdf_certificates/Capture The Flag(CTF) — Rank 113 of 3,235.pdf",
-      proofTitle: "Participation Certificate",
-      proofButtonLabel: "Rank Proof",
-      links: [{ label: "Dashboard Screenshot", href: "/CTF.png" }],
+      rankProof: "/CTF.png",
+      participationCertificate: "/pdf_certificates/Capture The Flag(CTF) — Rank 113 of 3,235.pdf",
     },
     {
       title: "UIDAI Data Hackathon",
@@ -238,7 +234,6 @@ export default function ExperiencePage() {
         { label: "Live Dashboard", href: "https://uidai-maharashtra-dashboard-cwcccngcfzbwcca2.centralindia-01.azurewebsites.net/" },
         { label: "GitHub Repo", href: "https://github.com/Mandar123454/UIDAI-Data-Hackathon" },
       ],
-      proofButtonLabel: "Participation Proof",
       // proof: "/<uidai-submission-proof>.png", // add when you provide the submission screenshot
     },
   ];

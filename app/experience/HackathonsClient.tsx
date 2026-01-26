@@ -18,26 +18,28 @@ export type HackathonItem = {
   mode?: "Online" | "Remote" | "Hybrid" | "Onsite";
   tags?: string[];
   highlights: string[];
-  proof?: string; // PDF/PNG/JPG path
-  proofTitle?: string;
-  proofButtonLabel?: string;
+  rankProof?: string; // PNG/JPG (rank / participation screenshot)
+  participationCertificate?: string; // PDF/PNG/JPG
   links?: HackathonLink[];
 };
 
 export default function HackathonsClient({ items }: { items: HackathonItem[] }) {
   const router = useRouter();
 
-  const open = (slug: string) => {
-    router.push(`/experience?hackathon=${encodeURIComponent(slug)}`, { scroll: false });
+  const open = (slug: string, doc: "rank" | "cert") => {
+    const sp = new URLSearchParams();
+    sp.set("hackathon", slug);
+    sp.set("doc", doc);
+    router.push(`/experience?${sp.toString()}`, { scroll: false });
   };
 
   return (
     <section className="mt-8">
       <div className="mt-8 grid grid-cols-1 gap-6">
         {items.map((h, i) => {
-          const canView = Boolean(h.proof);
+          const canViewRank = Boolean(h.rankProof);
+          const canViewCert = Boolean(h.participationCertificate);
           const hasLinks = Boolean(h.links && h.links.length > 0);
-          const proofButtonLabel = h.proofButtonLabel ?? "View Proof";
           return (
             <motion.article
               key={h.slug}
@@ -61,18 +63,33 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
                   </div>
                 </div>
 
-                {canView ? (
+                {canViewRank || canViewCert ? (
                   <div className="flex flex-col items-end gap-2">
-                    <motion.button
-                      type="button"
-                      whileHover={{ y: -1, scale: 1.01 }}
-                      whileTap={{ y: 0, scale: 0.995 }}
-                      onClick={() => open(h.slug)}
-                      title="Open proof"
-                      className="inline-flex items-center rounded-md bg-gradient-to-r from-brand/80 to-fuchsia-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
-                    >
-                      {proofButtonLabel}
-                    </motion.button>
+                    {canViewRank ? (
+                      <motion.button
+                        type="button"
+                        whileHover={{ y: -1, scale: 1.01 }}
+                        whileTap={{ y: 0, scale: 0.995 }}
+                        onClick={() => open(h.slug, "rank")}
+                        title="Open rank proof"
+                        className="inline-flex items-center rounded-md bg-gradient-to-r from-brand/80 to-fuchsia-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
+                      >
+                        Rank Proof
+                      </motion.button>
+                    ) : null}
+
+                    {canViewCert ? (
+                      <motion.button
+                        type="button"
+                        whileHover={{ y: -1, scale: 1.01 }}
+                        whileTap={{ y: 0, scale: 0.995 }}
+                        onClick={() => open(h.slug, "cert")}
+                        title="Open participation certificate"
+                        className="inline-flex items-center rounded-md bg-gradient-to-r from-cyan-500/80 to-violet-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
+                      >
+                        Participation Certificate
+                      </motion.button>
+                    ) : null}
                   </div>
                 ) : null}
               </div>
@@ -95,19 +112,41 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
 
               {hasLinks ? (
                 <div className="mt-4 flex flex-wrap items-center gap-2">
-                  {(h.links ?? []).map((l) => (
-                    <a
-                      key={l.href}
-                      href={l.href}
-                      target={l.href.startsWith("http") ? "_blank" : undefined}
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-[11px] text-white/80 hover:bg-white/10"
-                      title={l.label}
-                    >
-                      <ExternalLink size={12} />
-                      {l.label}
-                    </a>
-                  ))}
+                  {(h.links ?? []).map((l) => {
+                    const isUidai = h.slug === "uidai-data-hackathon-2026";
+
+                    if (isUidai) {
+                      return (
+                        <motion.a
+                          key={l.href}
+                          href={l.href}
+                          target={l.href.startsWith("http") ? "_blank" : undefined}
+                          rel="noreferrer"
+                          whileHover={{ y: -1, scale: 1.01 }}
+                          whileTap={{ y: 0, scale: 0.995 }}
+                          className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-emerald-500/80 to-teal-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
+                          title={l.label}
+                        >
+                          <ExternalLink size={14} />
+                          {l.label}
+                        </motion.a>
+                      );
+                    }
+
+                    return (
+                      <a
+                        key={l.href}
+                        href={l.href}
+                        target={l.href.startsWith("http") ? "_blank" : undefined}
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-[11px] text-white/80 hover:bg-white/10"
+                        title={l.label}
+                      >
+                        <ExternalLink size={12} />
+                        {l.label}
+                      </a>
+                    );
+                  })}
                 </div>
               ) : null}
             </motion.article>
@@ -124,9 +163,10 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
       <HackathonModal
         items={items.map<HackathonProofItem>((h) => ({
           slug: h.slug,
-          title: h.proofTitle ?? h.title,
+          title: h.title,
           organizer: h.organizer,
-          image: h.proof,
+          rankProof: h.rankProof,
+          participationCertificate: h.participationCertificate,
         }))}
       />
     </section>

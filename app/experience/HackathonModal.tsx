@@ -10,7 +10,8 @@ export type HackathonProofItem = {
   slug: string;
   title: string;
   organizer: string;
-  image?: string;
+  rankProof?: string; // PNG/JPG
+  participationCertificate?: string; // PDF or image
 };
 
 export default function HackathonModal({ items }: { items: HackathonProofItem[] }) {
@@ -21,7 +22,9 @@ export default function HackathonModal({ items }: { items: HackathonProofItem[] 
 
   const [panel, setPanel] = useState<{ w: number; h: number } | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const src = current?.image;
+  const doc = (params.get("doc") as "rank" | "cert" | null) ?? "cert";
+  const proofLabel = doc === "rank" ? "Rank Proof" : "Participation Certificate";
+  const src = doc === "rank" ? current?.rankProof : current?.participationCertificate;
   const hasDoc = Boolean(src);
   const isPdf = useMemo(() => {
     const normalized = ((src ?? "").split("?")[0] ?? "").toLowerCase();
@@ -32,13 +35,21 @@ export default function HackathonModal({ items }: { items: HackathonProofItem[] 
     setIsMobile(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
   }, []);
 
+  const close = () => {
+    const sp = new URLSearchParams(params.toString());
+    sp.delete("hackathon");
+    sp.delete("doc");
+    const qs = sp.toString();
+    router.push(qs ? `/experience?${qs}` : "/experience", { scroll: false });
+  };
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") router.push("/experience", { scroll: false });
+      if (e.key === "Escape") close();
     };
     if (current) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [current, router]);
+  }, [current, close]);
 
   const closeRef = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
@@ -84,14 +95,12 @@ export default function HackathonModal({ items }: { items: HackathonProofItem[] 
 
   if (!current) return null;
 
-  const close = () => router.push("/experience", { scroll: false });
-
   return (
     <motion.div
       className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-4"
       role="dialog"
       aria-modal="true"
-      aria-label={current.title}
+      aria-label={`${current.title} — ${proofLabel}`}
       onClick={close}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -171,12 +180,12 @@ export default function HackathonModal({ items }: { items: HackathonProofItem[] 
                     </div>
                   </div>
                 ) : (
-                  <iframe src={src as string} title={`${current.title} — ${current.organizer}`} className="h-full w-full rounded-[1rem]" />
+                  <iframe src={src as string} title={proofLabel} className="h-full w-full rounded-[1rem]" />
                 )
               ) : (
                 <Image
                   src={src as string}
-                  alt={`${current.title} — ${current.organizer}`}
+                  alt={proofLabel}
                   fill
                   className="rounded-[1rem] object-contain"
                   priority
