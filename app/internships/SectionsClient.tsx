@@ -113,6 +113,12 @@ export default function SectionsClient({ internships }: { internships: Internshi
         ))}
       </div>
 
+      <div className="mt-6 rounded-2xl border border-white/10 bg-black/25 p-5">
+        <p className="text-sm text-white/75">
+          I treat internships as production reps: ship real outcomes, document what changed, and back it up with verifiable proof (certificate/LOR/experience letter) wherever available.
+        </p>
+      </div>
+
       {/* Lightviewer modal wiring */}
       <InternModal
         items={internships.map<InternDocItem>((it) => ({

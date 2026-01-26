@@ -90,6 +90,12 @@ export default function WorkshopsClient({ items }: { items: WorkshopItem[] }) {
         })}
       </div>
 
+      <div className="mt-6 rounded-2xl border border-white/10 bg-black/25 p-5">
+        <p className="text-sm text-white/75">
+          I treat workshops as accelerated upskilling: capture the notes, practice the workflow, and apply it to real projects — with certificates attached where available.
+        </p>
+      </div>
+
       {/* Lightviewer modal wiring */}
       <WorkshopModal
         items={items.map<WorkshopProofItem>((w) => ({
