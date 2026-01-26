@@ -137,21 +137,8 @@ export default function InternModal({ items }: { items: InternDocItem[] }) {
           className="relative rounded-2xl bg-gradient-to-r from-brand/40 via-fuchsia-400/20 to-cyan-400/25 p-[2px] shadow-xl shadow-black/30"
           style={panel ? { width: panel.w, height: panel.h } : { width: "min(96vw, 1200px)", height: "min(92vh, 950px)" }}
         >
-          {/* Close sits slightly outside the inner image area to avoid overlap */}
-          <div className="absolute -right-2 -top-2 z-[2]">
-            <motion.button
-              type="button"
-              whileHover={{ y: -1, backgroundColor: "#ef4444" }}
-              whileTap={{ y: 0 }}
-              onClick={close}
-              ref={closeRef}
-              className="inline-flex items-center gap-1 rounded-full bg-red-500/95 px-3 py-1.5 text-[12px] font-semibold text-white shadow-lg shadow-black/30 ring-1 ring-red-300/50"
-            >
-              Close <X size={14} />
-            </motion.button>
-          </div>
           <div className="relative h-full w-full rounded-[1rem] bg-black/65 backdrop-blur-sm overflow-hidden">
-            <div className="absolute left-3 top-3 z-[2] flex items-center gap-2">
+            <div className="absolute right-3 top-3 z-[2] flex items-center gap-2">
               {hasDoc ? (
                 <>
                   <a
@@ -173,6 +160,16 @@ export default function InternModal({ items }: { items: InternDocItem[] }) {
                   </a>
                 </>
               ) : null}
+              <motion.button
+                type="button"
+                whileHover={{ y: -1, backgroundColor: "#ef4444" }}
+                whileTap={{ y: 0 }}
+                onClick={close}
+                ref={closeRef}
+                className="inline-flex items-center rounded-full bg-red-500/90 px-3 py-1.5 text-[12px] font-semibold text-white shadow-lg shadow-black/30 ring-1 ring-red-300/40"
+              >
+                Close <X size={14} />
+              </motion.button>
             </div>
 
             {hasDoc ? (
