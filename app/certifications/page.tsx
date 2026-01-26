@@ -232,6 +232,14 @@ export default function CertificationsPage() {
           slug: rest.slug,
         }))}
       />
+
+      <div className="mt-6 rounded-2xl border border-white/10 bg-black/25 p-5">
+        <p className="text-sm text-white/75">
+          Every certification has a purpose. No certificate is just paper — first learn, then implement.
+          <span className="text-white/60"> I focus on translating training into real projects, measurable outcomes, and verifiable proof.</span>
+        </p>
+      </div>
+
       <CertModal items={VIEWABLE} />
     </main>
   );

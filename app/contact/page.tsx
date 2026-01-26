@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "mandar@example.com";
+  const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "mandarkajbaje@gmail.com";
   const linkedin = "https://www.linkedin.com/in/mandar-kajbaje";
   const github = "https://github.com/Mandar123454";
 
