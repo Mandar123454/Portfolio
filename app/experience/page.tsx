@@ -245,10 +245,15 @@ export default function ExperiencePage() {
   return (
     <main className="container py-12 md:py-16">
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Experience</h1>
-      <p className="mt-3 max-w-2xl text-white/80">
-        Hands‑on experience across cybersecurity, MERN development, and data science—covering penetration testing, secure systems hardening,
-        full‑stack application delivery, and real‑time ML projects. Selected documents are available for verification.
-      </p>
+      <div className="mt-4 max-w-3xl aura">
+        <p className="text-sm text-white/85 md:text-base">
+          Proof‑driven work across <span className="text-white">Virtual Internships</span>, <span className="text-white">Workshops</span>, and <span className="text-white">Hackathons</span> —
+          from penetration testing and system hardening to full‑stack delivery and data dashboards.
+        </p>
+        <p className="mt-2 text-sm text-white/70">
+          I keep it practical: ship outcomes, document learnings, and attach verifiable proof wherever available.
+        </p>
+      </div>
 
       <ExperienceSectionsClient internships={items} workshops={workshops} hackathons={hackathons} />
     </main>

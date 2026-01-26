@@ -21,6 +21,43 @@ body {
   @apply mx-auto max-w-6xl px-4;
 }
 
+/* Premium callout wrapper (used on Experience intro, etc.) */
+.aura {
+  position: relative;
+  border-radius: 18px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.40);
+  overflow: hidden;
+}
+.aura::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background:
+    radial-gradient(600px circle at 20% 0%, rgba(217, 70, 239, 0.22), transparent 60%),
+    radial-gradient(500px circle at 85% 95%, rgba(34, 211, 238, 0.18), transparent 55%),
+    radial-gradient(520px circle at 55% 40%, rgba(124, 58, 237, 0.20), transparent 62%);
+  filter: blur(18px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+.aura::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(90deg, rgba(217, 70, 239, 0.10), rgba(124, 58, 237, 0.08), rgba(34, 211, 238, 0.10));
+  opacity: 0.55;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.aura > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* Smooth scroll for anchor jumps */
 html {
   scroll-behavior: smooth;
