@@ -202,10 +202,10 @@ export default function ExperiencePage() {
         "Strengthened fundamentals in Linux command line usage, basic web security concepts, and crypto/encoding patterns.",
         "Improved problem-solving speed and reasoning under time constraints.",
       ],
-      proof: "/CTF.png",
-      links: [
-        { label: "Rank PDF", href: "/pdf_certificates/Capture The Flag(CTF) — Rank 113 of 3,235.pdf" },
-      ],
+      proof: "/pdf_certificates/Capture The Flag(CTF) — Rank 113 of 3,235.pdf",
+      proofTitle: "Participation Certificate",
+      proofButtonLabel: "Rank Proof",
+      links: [{ label: "Dashboard Screenshot", href: "/CTF.png" }],
     },
     {
       title: "UIDAI Data Hackathon",
@@ -238,6 +238,7 @@ export default function ExperiencePage() {
         { label: "Live Dashboard", href: "https://uidai-maharashtra-dashboard-cwcccngcfzbwcca2.centralindia-01.azurewebsites.net/" },
         { label: "GitHub Repo", href: "https://github.com/Mandar123454/UIDAI-Data-Hackathon" },
       ],
+      proofButtonLabel: "Participation Proof",
       // proof: "/<uidai-submission-proof>.png", // add when you provide the submission screenshot
     },
   ];

@@ -19,6 +19,8 @@ export type HackathonItem = {
   tags?: string[];
   highlights: string[];
   proof?: string; // PDF/PNG/JPG path
+  proofTitle?: string;
+  proofButtonLabel?: string;
   links?: HackathonLink[];
 };
 
@@ -35,6 +37,7 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
         {items.map((h, i) => {
           const canView = Boolean(h.proof);
           const hasLinks = Boolean(h.links && h.links.length > 0);
+          const proofButtonLabel = h.proofButtonLabel ?? "View Proof";
           return (
             <motion.article
               key={h.slug}
@@ -68,7 +71,7 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
                       title="Open proof"
                       className="inline-flex items-center rounded-md bg-gradient-to-r from-brand/80 to-fuchsia-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
                     >
-                      View Proof
+                      {proofButtonLabel}
                     </motion.button>
                   </div>
                 ) : null}
@@ -121,7 +124,7 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
       <HackathonModal
         items={items.map<HackathonProofItem>((h) => ({
           slug: h.slug,
-          title: h.title,
+          title: h.proofTitle ?? h.title,
           organizer: h.organizer,
           image: h.proof,
         }))}
