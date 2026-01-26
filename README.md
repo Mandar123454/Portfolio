@@ -20,7 +20,7 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 ## Features
 - Focused home hero with a clean testimonials section (mobile friendly)
 - In‑site lightviewer for certificates and evidence (mobile friendly), supports images and PDFs with ESC/overlay close, focus management, and scroll lock
-- Experience: tabbed “Filter by category” (Virtual Internships, Workshops) with proof viewers
+- Experience: tabbed “Filter by category” (Virtual Internships, Workshops, Hackathons) with proof viewers
 - Virtual internships: multi‑document viewer (Certificate, LOR, and optional Experience Letter); per‑card actions to open available documents
 - Centered navigation with compact link pills and a subtle active glow; minimal footer with social links
 - Contact pipeline: SMTP via Nodemailer (Brevo recommended), optional Google Sheet webhook, and Formspree fallback; per‑IP rate limit (5/min), honeypot, offline retry, and success toast
@@ -40,6 +40,8 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 	  - Deep-link via `/experience?intern=<slug>&doc=cert|lor|exp`
 	- Workshops: internship-style cards with tags + bullet points + certificate lightviewer
 	  - Deep-link via `/experience?workshop=<slug>`
+	- Hackathons: competition entries with tags + highlights + proof viewer
+	  - Deep-link via `/experience?hackathon=<slug>`
 - `/internships`: redirect alias to `/experience` (preserves query params)
 - `/contact`: SMTP‑backed form with validation and fallbacks
 - `/about`: cinematic about page (Framer Motion)

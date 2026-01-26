@@ -1,5 +1,6 @@
 import type { InternshipItem } from "../internships/SectionsClient";
 import ExperienceSectionsClient from "./SectionsClient";
+import type { HackathonItem } from "./HackathonsClient";
 import type { WorkshopItem } from "./WorkshopsClient";
 
 const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
@@ -177,6 +178,70 @@ export default function ExperiencePage() {
     },
   ];
 
+  const hackathons: HackathonItem[] = [
+    {
+      title: "Hackverse CTF Hackathon",
+      organizer: "EC‑Council (International Council of E‑Commerce Consultants)",
+      slug: "eccouncil-ctf-hackverse",
+      year: "2025",
+      mode: "Online",
+      tags: [
+        "CTF Methodology",
+        "Cybersecurity Fundamentals",
+        "Linux CLI",
+        "Web Security (Entry)",
+        "Crypto/Encoding",
+        "Analytical Thinking",
+        "Persistence",
+      ],
+      highlights: [
+        "Participated in a hands‑on cybersecurity CTF organized by EC‑Council, focused on real‑world styled challenges.",
+        "Solved multiple beginner‑level challenges (Apprentice ~27%) and attempted intermediate challenges (Journeyman ~3%).",
+        "Explored advanced categories (Master/Grandmaster) to understand higher-difficulty structure and expectations.",
+        "Practiced CTF workflow: identify → analyze → attempt solution → validate → document learnings.",
+        "Strengthened fundamentals in Linux command line usage, basic web security concepts, and crypto/encoding patterns.",
+        "Improved problem-solving speed and reasoning under time constraints.",
+      ],
+      proof: "/CTF.png",
+      links: [
+        { label: "Rank PDF", href: "/pdf_certificates/Capture The Flag(CTF) — Rank 113 of 3,235.pdf" },
+      ],
+    },
+    {
+      title: "UIDAI Data Hackathon",
+      organizer: "UIDAI (Government Authorized)",
+      slug: "uidai-data-hackathon-2026",
+      year: "2026",
+      mode: "Online",
+      tags: [
+        "Flask",
+        "Plotly",
+        "Pandas",
+        "Data Pipeline",
+        "Dashboards",
+        "Azure App Service",
+        "Policy Insights",
+      ],
+      highlights: [
+        "Built an Aadhaar Enrolment Analytics Dashboard (Maharashtra) to surface trends, disparities, seasonality, and risk flags from UIDAI monthly enrolment data.",
+        "Validated dataset scale and structure (rows, districts, pincodes, monthly points) to ensure correct aggregation and performance.",
+        "Cleaned and standardized mixed date formats; filtered to Maharashtra; created a reliable total metric (0–5 + 5–17 + 18+).",
+        "Generated time-series trend insights (overall growth and recent MoM change) to support planning and operations.",
+        "Analyzed age-group dynamics using stacked trends to identify dominant enrolment cohorts and implications.",
+        "Measured district disparities (top/bottom contributors) to highlight regional inequality and operational priorities.",
+        "Added pincode-level spread/variability analysis to identify uneven distribution and potential spikes.",
+        "Computed seasonality index (month-of-year peaks) to guide staffing/outreach timing.",
+        "Created decision signals (risk flags like saturation/volatility) and produced policy-style recommendations from computed metrics.",
+        "Deployed the Flask + Plotly dashboard on Azure App Service for live evaluation and reproducibility.",
+      ],
+      links: [
+        { label: "Live Dashboard", href: "https://uidai-maharashtra-dashboard-cwcccngcfzbwcca2.centralindia-01.azurewebsites.net/" },
+        { label: "GitHub Repo", href: "https://github.com/Mandar123454/UIDAI-Data-Hackathon" },
+      ],
+      // proof: "/<uidai-submission-proof>.png", // add when you provide the submission screenshot
+    },
+  ];
+
   return (
     <main className="container py-12 md:py-16">
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Experience</h1>
@@ -185,7 +250,7 @@ export default function ExperiencePage() {
         full‑stack application delivery, and real‑time ML projects. Selected documents are available for verification.
       </p>
 
-      <ExperienceSectionsClient internships={items} workshops={workshops} />
+      <ExperienceSectionsClient internships={items} workshops={workshops} hackathons={hackathons} />
     </main>
   );
 }
