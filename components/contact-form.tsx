@@ -6,7 +6,13 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Errors = Partial<Record<"name" | "email" | "phone" | "message", string>>;
 
-export default function ContactForm() {
+type ContactFormProps = {
+  includePhone?: boolean;
+  intent?: string;
+  submitLabel?: string;
+};
+
+export default function ContactForm({ includePhone = true, intent = "contact", submitLabel = "Send Message" }: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Errors>({});
@@ -43,8 +49,8 @@ export default function ContactForm() {
 
     if (!name) errs.name = "Please enter your name.";
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = "Enter a valid email address.";
-    if (phone && !/^\+?[0-9\-()\s]{7,20}$/.test(phone)) errs.phone = "Phone looks invalid.";
-  if (!message || message.length < 10) errs.message = "Message must be at least 10 characters.";
+    if (includePhone && phone && !/^\+?[0-9\-()\s]{7,20}$/.test(phone)) errs.phone = "Phone looks invalid.";
+    if (!message || message.length < 10) errs.message = "Message must be at least 10 characters.";
     return errs;
   }
 
@@ -126,13 +132,13 @@ export default function ContactForm() {
       localStorage.removeItem("contactForm:pending");
       setStatus("success");
       if (result?.note === "logged_to_sheet_only") {
-        setToast("Received! Logged to Sheet. Email will be enabled after SMTP setup.");
+        setToast(intent === "about_feedback" ? "Feedback received (logged)." : "Received! Logged to Sheet. Email will be enabled after SMTP setup.");
       } else if (result?.note === "email_failed_logged_to_sheet") {
-        setToast("We received your message (logged to Sheet). Email send failed.");
+        setToast(intent === "about_feedback" ? "Feedback received (logged)." : "We received your message (logged to Sheet). Email send failed.");
       } else if (result?.note === "sent_via_formspree") {
-        setToast("Sent successfully via Formspree. We'll reply within 24–48 hours.");
+        setToast(intent === "about_feedback" ? "Feedback received." : "Sent successfully via Formspree. We'll reply within 24–48 hours.");
       } else {
-        setToast("Thanks! We usually reply within 24–48 hours.");
+        setToast(intent === "about_feedback" ? "Thanks! Feedback received." : "Thanks! We usually reply within 24–48 hours.");
       }
       form.reset();
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -233,6 +239,7 @@ export default function ContactForm() {
           onInput={onAnyInput}
           onFocusCapture={onAnyInput}
         >
+          <input type="hidden" name="_intent" value={intent} />
           <div>
             <input
               type="text"
@@ -257,18 +264,20 @@ export default function ContactForm() {
             />
             {fieldErrors.email && <p id="email-error" className="mt-1 text-xs text-red-400">{fieldErrors.email}</p>}
           </div>
-          <div>
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Your Phone Number (optional)"
-              pattern="^\+?[0-9\-()\s]{7,20}$"
-              aria-invalid={!!fieldErrors.phone}
-              aria-describedby={fieldErrors.phone ? "phone-error" : undefined}
-              className="w-full rounded-lg border border-white/10 bg-[#111214] px-4 py-3 text-sm text-white/90 placeholder-white/40 outline-none ring-brand/30 focus:ring-2 shadow-inner/5"
-            />
-            {fieldErrors.phone && <p id="phone-error" className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>}
-          </div>
+          {includePhone ? (
+            <div>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Your Phone Number (optional)"
+                pattern="^\+?[0-9\-()\s]{7,20}$"
+                aria-invalid={!!fieldErrors.phone}
+                aria-describedby={fieldErrors.phone ? "phone-error" : undefined}
+                className="w-full rounded-lg border border-white/10 bg-[#111214] px-4 py-3 text-sm text-white/90 placeholder-white/40 outline-none ring-brand/30 focus:ring-2 shadow-inner/5"
+              />
+              {fieldErrors.phone && <p id="phone-error" className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>}
+            </div>
+          ) : null}
           <div>
             <textarea
               name="message"
@@ -305,7 +314,7 @@ export default function ContactForm() {
                 ? "Sending..."
                 : cooldown > 0
                 ? `Wait ${cooldown}s`
-                : "Send Message"}
+                : submitLabel}
               <Send size={16} />
             </span>
             {/* sheen */}
