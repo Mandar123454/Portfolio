@@ -18,16 +18,34 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  authors: [{ name: "Mandar Kajbaje" }],
+  creator: "Mandar Kajbaje",
+  keywords: [
+    "Mandar Kajbaje",
+    "Portfolio",
+    "Cybersecurity",
+    "Full Stack",
+    "AI",
+    "Machine Learning",
+    "Next.js",
+    "TypeScript",
+  ],
   openGraph: {
     title: "Mandar Kajbaje — Portfolio",
     description: "Full‑Spectrum Technologist & Certified Builder.",
     url: siteUrl,
     siteName: "Mandar Kajbaje",
     images: [
-      { url: "/og.png", width: 1200, height: 630, alt: "Mandar Kajbaje" }
+      { url: "/Logo.png", alt: "Mandar Kajbaje" }
     ],
     locale: "en_US",
     type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mandar Kajbaje — Portfolio",
+    description: "Full‑Spectrum Technologist & Certified Builder.",
+    images: ["/Logo.png"],
   },
   icons: {
     icon: [
