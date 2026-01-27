@@ -19,9 +19,18 @@ export default function AboutPage() {
     <main className="container py-10 md:py-14">
       {/* HEADER (LOCKED) */}
       <header className="mx-auto max-w-3xl text-center">
-        <div className="mx-auto relative h-20 w-20 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-sm">
-          <Image src="/Logo.png" alt="MK logo" fill sizes="80px" className="object-contain p-2" priority />
+        <div
+          className={
+            "mx-auto relative overflow-hidden rounded-2xl " +
+            "h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 " +
+            "bg-white/95 border border-black/10 ring-1 ring-white/20 " +
+            "shadow-[0_14px_40px_rgba(0,0,0,0.45)]"
+          }
+        >
+          <Image src="/Logo.png" alt="MK logo" fill sizes="128px" className="object-contain p-3" priority />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.10),transparent_60%)]" />
         </div>
+        
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">About</h1>
         <p className="mt-3 text-sm text-white/75 md:text-base">
           “A quick look at my work, my toolkit, and how this portfolio is built.”
@@ -105,7 +114,7 @@ export default function AboutPage() {
               <h3 className="text-lg font-semibold text-white">Send feedback</h3>
               <p className="mt-2 text-sm text-white/70">Short notes are welcome. If it’s a bug, tell me what you saw.</p>
               <div className="mt-5">
-                <ContactForm includePhone={false} intent="about_feedback" submitLabel="Send Feedback" scrollToTopOnSuccess={false} />
+                <ContactForm includePhone={false} intent="about_feedback" submitLabel="Send Feedback" />
               </div>
             </div>
 
