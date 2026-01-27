@@ -22,13 +22,13 @@ export default function AboutPage() {
         <div
           className={
             "mx-auto relative overflow-hidden rounded-2xl " +
-            "h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 " +
-            "bg-white/95 border border-black/10 ring-1 ring-white/20 " +
-            "shadow-[0_14px_40px_rgba(0,0,0,0.45)]"
+            "h-28 w-28 sm:h-32 sm:w-32 md:h-36 md:w-36 " +
+            "bg-black/40 border border-white/10 ring-1 ring-white/15 " +
+            "shadow-[0_14px_40px_rgba(0,0,0,0.55)]"
           }
         >
-          <Image src="/Logo.png" alt="MK logo" fill sizes="128px" className="object-contain p-3" priority />
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.10),transparent_60%)]" />
+          <Image src="/Logo.png" alt="MK logo" fill sizes="144px" className="object-cover" priority />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.16),transparent_60%)]" />
         </div>
         
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">About</h1>
