@@ -10,9 +10,15 @@ type ContactFormProps = {
   includePhone?: boolean;
   intent?: string;
   submitLabel?: string;
+  scrollToTopOnSuccess?: boolean;
 };
 
-export default function ContactForm({ includePhone = true, intent = "contact", submitLabel = "Send Message" }: ContactFormProps) {
+export default function ContactForm({
+  includePhone = true,
+  intent = "contact",
+  submitLabel = "Send Message",
+  scrollToTopOnSuccess = true,
+}: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Errors>({});
@@ -107,7 +113,7 @@ export default function ContactForm({ includePhone = true, intent = "contact", s
     const data = new FormData(form);
     if ((data.get("_gotcha") as string)?.length) {
       setStatus("success");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (scrollToTopOnSuccess) window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
@@ -141,7 +147,7 @@ export default function ContactForm({ includePhone = true, intent = "contact", s
         setToast(intent === "about_feedback" ? "Thanks! Feedback received." : "Thanks! We usually reply within 24–48 hours.");
       }
       form.reset();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (scrollToTopOnSuccess) window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err: any) {
       persistPending(data);
       setStatus("error");

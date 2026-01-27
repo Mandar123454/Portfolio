@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import ContactForm from "@/components/contact-form";
 
@@ -20,8 +19,8 @@ export default function AboutPage() {
     <main className="container py-10 md:py-14">
       {/* HEADER (LOCKED) */}
       <header className="mx-auto max-w-3xl text-center">
-        <div className="mx-auto relative h-12 w-12 overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-sm">
-          <Image src="/Logo.png" alt="MK logo" fill sizes="48px" className="object-contain p-1" priority />
+        <div className="mx-auto relative h-20 w-20 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-sm">
+          <Image src="/Logo.png" alt="MK logo" fill sizes="80px" className="object-contain p-2" priority />
         </div>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">About</h1>
         <p className="mt-3 text-sm text-white/75 md:text-base">
@@ -63,43 +62,34 @@ export default function AboutPage() {
         <div className="mx-auto max-w-6xl">
           <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">About this portfolio</h2>
 
-          <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-6 md:p-7">
-            <div className="space-y-2 text-sm text-white/80">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="font-semibold text-white">MK Portfolio — Mandar Kajbaje</p>
-                <p className="text-xs text-white/55">VLC-style info</p>
-              </div>
-              <p>
-                <span className="text-white/60">Version:</span> v1.0.0
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-7">
+              <h3 className="text-lg font-semibold text-white">Built for trust</h3>
+              <p className="mt-2 text-sm text-white/75">
+                This portfolio is engineered to be fast, verifiable, and production-ready — so reviewers can validate outcomes without guessing.
               </p>
-              <p>
-                <span className="text-white/60">Last Updated:</span> Jan 2026
-              </p>
-              <p>
-                <span className="text-white/60">Built for:</span> Desktop + Mobile + Touch friendly
-              </p>
-              <p>
-                <span className="text-white/60">Design goal:</span> Evidence-first + production-ready
-              </p>
+              <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-white/75">
+                <li>Mobile-first layout + touch-friendly components</li>
+                <li>Proof-first modals for PDFs/images</li>
+                <li>Spam-protected contact pipeline (honeypot + rate limit + fallbacks)</li>
+                <li>SEO basics: sitemap, robots, canonicals</li>
+                <li>Consent-gated analytics</li>
+              </ul>
+            </div>
 
-              <details className="group mt-4 rounded-xl border border-white/10 bg-black/25 p-4">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-white outline-none">
-                  Libraries / Tech Stack
-                </summary>
-                <div className="mt-3 space-y-2 text-sm text-white/75">
-                  <ul className="list-disc space-y-1 pl-5">
-                    <li>Next.js 14 (App Router)</li>
-                    <li>TypeScript</li>
-                    <li>Tailwind CSS</li>
-                    <li>Framer Motion</li>
-                    <li>Nodemailer + Brevo</li>
-                    <li>Consent-gated GA4</li>
-                    <li>Sitemap + robots + canonicals</li>
-                    <li>Next.js API route + rate limiting + honeypot</li>
-                    <li>PDF/image proof viewer (Lightviewer modals)</li>
-                  </ul>
-                </div>
-              </details>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-7">
+              <h3 className="text-lg font-semibold text-white">Libraries used</h3>
+              <p className="mt-2 text-sm text-white/70">Core stack used in this repo:</p>
+              <div className="mt-4 grid gap-2 text-sm text-white/80 sm:grid-cols-2">
+                <div className="rounded-xl border border-white/10 bg-black/25 p-3">Next.js (App Router)</div>
+                <div className="rounded-xl border border-white/10 bg-black/25 p-3">React 18</div>
+                <div className="rounded-xl border border-white/10 bg-black/25 p-3">TypeScript</div>
+                <div className="rounded-xl border border-white/10 bg-black/25 p-3">Tailwind CSS</div>
+                <div className="rounded-xl border border-white/10 bg-black/25 p-3">Framer Motion (light)</div>
+                <div className="rounded-xl border border-white/10 bg-black/25 p-3">Lucide Icons</div>
+                <div className="rounded-xl border border-white/10 bg-black/25 p-3">Nodemailer (SMTP)</div>
+                <div className="rounded-xl border border-white/10 bg-black/25 p-3">Lenis (smooth scroll)</div>
+              </div>
             </div>
           </div>
         </div>
@@ -115,7 +105,7 @@ export default function AboutPage() {
               <h3 className="text-lg font-semibold text-white">Send feedback</h3>
               <p className="mt-2 text-sm text-white/70">Short notes are welcome. If it’s a bug, tell me what you saw.</p>
               <div className="mt-5">
-                <ContactForm includePhone={false} intent="about_feedback" submitLabel="Send Feedback" />
+                <ContactForm includePhone={false} intent="about_feedback" submitLabel="Send Feedback" scrollToTopOnSuccess={false} />
               </div>
             </div>
 
@@ -132,26 +122,6 @@ export default function AboutPage() {
           <p className="text-sm text-white/75">
             This portfolio is built to make verification easy: real outcomes, clear proof, and fast navigation — on mobile or desktop.
           </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Link
-              href="/projects"
-              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/90 hover:bg-white/10"
-            >
-              View projects
-            </Link>
-            <Link
-              href="/experience"
-              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/90 hover:bg-white/10"
-            >
-              View experience
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-brand/80 to-fuchsia-500/60 px-3 py-1.5 text-xs font-semibold text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
-            >
-              Contact
-            </Link>
-          </div>
         </div>
       </footer>
     </main>
