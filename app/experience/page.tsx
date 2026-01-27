@@ -234,7 +234,8 @@ export default function ExperiencePage() {
         { label: "Live Dashboard", href: "https://uidai-maharashtra-dashboard-cwcccngcfzbwcca2.centralindia-01.azurewebsites.net/" },
         { label: "GitHub Repo", href: "https://github.com/Mandar123454/UIDAI-Data-Hackathon" },
       ],
-      // proof: "/<uidai-submission-proof>.png", // add when you provide the submission screenshot
+      participationCertificate: "/UIDAI%20Proof.png",
+      certLabel: "Submission Proof",
     },
   ];
 

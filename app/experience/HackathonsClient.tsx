@@ -20,6 +20,8 @@ export type HackathonItem = {
   highlights: string[];
   rankProof?: string; // PNG/JPG (rank / participation screenshot)
   participationCertificate?: string; // PDF/PNG/JPG
+  rankLabel?: string;
+  certLabel?: string;
   links?: HackathonLink[];
 };
 
@@ -40,6 +42,8 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
           const canViewRank = Boolean(h.rankProof);
           const canViewCert = Boolean(h.participationCertificate);
           const hasLinks = Boolean(h.links && h.links.length > 0);
+          const rankLabel = h.rankLabel ?? "Rank Proof";
+          const certLabel = h.certLabel ?? "Participation Certificate";
           return (
             <motion.article
               key={h.slug}
@@ -71,10 +75,10 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
                         whileHover={{ y: -1, scale: 1.01 }}
                         whileTap={{ y: 0, scale: 0.995 }}
                         onClick={() => open(h.slug, "rank")}
-                        title="Open rank proof"
+                        title={`Open ${rankLabel.toLowerCase()}`}
                         className="inline-flex items-center rounded-md bg-gradient-to-r from-brand/80 to-fuchsia-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
                       >
-                        Rank Proof
+                        {rankLabel}
                       </motion.button>
                     ) : null}
 
@@ -84,10 +88,10 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
                         whileHover={{ y: -1, scale: 1.01 }}
                         whileTap={{ y: 0, scale: 0.995 }}
                         onClick={() => open(h.slug, "cert")}
-                        title="Open participation certificate"
+                        title={`Open ${certLabel.toLowerCase()}`}
                         className="inline-flex items-center rounded-md bg-gradient-to-r from-cyan-500/80 to-violet-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
                       >
-                        Participation Certificate
+                        {certLabel}
                       </motion.button>
                     ) : null}
                   </div>
@@ -167,6 +171,8 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
           organizer: h.organizer,
           rankProof: h.rankProof,
           participationCertificate: h.participationCertificate,
+          rankLabel: h.rankLabel,
+          certLabel: h.certLabel,
         }))}
       />
     </section>

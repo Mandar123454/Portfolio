@@ -12,6 +12,8 @@ export type HackathonProofItem = {
   organizer: string;
   rankProof?: string; // PNG/JPG
   participationCertificate?: string; // PDF or image
+  rankLabel?: string;
+  certLabel?: string;
 };
 
 export default function HackathonModal({ items }: { items: HackathonProofItem[] }) {
@@ -23,7 +25,7 @@ export default function HackathonModal({ items }: { items: HackathonProofItem[] 
   const [panel, setPanel] = useState<{ w: number; h: number } | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const doc = (params.get("doc") as "rank" | "cert" | null) ?? "cert";
-  const proofLabel = doc === "rank" ? "Rank Proof" : "Participation Certificate";
+  const proofLabel = doc === "rank" ? current?.rankLabel ?? "Rank Proof" : current?.certLabel ?? "Participation Certificate";
   const src = doc === "rank" ? current?.rankProof : current?.participationCertificate;
   const hasDoc = Boolean(src);
   const isPdf = useMemo(() => {
