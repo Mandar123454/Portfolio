@@ -1,8 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import ContactForm from "@/components/contact-form";
 
-import AiTransparencyNote from "@/app/about/AiTransparencyNote";
 import PortfolioRating from "@/app/about/PortfolioRating";
 import ProofGrid from "@/app/about/ProofGrid";
 import ToolkitSection from "@/app/about/ToolkitSection";
@@ -20,8 +20,8 @@ export default function AboutPage() {
     <main className="container py-10 md:py-14">
       {/* HEADER (LOCKED) */}
       <header className="mx-auto max-w-3xl text-center">
-        <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sm font-semibold text-white shadow-sm">
-          MK
+        <div className="mx-auto relative h-12 w-12 overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-sm">
+          <Image src="/Logo.png" alt="MK logo" fill sizes="48px" className="object-contain p-1" priority />
         </div>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">About</h1>
         <p className="mt-3 text-sm text-white/75 md:text-base">
@@ -31,46 +31,25 @@ export default function AboutPage() {
 
       {/* SECTION 1 — ABOUT ME */}
       <section className="mx-auto mt-10 max-w-6xl rounded-2xl border border-white/10 bg-white/5 p-5 md:mt-12 md:p-7">
-        <div className="grid gap-8 md:grid-cols-[320px_1fr]">
-          {/* Portrait */}
-          <div>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-[#0b0c10]">
-              <Image
-                src="/portrait-bw.jpg"
-                alt="Portrait"
-                fill
-                sizes="(max-width: 768px) 90vw, 320px"
-                className="object-cover grayscale"
-                priority={false}
-              />
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60" />
-            </div>
-            <p className="mt-2 text-xs text-white/55">
-              Drop a B&amp;W photo into public/portrait-bw.jpg and replace this placeholder.
+        <div className="max-w-4xl">
+          <h2 className="text-xl font-semibold tracking-tight text-white md:text-2xl">The story</h2>
+          <div className="mt-3 space-y-3 text-sm leading-relaxed text-white/80">
+            <p>
+              I’m Mandar — a final-year CS student who prefers building real systems over collecting buzzwords. I learn by shipping: security tools, ML models, and full-stack apps that turn ideas into outcomes.
             </p>
+            <p>
+              I’m obsessed with the intersection of security, data, and product — because in the real world, problems don’t stay in one domain.
+            </p>
+            <p>If you’re looking for someone who can investigate, reason, and ship — I’m that person.</p>
           </div>
 
-          {/* Story + Proof */}
-          <div className="min-w-0">
-            <h2 className="text-xl font-semibold tracking-tight text-white md:text-2xl">The story</h2>
-            <div className="mt-3 space-y-3 text-sm leading-relaxed text-white/80">
-              <p>
-                I’m Mandar — a final-year CS student who prefers building real systems over collecting buzzwords. I learn by shipping: security tools, ML models, and full-stack apps that turn ideas into outcomes.
-              </p>
-              <p>
-                I’m obsessed with the intersection of security, data, and product — because in the real world, problems don’t stay in one domain.
-              </p>
-              <p>If you’re looking for someone who can investigate, reason, and ship — I’m that person.</p>
+          <div className="mt-6">
+            <div className="flex items-center justify-between gap-4">
+              <h3 className="text-sm font-semibold text-white">Proof</h3>
+              <p className="text-xs text-white/55">Cold hard metrics</p>
             </div>
-
-            <div className="mt-6">
-              <div className="flex items-center justify-between gap-4">
-                <h3 className="text-sm font-semibold text-white">Proof</h3>
-                <p className="text-xs text-white/55">Cold hard metrics</p>
-              </div>
-              <div className="mt-3">
-                <ProofGrid />
-              </div>
+            <div className="mt-3">
+              <ProofGrid />
             </div>
           </div>
         </div>
@@ -147,40 +126,34 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 5 — FUN SIDE */}
-      <section className="mt-12 md:mt-16">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">Fun side</h2>
-
-          <div className="mt-5 grid gap-5 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-              <p className="text-sm font-semibold text-white">Online internships reason</p>
-              <p className="mt-2 text-sm text-white/75">
-                I completed internships online because my college schedule runs full day (9 to 6). That’s not an excuse — it’s the real constraint I learned to build around.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-              <p className="text-sm font-semibold text-white">Creative / marketing side</p>
-              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-white/75">
-                <li>T-shirt designing + selling (Redbubble/Teespring etc.)</li>
-                <li>Social media marketing work (Udemy learning)</li>
-                <li>Image/video editing + design tools practice</li>
-              </ul>
-              <p className="mt-4 text-sm text-white/70">
-                <span className="text-white/60">Past → Future:</span> Capstone → Predictive Modeling • NIDS → AI-NIDS
-              </p>
-            </div>
+      {/* ABOUT FOOTER */}
+      <footer className="mt-12 pb-2 md:mt-16 md:pb-4">
+        <div className="mx-auto max-w-6xl rounded-2xl border border-white/10 bg-black/25 p-5">
+          <p className="text-sm text-white/75">
+            This portfolio is built to make verification easy: real outcomes, clear proof, and fast navigation — on mobile or desktop.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              href="/projects"
+              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/90 hover:bg-white/10"
+            >
+              View projects
+            </Link>
+            <Link
+              href="/experience"
+              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/90 hover:bg-white/10"
+            >
+              View experience
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-brand/80 to-fuchsia-500/60 px-3 py-1.5 text-xs font-semibold text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
+            >
+              Contact
+            </Link>
           </div>
         </div>
-      </section>
-
-      {/* SECTION 6 — AI TRANSPARENCY NOTE */}
-      <section className="mt-12 pb-2 md:mt-16 md:pb-4">
-        <div className="mx-auto max-w-6xl">
-          <AiTransparencyNote />
-        </div>
-      </section>
+      </footer>
     </main>
   );
 }

@@ -44,7 +44,7 @@ A professional, fast, and evidence‑driven portfolio for Mandar Kajbaje. It sho
 	  - Deep-link via `/experience?hackathon=<slug>`
 - `/internships`: redirect alias to `/experience` (preserves query params)
 - `/contact`: SMTP‑backed form with validation and fallbacks
-- `/about`: cinematic about page (Framer Motion)
+- `/about`: clean, mobile-first About page (Framer Motion light)
 
 ## Architecture and technology
 - Next.js 14 (App Router), React 18, and TypeScript
@@ -137,6 +137,7 @@ For a concise checklist, see `remaining.md`.
 
 ## Recent updates
 - Simplified home hero to a clean testimonials section
+- About: rebuilt as a clean, mobile-first page (story + proof + toolkit + feedback)
 - Slimmer navbar pills; reduced vertical paddings across pages; removed header/footer divider lines
 - Improved lightviewer accessibility (role=dialog, focus, ESC/overlay close, scroll lock)
 - Lightviewer: added PDF support (iframe viewer on desktop + mobile fallback)
