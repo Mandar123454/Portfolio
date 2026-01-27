@@ -114,7 +114,12 @@ export default function AboutPage() {
               <h3 className="text-lg font-semibold text-white">Send feedback</h3>
               <p className="mt-2 text-sm text-white/70">Short notes are welcome. If it’s a bug, tell me what you saw.</p>
               <div className="mt-5">
-                <ContactForm includePhone={false} intent="about_feedback" submitLabel="Send Feedback" />
+                <ContactForm
+                  includePhone={false}
+                  intent="about_feedback"
+                  submitLabel="Send Feedback"
+                  scrollToTopOnSuccess={false}
+                />
               </div>
             </div>
 
