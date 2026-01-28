@@ -7,7 +7,7 @@ export default function HomePage() {
     { slug: "ceh-v13", title: "CEH v13 — Certified Ethical Hacker", image: "/ECC-CEH-Certificate.png" },
     { slug: "nsdc-ds", title: "NSDC Data Science", image: "/CAN_37240536_4824911%20(NSDC).png" },
     { slug: "web-design-sidh", title: "Web Design & Development", image: "/Web%20Design%20%26%20Development%20Certificate%20(SIDH).png" },
-    { slug: "fcc-csharp", title: "Foundational C# with Microsoft", image: "/C%23%20Microsoft%20%2B%20Freecodecamp.png" },
+    { slug: "fcc-csharp", title: "Foundational C# with Microsoft", image: "/csharp-microsoft-freecodecamp.png" },
   ];
   return (
     <main>

@@ -143,7 +143,7 @@ const OTHER: Item[] = [
     provider: "freeCodeCamp × Microsoft",
     Icon: Code2,
     slug: "fcc-csharp",
-    image: "/C%23%20Microsoft%20%2B%20Freecodecamp.png",
+    image: "/csharp-microsoft-freecodecamp.png",
     href: "https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft",
     issuedOn: "August 2025",
   },
