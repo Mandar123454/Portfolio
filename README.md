@@ -9,12 +9,16 @@
 </p>
 
 <p align="center">
+  <a href="https://mandarkajbaje-portfolio.netlify.app/"><img src="https://img.shields.io/badge/🌐_LIVE-mandarkajbaje--portfolio.netlify.app-7c3aed?style=for-the-badge" alt="Live Site" /></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/Mandar123454/Portfolio"><img src="https://img.shields.io/badge/Next.js-14-000?logo=nextdotjs&logoColor=white" alt="Next.js 14" /></a>
   <a href="#"><img src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white" alt="React 18" /></a>
   <a href="#"><img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Tailwind_CSS-3-0EA5E9?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Framer_Motion-11-FF0055?logo=framer&logoColor=white" alt="Framer Motion" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/Netlify-Ready-00C7B7?logo=netlify&logoColor=white" alt="Netlify Ready" /></a>
+  <a href="https://mandarkajbaje-portfolio.netlify.app/"><img src="https://img.shields.io/badge/Netlify-Live-00C7B7?logo=netlify&logoColor=white" alt="Netlify Live" /></a>
 </p>
 
 <p align="center">
@@ -200,7 +204,15 @@ public/             # Static assets, icons, certificates
 </p>
 
 <p align="center">
-  <a href="https://github.com/Mandar123454/Portfolio">⭐ Star this repo</a> · <a href="https://github.com/Mandar123454">Follow @Mandar123454</a>
+  <a href="https://mandarkajbaje-portfolio.netlify.app/">🌐 <b>View Live</b></a> · 
+  <a href="https://github.com/Mandar123454/Portfolio">⭐ Star this repo</a> · 
+  <a href="https://github.com/Mandar123454">Follow @Mandar123454</a>
+</p>
+
+<br/>
+
+<p align="center">
+  <sub>✨ Privacy-first analytics · 🍪 Consent-gated cookies · 🔐 GDPR-friendly</sub>
 </p>
 
 
