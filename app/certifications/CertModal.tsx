@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { X } from "lucide-react";
 
-type Item = { slug: string; title: string; image?: string };
+type Item = { slug: string; title: string; image?: string; thumb?: string };
 
 export default function CertModal({ items }: { items: Item[] }) {
   const router = useRouter();
@@ -17,6 +17,7 @@ export default function CertModal({ items }: { items: Item[] }) {
   const [panel, setPanel] = useState<{ w: number; h: number } | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const src = current?.image;
+  const thumb = current?.thumb; // Image fallback for mobile PDF viewing
   const hasDoc = Boolean(src);
   const isPdf = useMemo(() => {
     if (!src) return false;
@@ -49,8 +50,10 @@ export default function CertModal({ items }: { items: Item[] }) {
   }, [current]);
 
   // Compute a tight panel size around the image (max within viewport while preserving aspect ratio)
+  // Also compute for mobile PDF with thumb image
+  const displaySrc = (isMobile && isPdf && thumb) ? thumb : (!isPdf ? src : null);
   useEffect(() => {
-    if (!hasDoc || !src || isPdf) return;
+    if (!displaySrc) return;
     let isActive = true;
     const img = new window.Image();
     let recompute: (() => void) | null = null;
@@ -74,12 +77,12 @@ export default function CertModal({ items }: { items: Item[] }) {
       recompute();
       window.addEventListener("resize", recompute);
     };
-    img.src = src as string;
+    img.src = displaySrc as string;
     return () => {
       isActive = false;
       if (recompute) window.removeEventListener("resize", recompute);
     };
-  }, [src, hasDoc, isPdf]);
+  }, [displaySrc]);
 
   if (!current) return null;
 
@@ -146,34 +149,49 @@ export default function CertModal({ items }: { items: Item[] }) {
             {hasDoc ? (
               isPdf ? (
                 isMobile ? (
-                  <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center">
-                    <div className="max-w-md">
-                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10">
-                        <svg className="h-8 w-8 text-red-400" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/>
-                        </svg>
-                      </div>
-                      <p className="text-base font-semibold text-white">{current.title}</p>
-                      <p className="mt-2 text-sm text-white/70">PDF documents open best in a new tab on mobile devices.</p>
-                      <div className="mt-6 flex items-center justify-center gap-3">
-                        <a
-                          href={src as string}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand/30 hover:bg-brand/90 transition"
-                        >
-                          Open PDF
-                        </a>
-                        <a
-                          href={src as string}
-                          download
-                          className="inline-flex items-center rounded-full bg-white/10 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15 transition"
-                        >
-                          Download
-                        </a>
+                  /* Mobile: Show thumb image in lightviewer if available, otherwise fallback */
+                  thumb ? (
+                    <div className="relative h-full w-full overflow-auto touch-pan-x touch-pan-y touch-pinch-zoom">
+                      <Image 
+                        src={thumb} 
+                        alt={current.title} 
+                        fill 
+                        className="rounded-[1rem] object-contain" 
+                        priority 
+                        sizes="(max-width: 768px) 96vw, 1200px"
+                        unoptimized={thumb.includes('%20') || thumb.includes(' ')}
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center">
+                      <div className="max-w-md">
+                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10">
+                          <svg className="h-8 w-8 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/>
+                          </svg>
+                        </div>
+                        <p className="text-base font-semibold text-white">{current.title}</p>
+                        <p className="mt-2 text-sm text-white/70">PDF documents open best in a new tab on mobile devices.</p>
+                        <div className="mt-6 flex items-center justify-center gap-3">
+                          <a
+                            href={src as string}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand/30 hover:bg-brand/90 transition"
+                          >
+                            Open PDF
+                          </a>
+                          <a
+                            href={src as string}
+                            download
+                            className="inline-flex items-center rounded-full bg-white/10 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/15 transition"
+                          >
+                            Download
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )
                 ) : (
                   <iframe
                     src={src as string}

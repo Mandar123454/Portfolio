@@ -193,7 +193,7 @@ function StatChip({
 export default function CertificationsPage() {
   const VIEWABLE = [...CYBERSECURITY, ...DATA_SCIENCE, ...OTHER]
     .filter((i) => i.slug && i.image)
-    .map((i) => ({ slug: i.slug as string, image: i.image, title: i.title }));
+    .map((i) => ({ slug: i.slug as string, image: i.image, title: i.title, thumb: i.thumb }));
   const cyberCount = CYBERSECURITY.length;
   const dataCount = DATA_SCIENCE.length;
   const otherCount = OTHER.length;
