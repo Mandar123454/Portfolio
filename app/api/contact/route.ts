@@ -130,31 +130,57 @@ export async function POST(req: NextRequest) {
       }
 
       if (emailEnabled) {
-        try {
-          const host = smtpHost as string;
-          const port = Number(smtpPort);
-          const user = smtpUser as string;
-          const pass = smtpPass as string;
-          const to = mailTo as string;
-          const from = ((process.env.CONTACT_FROM_EMAIL || user) as string).trim();
+        const host = smtpHost as string;
+        const port = Number(smtpPort);
+        const user = smtpUser as string;
+        const pass = smtpPass as string;
+        const to = mailTo as string;
+        const from = ((process.env.CONTACT_FROM_EMAIL || user) as string).trim();
 
-          const transporter = nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
-          const subject = `Portfolio rating: ${rating}/5`;
-          const text = `Rating: ${rating}/5\nPage: ${page || "unknown"}\nIP: ${ip}`;
-          const html = `
-            <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial">
-              <h2 style="margin:0 0 8px;color:#111">Portfolio rating</h2>
-              <p><strong>Rating:</strong> ${rating}/5</p>
-              <p><strong>Page:</strong> ${page || "unknown"}</p>
-              <p><strong>IP:</strong> ${ip}</p>
-            </div>
-          `;
-          await transporter.sendMail({ from, to, subject, text, html });
+        const subject = `Portfolio rating: ${rating}/5`;
+        const text = `Rating: ${rating}/5\nPage: ${page || "unknown"}\nIP: ${ip}`;
+        const html = `
+          <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial">
+            <h2 style="margin:0 0 8px;color:#111">Portfolio rating</h2>
+            <p><strong>Rating:</strong> ${rating}/5</p>
+            <p><strong>Page:</strong> ${page || "unknown"}</p>
+            <p><strong>IP:</strong> ${ip}</p>
+          </div>
+        `;
 
+        // SMTP with retry logic (2 attempts with 1s delay)
+        async function sendRatingEmailWithRetry(maxAttempts = 2): Promise<boolean> {
+          for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+            try {
+              const transporter = nodemailer.createTransport({
+                host,
+                port,
+                secure: port === 465,
+                auth: { user, pass },
+                connectionTimeout: 10000,
+                greetingTimeout: 10000,
+                socketTimeout: 15000,
+              });
+              await transporter.sendMail({ from, to, subject, text, html });
+              return true;
+            } catch (err) {
+              console.error(`Rating SMTP attempt ${attempt}/${maxAttempts} failed:`, err);
+              if (attempt < maxAttempts) {
+                await new Promise((r) => setTimeout(r, 1000));
+              }
+            }
+          }
+          return false;
+        }
+
+        const emailSent = await sendRatingEmailWithRetry(2);
+
+        if (emailSent) {
           if (webhook) fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).catch(() => {});
           postFormspreeAwait(payload).catch(() => {});
           return new Response(JSON.stringify({ ok: true }), { status: 200 });
-        } catch {
+        } else {
+          console.error("Rating SMTP failed after retries, trying webhook fallback");
           if (webhook) {
             const logged = await postWebhookAwait(webhook, payload);
             if (logged) return new Response(JSON.stringify({ ok: true, note: "email_failed_logged_to_sheet" }), { status: 200 });
@@ -241,36 +267,62 @@ export async function POST(req: NextRequest) {
     }
 
     if (emailEnabled) {
-      try {
-  const host = smtpHost as string;
-  const port = Number(smtpPort);
-  const user = smtpUser as string;
-  const pass = smtpPass as string;
-  const to = mailTo as string;
-  const from = ((process.env.CONTACT_FROM_EMAIL || user) as string).trim();
+      const host = smtpHost as string;
+      const port = Number(smtpPort);
+      const user = smtpUser as string;
+      const pass = smtpPass as string;
+      const to = mailTo as string;
+      const from = ((process.env.CONTACT_FROM_EMAIL || user) as string).trim();
 
-        const transporter = nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
-        const subject = intent === "about_feedback" ? `Portfolio feedback from ${name}` : `New portfolio contact from ${name}`;
-        const text = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
-        const html = `
-          <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial">
-            <h2 style="margin:0 0 8px;color:#111">${intent === "about_feedback" ? "Portfolio feedback" : "New portfolio contact"}</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
-            <hr style="border:none;height:1px;background:#eee;margin:16px 0" />
-            <p style="white-space:pre-wrap">${message}</p>
-          </div>
-        `;
-        await transporter.sendMail({ from, to, replyTo: email, subject, text, html });
+      const subject = intent === "about_feedback" ? `Portfolio feedback from ${name}` : `New portfolio contact from ${name}`;
+      const text = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
+      const html = `
+        <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial">
+          <h2 style="margin:0 0 8px;color:#111">${intent === "about_feedback" ? "Portfolio feedback" : "New portfolio contact"}</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
+          <hr style="border:none;height:1px;background:#eee;margin:16px 0" />
+          <p style="white-space:pre-wrap">${message}</p>
+        </div>
+      `;
 
-        // fire-and-forget webhook (optional)
+      // SMTP with retry logic (2 attempts with 1s delay)
+      async function sendEmailWithRetry(maxAttempts = 2): Promise<boolean> {
+        for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+          try {
+            const transporter = nodemailer.createTransport({
+              host,
+              port,
+              secure: port === 465,
+              auth: { user, pass },
+              connectionTimeout: 10000, // 10s connection timeout
+              greetingTimeout: 10000,   // 10s greeting timeout
+              socketTimeout: 15000,     // 15s socket timeout
+            });
+            await transporter.sendMail({ from, to, replyTo: email, subject, text, html });
+            return true; // Success!
+          } catch (err) {
+            console.error(`SMTP attempt ${attempt}/${maxAttempts} failed:`, err);
+            if (attempt < maxAttempts) {
+              // Wait 1 second before retry
+              await new Promise((r) => setTimeout(r, 1000));
+            }
+          }
+        }
+        return false; // All attempts failed
+      }
+
+      const emailSent = await sendEmailWithRetry(2);
+
+      if (emailSent) {
+        // Email succeeded - also log to webhook in background
         if (webhook) fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).catch(() => {});
-        // fire-and-forget Formspree forwarding (optional)
         postFormspreeAwait(payload).catch(() => {});
         return new Response(JSON.stringify({ ok: true }), { status: 200 });
-      } catch (err) {
-        // email failed — try webhook as backup
+      } else {
+        // Email failed after retries — try webhook as backup
+        console.error("SMTP failed after retries, trying webhook fallback");
         if (webhook) {
           const logged = await postWebhookAwait(webhook, payload);
           if (logged) return new Response(JSON.stringify({ ok: true, note: "email_failed_logged_to_sheet" }), { status: 200 });
