@@ -64,11 +64,35 @@ const TOOLKIT: ToolkitGroup[] = [
 
 function FlipCard({ front, back }: { front: string; back: string }) {
   const reduce = useReducedMotion();
+  const [flipped, setFlipped] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    // Detect touch device
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const handleClick = () => {
+    if (isMobile) {
+      setFlipped((prev) => !prev);
+    }
+  };
+
   return (
-    <button type="button" className="relative h-[92px] w-full [perspective:900px]">
+    <button 
+      type="button" 
+      className="relative h-[92px] w-full [perspective:900px]"
+      onClick={handleClick}
+    >
       <motion.div
-        whileHover={reduce ? undefined : { rotateY: 180 }}
-        whileTap={reduce ? undefined : { scale: 0.99 }}
+        animate={isMobile ? { rotateY: flipped ? 180 : 0 } : undefined}
+        whileHover={!isMobile && !reduce ? { rotateY: 180 } : undefined}
+        whileTap={reduce ? undefined : { scale: 0.98 }}
         transition={{ type: "spring", stiffness: 220, damping: 22 }}
         className={cn(
           "relative h-full w-full rounded-xl",

@@ -119,9 +119,14 @@ export default function VideoModal({ items }: { items: DemoItem[] }) {
                 src={embedSrc}
                 title={current.title}
                 className="h-full w-full rounded-[1rem]"
-                allow="autoplay; fullscreen; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
+                // Mobile fullscreen requires webkit attribute
+                // @ts-ignore - webkit specific attribute for iOS
+                webkitallowfullscreen="true"
+                // @ts-ignore - mozilla specific attribute
+                mozallowfullscreen="true"
               />
             ) : hasPoster ? (
               <img src={current.poster} alt={current.title} className="h-full w-full rounded-[1rem] object-contain bg-black/60" />
