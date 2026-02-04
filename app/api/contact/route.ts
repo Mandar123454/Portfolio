@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 // Basic in-memory rate limit (per instance)
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
-const RATE_LIMIT_MAX = 5; // per IP per window
+const RATE_LIMIT_MAX = 10; // per IP per window (increased for testing, still protects against spam)
 const recentByIp = new Map<string, number[]>();
 
 function rateLimit(ip: string): { ok: true } | { ok: false; retryAfter: number } {
