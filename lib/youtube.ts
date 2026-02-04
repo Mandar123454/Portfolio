@@ -27,8 +27,9 @@ export function getYoutubePoster(videoId: string): string {
 }
 
 export function getYoutubeEmbed(videoId: string): string {
-  // fs=1 enables fullscreen button, playsinline=1 for mobile inline play before fullscreen
-  return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&fs=1`;
+  // fs=1 enables fullscreen, vq=hd1440 requests 1440p60 HD quality (premium feel)
+  // playsinline=1 for mobile inline play before fullscreen
+  return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&fs=1&vq=hd1440`;
 }
 
 export function getYoutubePosterBySlug(slug: string): string | undefined {
