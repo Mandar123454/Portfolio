@@ -81,7 +81,7 @@ const EXPERIENCE: ExperienceItem[] = [
     mode: "Remote",
     dates: "Sep 24, 2025 – Nov 24, 2025",
     certImage: "/pdf_certificates/NullClass-Data-Science-Internship-Certificate.pdf",
-    certThumb: "/NullClass%20Internship%20Certificate.png",
+    certThumb: "/NullClass%20Data%20Science%20Internship.png",
     lorImage: "/pdf_certificates/NullClass-Data%20Science-LOR-Letter.pdf",
     lorThumb: "/NullClass-Data%20Science-LOR-Letter.png",
     expImage: "/pdf_certificates/NullClass-Data%20Science-Experience-Letter.pdf",
@@ -106,7 +106,7 @@ const EXPERIENCE: ExperienceItem[] = [
     certImage: "/pdf_certificates/CodeAlpha-Internship%20Certificate.pdf",
     certThumb: "/CodeAlpha%20Internship%20Certificate.png",
     lorImage: "/pdf_certificates/CodeAlpha-LOR%20Certificate.pdf",
-    lorThumb: "/CodeAlpha%20Internship%20Certificate.png",
+    lorThumb: "/CodeAlpha%20LOR.png",
     stack: [
       "Python",
       "Scapy",
