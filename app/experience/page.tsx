@@ -19,8 +19,11 @@ type ExperienceItem = {
   highlights: string[];
   link?: string;
   certImage?: string;
+  certThumb?: string; // Image fallback for mobile PDF viewing
   lorImage?: string;
+  lorThumb?: string;  // Image fallback for mobile PDF viewing
   expImage?: string;
+  expThumb?: string;  // Image fallback for mobile PDF viewing
 };
 
 const EXPERIENCE: ExperienceItem[] = [
@@ -30,8 +33,11 @@ const EXPERIENCE: ExperienceItem[] = [
     mode: "Remote",
     dates: "Jul 2025 – Sep 2025",
     certImage: "/pdf_certificates/NullClass-Cybersecurity-Internship-Certificate.pdf",
+    certThumb: "/NullClass%20Internship%20Certificate.png",
     lorImage: "/pdf_certificates/NullClass-Cybersecurity-LOR-Letter.pdf",
+    lorThumb: "/NullClass%20LOR%20Certificate.png",
     expImage: "/pdf_certificates/NullClass-Cybersecurity-Experience-Letter.pdf",
+    expThumb: "/NullClass%20CyberSecurity%20Experience%20Letter.png",
     stack: [
       "Kali Linux",
       "Nmap",
@@ -54,7 +60,9 @@ const EXPERIENCE: ExperienceItem[] = [
     mode: "Remote",
     dates: "Aug 2025 – Oct 2025",
     certImage: "/pdf_certificates/Internship%20Certificate.pdf",
+    certThumb: "/MERN%20Internship%20Certificate.png",
     lorImage: "/pdf_certificates/Main%20Flow-MERN%20Stack%20LOR%20Certificate.pdf",
+    lorThumb: "/Main%20Flow-MERN%20Stack%20LOR%20Certificate.png",
     stack: ["MongoDB", "Express.js", "React.js", "Node.js", "JavaScript", "HTML", "CSS"],
     highlights: [
       "Completed six key projects demonstrating end-to-end MERN stack development skills.",
@@ -73,8 +81,11 @@ const EXPERIENCE: ExperienceItem[] = [
     mode: "Remote",
     dates: "Sep 24, 2025 – Nov 24, 2025",
     certImage: "/pdf_certificates/NullClass-Data-Science-Internship-Certificate.pdf",
+    certThumb: "/NullClass%20Internship%20Certificate.png",
     lorImage: "/pdf_certificates/NullClass-Data%20Science-LOR-Letter.pdf",
+    lorThumb: "/NullClass-Data%20Science-LOR-Letter.png",
     expImage: "/pdf_certificates/NullClass-Data%20Science-Experience-Letter.pdf",
+    expThumb: "/NullClass%20Data%20Science%20Experience%20Letter.png",
     stack: ["Python", "OpenCV", "TensorFlow", "Keras", "Pandas", "NumPy", "Matplotlib"],
     highlights: [
       "Developed six real-time machine learning models including Attendance, Animal, Drowsiness, Nationality, Sign Language, and Car Color Detection systems.",
@@ -93,7 +104,9 @@ const EXPERIENCE: ExperienceItem[] = [
     mode: "Remote",
     dates: "Dec 2025 (1 month)",
     certImage: "/pdf_certificates/CodeAlpha-Internship%20Certificate.pdf",
+    certThumb: "/CodeAlpha%20Internship%20Certificate.png",
     lorImage: "/pdf_certificates/CodeAlpha-LOR%20Certificate.pdf",
+    lorThumb: "/CodeAlpha%20Internship%20Certificate.png",
     stack: [
       "Python",
       "Scapy",
@@ -202,6 +215,7 @@ export default function ExperiencePage() {
       ],
       rankProof: "/CTF.png",
       participationCertificate: "/pdf_certificates/Capture The Flag(CTF) — Rank 113 of 3,235.pdf",
+      certThumb: "/CTF%20August%20Certificate.png",
     },
     {
       title: "UIDAI Data Hackathon",

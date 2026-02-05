@@ -5,14 +5,38 @@ export default function Footer() {
     <footer className="mt-6 border-t border-white/10 py-6">
       <div className="container flex flex-col items-center gap-4">
         <div className="flex items-center gap-6">
-          <Link href="/" aria-label="Portfolio">
-            <img src="/icons/portfolio.svg" alt="MK Portfolio" className="h-7 w-7" />
+          <Link href="/" aria-label="Portfolio" className="group">
+            <img 
+              src="/icons/portfolio.svg" 
+              alt="MK Portfolio" 
+              className="h-7 w-7 brightness-125 saturate-150 drop-shadow-[0_0_6px_rgba(99,102,241,0.6)] transition-all duration-200 group-hover:brightness-150 group-hover:drop-shadow-[0_0_10px_rgba(99,102,241,0.8)]" 
+            />
           </Link>
-          <a href="https://www.linkedin.com/in/mandar-kajbaje" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <img src="/icons/linkedin.svg" alt="LinkedIn" className="h-6 w-6" />
+          <a 
+            href="https://www.linkedin.com/in/mandar-kajbaje" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            aria-label="LinkedIn"
+            className="group"
+          >
+            <img 
+              src="/icons/linkedin.svg" 
+              alt="LinkedIn" 
+              className="h-6 w-6 brightness-150 saturate-150 drop-shadow-[0_0_6px_rgba(59,130,246,0.6)] transition-all duration-200 group-hover:brightness-200 group-hover:drop-shadow-[0_0_10px_rgba(59,130,246,0.9)]" 
+            />
           </a>
-          <a href="https://github.com/Mandar123454" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <img src="/icons/github.svg" alt="GitHub" className="h-6 w-6" />
+          <a 
+            href="https://github.com/Mandar123454" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            aria-label="GitHub"
+            className="group"
+          >
+            <img 
+              src="/icons/github.svg" 
+              alt="GitHub" 
+              className="h-6 w-6 brightness-200 invert drop-shadow-[0_0_6px_rgba(255,255,255,0.5)] transition-all duration-200 group-hover:brightness-[2.5] group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.7)]" 
+            />
           </a>
         </div>
 

@@ -20,6 +20,7 @@ export type HackathonItem = {
   highlights: string[];
   rankProof?: string; // PNG/JPG (rank / participation screenshot)
   participationCertificate?: string; // PDF/PNG/JPG
+  certThumb?: string; // Image fallback for mobile PDF viewing (participation cert)
   rankLabel?: string;
   certLabel?: string;
   links?: HackathonLink[];
@@ -171,6 +172,7 @@ export default function HackathonsClient({ items }: { items: HackathonItem[] }) 
           organizer: h.organizer,
           rankProof: h.rankProof,
           participationCertificate: h.participationCertificate,
+          certThumb: h.certThumb,
           rankLabel: h.rankLabel,
           certLabel: h.certLabel,
         }))}

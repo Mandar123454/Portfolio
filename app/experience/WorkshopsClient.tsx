@@ -103,6 +103,7 @@ export default function WorkshopsClient({ items }: { items: WorkshopItem[] }) {
           title: w.title,
           provider: w.provider,
           image: w.image,
+          thumb: w.thumb,
         }))}
       />
     </section>

@@ -14,8 +14,11 @@ export type InternshipItem = {
   highlights: string[];
   link?: string;
   certImage?: string;
+  certThumb?: string; // Image fallback for mobile PDF viewing
   lorImage?: string;
+  lorThumb?: string;  // Image fallback for mobile PDF viewing
   expImage?: string;
+  expThumb?: string;  // Image fallback for mobile PDF viewing
 };
 
 export default function SectionsClient({ internships }: { internships: InternshipItem[] }) {
@@ -125,8 +128,11 @@ export default function SectionsClient({ internships }: { internships: Internshi
           slug: toSlug(it),
           title: `${it.role} • ${it.company}`,
           certImage: it.certImage,
+          certThumb: it.certThumb,
           lorImage: it.lorImage,
+          lorThumb: it.lorThumb,
           expImage: it.expImage,
+          expThumb: it.expThumb,
         }))}
       />
     </>
