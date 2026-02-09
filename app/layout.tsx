@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 // Removed header top progress and Suspense fallback to keep only first-load overlay
@@ -55,6 +55,11 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.svg", type: "image/svg+xml" },
     ],
   }
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

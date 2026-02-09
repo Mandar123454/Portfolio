@@ -53,13 +53,13 @@ export default function InternModal({ items }: { items: InternDocItem[] }) {
     return normalized.endsWith(".pdf");
   }, [active.src]);
 
-  // Detect mobile via touch capability + screen size (works even with "desktop mode" enabled)
+  // Detect mobile via touch capability + physical screen size
+  // Since viewport is forced to 1280px, we use screen.width (physical) not innerWidth
   useEffect(() => {
     const checkMobile = () => {
       const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      const isSmallScreen = window.innerWidth < 1024;
-      // Mobile if has touch AND small screen (catches tablets too)
-      setIsMobile(hasTouchScreen && isSmallScreen);
+      const isSmallPhysical = window.screen.width < 1024 || window.screen.height < 1024;
+      setIsMobile(hasTouchScreen && isSmallPhysical);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -166,7 +166,7 @@ export default function InternModal({ items }: { items: InternDocItem[] }) {
             {current.title}{titleSuffix}
           </h3>
           <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-            {hasDoc && (
+            {hasDoc && !isMobile && (
               <>
                 <a
                   href={active.src as string}
@@ -234,7 +234,7 @@ export default function InternModal({ items }: { items: InternDocItem[] }) {
                         </svg>
                       </div>
                       <p className="text-base font-semibold text-white">{current.title}</p>
-                      <p className="mt-2 text-sm text-white/70">Use the buttons above to open or download this PDF.</p>
+                      <p className="mt-2 text-sm text-white/70">Certificate preview — view on desktop for full PDF viewer.</p>
                     </div>
                   </div>
                 ) : (

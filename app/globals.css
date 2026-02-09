@@ -21,6 +21,16 @@ body {
   @apply mx-auto max-w-6xl px-4;
 }
 
+/* Hide scrollbars but keep scroll (used for mobile pill-nav) */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
 /* Premium callout wrapper (used on Experience intro, etc.) */
 .aura {
   position: relative;
