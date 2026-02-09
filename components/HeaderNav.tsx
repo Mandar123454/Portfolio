@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -14,6 +14,36 @@ const links = [
 
 export default function HeaderNav() {
   const pathname = usePathname();
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const [showSwipeHint, setShowSwipeHint] = useState(false);
+
+  useEffect(() => {
+    try {
+      const seen = localStorage.getItem("headerNav:swipeHint");
+      if (!seen) setShowSwipeHint(true);
+    } catch {
+      setShowSwipeHint(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!showSwipeHint) return;
+
+    const markSeenAndHide = () => {
+      setShowSwipeHint(false);
+      try {
+        localStorage.setItem("headerNav:swipeHint", "1");
+      } catch {}
+    };
+
+    const el = scrollerRef.current;
+    el?.addEventListener("scroll", markSeenAndHide, { passive: true });
+    const t = window.setTimeout(markSeenAndHide, 3500);
+    return () => {
+      window.clearTimeout(t);
+      el?.removeEventListener("scroll", markSeenAndHide as any);
+    };
+  }, [showSwipeHint]);
 
   return (
     <header className="sticky top-0 z-30 bg-background/75 backdrop-blur supports-[backdrop-filter]:bg-background/55">
@@ -25,7 +55,17 @@ export default function HeaderNav() {
             <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 rounded-full bg-gradient-to-r from-background/95 to-transparent md:hidden" />
             <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 rounded-full bg-gradient-to-l from-background/95 to-transparent md:hidden" />
 
-            <div className="no-scrollbar inline-flex w-full items-center justify-start gap-1 overflow-x-auto rounded-full border border-white/10 bg-white/[0.06] p-1 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)] md:justify-center">
+            <div
+              ref={scrollerRef}
+              onPointerDown={() => {
+                if (!showSwipeHint) return;
+                setShowSwipeHint(false);
+                try {
+                  localStorage.setItem("headerNav:swipeHint", "1");
+                } catch {}
+              }}
+              className="no-scrollbar inline-flex w-full items-center justify-start gap-1 overflow-x-auto rounded-full border border-white/10 bg-white/[0.06] p-1 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)] md:justify-center"
+            >
               {links.map((l) => {
                 const active = pathname === l.href;
                 return (
@@ -44,6 +84,12 @@ export default function HeaderNav() {
                 );
               })}
             </div>
+
+            {showSwipeHint && (
+              <div className="mt-1 px-1 text-center text-[11px] leading-4 text-white/60 md:hidden">
+                Swipe left/right to see more
+              </div>
+            )}
           </div>
         </div>
       </nav>
