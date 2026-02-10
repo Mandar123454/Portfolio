@@ -5,6 +5,7 @@ import ContactForm from "@/components/contact-form";
 import PortfolioRating from "@/app/about/PortfolioRating";
 import ProofGrid from "@/app/about/ProofGrid";
 import ToolkitSection from "@/app/about/ToolkitSection";
+import BadgesEarnedSection from "@/app/about/BadgesEarnedSection";
 
 const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 
@@ -66,7 +67,10 @@ export default function AboutPage() {
       {/* SECTION 2 — MY TOOLKIT */}
       <ToolkitSection />
 
-      {/* SECTION 3 — ABOUT THIS PORTFOLIO (VLC STYLE INFO ONLY) */}
+      {/* SECTION 3 — BADGES EARNED */}
+      <BadgesEarnedSection />
+
+      {/* SECTION 4 — ABOUT THIS PORTFOLIO (VLC STYLE INFO ONLY) */}
       <section className="mt-12 md:mt-16">
         <div className="mx-auto max-w-6xl">
           <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">About this portfolio</h2>
@@ -104,7 +108,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 4 — FEEDBACK + RATE */}
+      {/* SECTION 5 — FEEDBACK + RATE */}
       <section className="mt-12 md:mt-16">
         <div className="mx-auto max-w-6xl">
           <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">Feedback</h2>

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Download, ExternalLink, X } from "lucide-react";
 
@@ -11,6 +11,7 @@ export type ProofItem = { slug: string; title: string; image?: string };
 export default function ProofModal({ items }: { items: ProofItem[] }) {
   const router = useRouter();
   const params = useSearchParams();
+  const pathname = usePathname();
 
   const proof = params.get("proof");
   const current = items.find((i) => i.slug === proof);
@@ -43,7 +44,7 @@ export default function ProofModal({ items }: { items: ProofItem[] }) {
     const sp = new URLSearchParams(params.toString());
     sp.delete("proof");
     const qs = sp.toString();
-    router.push(qs ? `/?${qs}` : "/", { scroll: false });
+    router.push((qs ? `${pathname}?${qs}` : pathname) as any, { scroll: false });
   };
 
   // Close on Escape
