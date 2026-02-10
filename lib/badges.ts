@@ -182,6 +182,6 @@ export const EARNED_BADGES: EarnedBadge[] = [
     title: "CEH v13 — Certified Ethical Hacker",
     issuer: "EC-Council",
     imageSrc: "/CEH_Badge.png",
-    lightboxSrc: "/ECC-CEH-Certificate.png",
+    lightboxSrc: "/CEH_Badge.png",
   },
 ];
