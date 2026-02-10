@@ -31,6 +31,17 @@ body {
   display: none; /* Chrome/Safari */
 }
 
+/* Header pill-nav: show scrollbar on mobile as a swipe cue, hide on md+ */
+@media (min-width: 768px) {
+  .pill-nav-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .pill-nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Premium callout wrapper (used on Experience intro, etc.) */
 .aura {
   position: relative;

@@ -64,7 +64,7 @@ export default function HeaderNav() {
                   localStorage.setItem("headerNav:swipeHint", "1");
                 } catch {}
               }}
-              className="no-scrollbar inline-flex w-full items-center justify-start gap-1 overflow-x-auto rounded-full border border-white/10 bg-white/[0.06] p-1 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)] md:justify-center"
+              className="pill-nav-scroll inline-flex w-full items-center justify-start gap-1 overflow-x-auto rounded-full border border-white/10 bg-white/[0.06] p-1 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)] md:justify-center"
             >
               {links.map((l) => {
                 const active = pathname === l.href;
