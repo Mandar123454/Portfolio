@@ -12,7 +12,6 @@ type Item = {
   image?: string;
   issuedOn?: string;
   duration?: string;
-  highlights?: string[];
 };
 
 export default function SectionsClient({
@@ -45,7 +44,6 @@ export default function SectionsClient({
                 href: it.href,
                 issuedOn: it.issuedOn,
                 duration: it.duration,
-                highlights: it.highlights,
               }}
             />
           ))}

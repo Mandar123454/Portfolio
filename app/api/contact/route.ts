@@ -33,6 +33,15 @@ type Delivery = {
   messageId?: string;
 };
 
+function isLikelyInvalidFromAddress(from: string): boolean {
+  const f = (from || "").trim().toLowerCase();
+  if (!f) return true;
+  if (!f.includes("@")) return true;
+  // Never use Brevo SMTP login domain as a From address.
+  if (f.endsWith("@smtp-brevo.com")) return true;
+  return false;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
@@ -83,13 +92,17 @@ export async function POST(req: NextRequest) {
       const smtpUser = process.env.SMTP_USER?.trim();
       const smtpPass = process.env.SMTP_PASS?.trim();
       const mailTo = process.env.CONTACT_TO_EMAIL?.trim();
+      const fromEnv = process.env.CONTACT_FROM_EMAIL?.trim();
       const normalize = (v?: string) => (v || "").toLowerCase().replace(/\s+/g, "");
       const looksPlaceholder = (v?: string) => {
         const n = normalize(v);
         return !n || n === "your_brevo_username" || n === "your_brevo_smtp_key";
       };
       const emailEnabled =
-        !!(smtpHost && smtpPort && smtpUser && smtpPass && mailTo) && !looksPlaceholder(smtpUser) && !looksPlaceholder(smtpPass);
+        !!(smtpHost && smtpPort && smtpUser && smtpPass && mailTo && fromEnv) &&
+        !looksPlaceholder(smtpUser) &&
+        !looksPlaceholder(smtpPass) &&
+        !isLikelyInvalidFromAddress(fromEnv);
 
       async function postWebhookAwait(url: string, body: any): Promise<boolean> {
         try {
@@ -142,7 +155,7 @@ export async function POST(req: NextRequest) {
         const user = smtpUser as string;
         const pass = smtpPass as string;
         const to = mailTo as string;
-        const from = ((process.env.CONTACT_FROM_EMAIL || user) as string).trim();
+        const from = (fromEnv as string).trim();
 
         const subject = `Portfolio rating: ${rating}/5`;
         const text = `Rating: ${rating}/5\nPage: ${page || "unknown"}\nIP: ${ip}`;
@@ -237,12 +250,17 @@ export async function POST(req: NextRequest) {
     const smtpUser = process.env.SMTP_USER?.trim();
     const smtpPass = process.env.SMTP_PASS?.trim();
     const mailTo = process.env.CONTACT_TO_EMAIL?.trim();
+    const fromEnv = process.env.CONTACT_FROM_EMAIL?.trim();
     const normalize = (v?: string) => (v || "").toLowerCase().replace(/\s+/g, "");
     const looksPlaceholder = (v?: string) => {
       const n = normalize(v);
       return !n || n === "your_brevo_username" || n === "your_brevo_smtp_key";
     };
-    const emailEnabled = !!(smtpHost && smtpPort && smtpUser && smtpPass && mailTo) && !looksPlaceholder(smtpUser) && !looksPlaceholder(smtpPass);
+    const emailEnabled =
+      !!(smtpHost && smtpPort && smtpUser && smtpPass && mailTo && fromEnv) &&
+      !looksPlaceholder(smtpUser) &&
+      !looksPlaceholder(smtpPass) &&
+      !isLikelyInvalidFromAddress(fromEnv);
 
     async function postWebhookAwait(url: string, body: any): Promise<boolean> {
       try {
@@ -295,7 +313,7 @@ export async function POST(req: NextRequest) {
       const user = smtpUser as string;
       const pass = smtpPass as string;
       const to = mailTo as string;
-      const from = ((process.env.CONTACT_FROM_EMAIL || user) as string).trim();
+      const from = (fromEnv as string).trim();
 
       const subject = intent === "about_feedback" ? `Portfolio feedback from ${name}` : `New portfolio contact from ${name}`;
       const text = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
