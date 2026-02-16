@@ -44,6 +44,8 @@ export default function SectionsClient({
                 image: it.image,
                 href: it.href,
                 issuedOn: it.issuedOn,
+                duration: it.duration,
+                highlights: it.highlights,
               }}
             />
           ))}
