@@ -24,11 +24,21 @@ export default function ContactForm({
   const [fieldErrors, setFieldErrors] = useState<Errors>({});
   const [hasTyped, setHasTyped] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const [successDetail, setSuccessDetail] = useState<string | null>(null);
   const [cooldown, setCooldown] = useState<number>(0);
+  const [showDeliveryDetail, setShowDeliveryDetail] = useState<boolean>(false);
   const firstInputAt = useRef<number | null>(null);
   const lastSaved = useRef<FormData | null>(null);
 
   useEffect(() => {
+    // Debug-only: show delivery path details (SMTP vs Sheet vs Formspree)
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const qs = params.get("debugContact") === "1" || params.get("contactDebug") === "1";
+      const ls = localStorage.getItem("contactForm:debugDelivery") === "1";
+      setShowDeliveryDetail(qs || ls);
+    } catch {}
+
     // Load pending form if any
     try {
       const raw = localStorage.getItem("contactForm:pending");
@@ -76,7 +86,7 @@ export default function ContactForm({
         throw new Error(`Too many requests. Wait ${seconds}s and try again.`);
       }
       if (!res.ok) throw new Error(json?.error || "Submission failed.");
-      return json as { ok?: boolean; note?: string };
+      return json as { ok?: boolean; note?: string; delivery?: { smtp?: boolean; webhook?: boolean; formspree?: boolean } };
     };
 
     // Send to local Next.js API with FormData
@@ -91,6 +101,7 @@ export default function ContactForm({
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
+    setSuccessDetail(null);
     const form = e.currentTarget;
 
     // Anti-spam: relaxed time heuristic (allow autofill/no typing)
@@ -111,6 +122,13 @@ export default function ContactForm({
 
     setStatus("submitting");
     const data = new FormData(form);
+
+    // Ensure intent/page are always present for backend + Sheets logging
+    data.set("_intent", intent);
+    try {
+      if (!data.get("_page") && typeof window !== "undefined") data.set("_page", window.location.pathname);
+    } catch {}
+
     if ((data.get("_gotcha") as string)?.length) {
       setStatus("success");
       if (scrollToTopOnSuccess) window.scrollTo({ top: 0, behavior: "smooth" });
@@ -137,15 +155,36 @@ export default function ContactForm({
 
       localStorage.removeItem("contactForm:pending");
       setStatus("success");
-      if (result?.note === "logged_to_sheet_only") {
-        setToast(intent === "about_feedback" ? "Feedback received (logged)." : "Received! Logged to Sheet. Email will be enabled after SMTP setup.");
-      } else if (result?.note === "email_failed_logged_to_sheet") {
-        setToast(intent === "about_feedback" ? "Feedback received (logged)." : "We received your message (logged to Sheet). Email send failed.");
-      } else if (result?.note === "sent_via_formspree") {
-        setToast(intent === "about_feedback" ? "Feedback received." : "Sent successfully via Formspree. We'll reply within 24–48 hours.");
+
+      const d = result?.delivery;
+      const smtpOk = !!d?.smtp;
+      const sheetOk = !!d?.webhook;
+      const fsOk = !!d?.formspree;
+
+      // Professional UX for visitors: keep message generic.
+      // Debug UX for owner/testing: expose delivery details.
+      if (smtpOk) {
+        setToast(intent === "about_feedback" ? "Thanks! Feedback received." : "Thanks! Message received.");
+      } else if (sheetOk || fsOk) {
+        setToast(intent === "about_feedback" ? "Thanks! Feedback received." : "Thanks! Message received.");
       } else {
-        setToast(intent === "about_feedback" ? "Thanks! Feedback received." : "Thanks! We usually reply within 24–48 hours.");
+        setToast(intent === "about_feedback" ? "Thanks! Feedback received." : "Thanks! Message received.");
       }
+
+      if (!showDeliveryDetail) {
+        setSuccessDetail(null);
+      } else if (smtpOk && sheetOk) {
+        setSuccessDetail("Debug: Delivered via SMTP and saved to Sheet.");
+      } else if (smtpOk && !sheetOk) {
+        setSuccessDetail("Debug: Delivered via SMTP (Sheet logging failed). ");
+      } else if (!smtpOk && sheetOk) {
+        setSuccessDetail(fsOk ? "Debug: Saved to Sheet and forwarded via Formspree." : "Debug: Saved to Sheet (SMTP failed). ");
+      } else if (fsOk) {
+        setSuccessDetail("Debug: Forwarded via Formspree (Sheet logging failed). ");
+      } else {
+        setSuccessDetail("Debug: Submission accepted, but delivery is unknown.");
+      }
+
       form.reset();
       if (scrollToTopOnSuccess) window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err: any) {
@@ -180,10 +219,28 @@ export default function ContactForm({
       const parsed = JSON.parse(raw) as Record<string, string>;
       const fd = new FormData();
       Object.entries(parsed).forEach(([k, v]) => fd.append(k, v));
+      fd.set("_intent", intent);
+      try {
+        if (!fd.get("_page") && typeof window !== "undefined") fd.set("_page", window.location.pathname);
+      } catch {}
       setStatus("submitting");
-      await send(fd);
+      setSuccessDetail(null);
+      const result = await send(fd);
       localStorage.removeItem("contactForm:pending");
       setStatus("success");
+
+      const d = result?.delivery;
+      const smtpOk = !!d?.smtp;
+      const sheetOk = !!d?.webhook;
+      const fsOk = !!d?.formspree;
+      if (!showDeliveryDetail) {
+        setSuccessDetail(null);
+      } else if (smtpOk && sheetOk) setSuccessDetail("Debug: Delivered via SMTP and saved to Sheet.");
+      else if (smtpOk && !sheetOk) setSuccessDetail("Debug: Delivered via SMTP (Sheet logging failed). ");
+      else if (!smtpOk && sheetOk) setSuccessDetail(fsOk ? "Debug: Saved to Sheet and forwarded via Formspree." : "Debug: Saved to Sheet (SMTP failed). ");
+      else if (fsOk) setSuccessDetail("Debug: Forwarded via Formspree (Sheet logging failed). ");
+      else setSuccessDetail("Debug: Submission accepted, but delivery is unknown.");
+
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err: any) {
       setStatus("error");
@@ -224,7 +281,7 @@ export default function ContactForm({
         >
           <div className="h-24 w-full rounded-xl bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.25),transparent_60%)]" />
           <h2 className="text-xl font-semibold">Thank you! Message received.</h2>
-          <p className="text-white/70">We’ll reply within 24–48 hours.</p>
+          <p className="text-white/70">{successDetail || "We’ll reply within 24–48 hours."}</p>
           <button
             onClick={() => setStatus("idle")}
             className="mt-4 inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 hover:bg-white/10"

@@ -26,6 +26,13 @@ function getEnv(name: string, optional = false) {
   return v || "";
 }
 
+type Delivery = {
+  smtp: boolean;
+  webhook: boolean;
+  formspree: boolean;
+  messageId?: string;
+};
+
 export async function POST(req: NextRequest) {
   try {
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
@@ -149,7 +156,7 @@ export async function POST(req: NextRequest) {
         `;
 
         // SMTP with retry logic (2 attempts with 1s delay)
-        async function sendRatingEmailWithRetry(maxAttempts = 2): Promise<boolean> {
+        async function sendRatingEmailWithRetry(maxAttempts = 2): Promise<{ ok: boolean; messageId?: string }> {
           for (let attempt = 1; attempt <= maxAttempts; attempt++) {
             try {
               const transporter = nodemailer.createTransport({
@@ -161,8 +168,8 @@ export async function POST(req: NextRequest) {
                 greetingTimeout: 10000,
                 socketTimeout: 15000,
               });
-              await transporter.sendMail({ from, to, subject, text, html });
-              return true;
+              const info = await transporter.sendMail({ from, to, subject, text, html });
+              return { ok: true, messageId: (info as any)?.messageId };
             } catch (err) {
               console.error(`Rating SMTP attempt ${attempt}/${maxAttempts} failed:`, err);
               if (attempt < maxAttempts) {
@@ -170,33 +177,39 @@ export async function POST(req: NextRequest) {
               }
             }
           }
-          return false;
+          return { ok: false };
         }
 
-        const emailSent = await sendRatingEmailWithRetry(2);
+        const delivery: Delivery = { smtp: false, webhook: false, formspree: false };
 
-        if (emailSent) {
-          if (webhook) fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).catch(() => {});
-          postFormspreeAwait(payload).catch(() => {});
-          return new Response(JSON.stringify({ ok: true }), { status: 200 });
-        } else {
-          console.error("Rating SMTP failed after retries, trying webhook fallback");
-          if (webhook) {
-            const logged = await postWebhookAwait(webhook, payload);
-            if (logged) return new Response(JSON.stringify({ ok: true, note: "email_failed_logged_to_sheet" }), { status: 200 });
-          }
-          const fsOk = await postFormspreeAwait(payload);
-          if (fsOk) return new Response(JSON.stringify({ ok: true, note: "sent_via_formspree" }), { status: 200 });
-          return new Response(JSON.stringify({ error: "Rating submit failed" }), { status: 502 });
+        // Always try logging to Sheet (awaited)
+        if (webhook) delivery.webhook = await postWebhookAwait(webhook, payload);
+
+        const smtpRes = await sendRatingEmailWithRetry(2);
+        delivery.smtp = smtpRes.ok;
+        delivery.messageId = smtpRes.messageId;
+
+        if (delivery.smtp) {
+          return new Response(
+            JSON.stringify({ ok: true, note: delivery.webhook ? "sent_and_logged" : "sent_email_webhook_failed", delivery }),
+            { status: 200 }
+          );
         }
+
+        // SMTP failed — try Formspree as last resort
+        delivery.formspree = await postFormspreeAwait(payload);
+        if (delivery.formspree) {
+          return new Response(JSON.stringify({ ok: true, note: "sent_via_formspree", delivery }), { status: 200 });
+        }
+
+        return new Response(JSON.stringify({ error: "Rating submit failed", delivery }), { status: 502 });
       } else {
-        if (webhook) {
-          const ok = await postWebhookAwait(webhook, payload);
-          if (ok) return new Response(JSON.stringify({ ok: true, note: "logged_to_sheet_only" }), { status: 200 });
-        }
-        const fsOk = await postFormspreeAwait(payload);
-        if (fsOk) return new Response(JSON.stringify({ ok: true, note: "sent_via_formspree" }), { status: 200 });
-        return new Response(JSON.stringify({ error: "Email service misconfigured and no webhook" }), { status: 500 });
+        const delivery: Delivery = { smtp: false, webhook: false, formspree: false };
+        if (webhook) delivery.webhook = await postWebhookAwait(webhook, payload);
+        delivery.formspree = await postFormspreeAwait(payload);
+        if (delivery.webhook) return new Response(JSON.stringify({ ok: true, note: "logged_to_sheet_only", delivery }), { status: 200 });
+        if (delivery.formspree) return new Response(JSON.stringify({ ok: true, note: "sent_via_formspree", delivery }), { status: 200 });
+        return new Response(JSON.stringify({ error: "Email service misconfigured and no webhook", delivery }), { status: 500 });
       }
     }
 
@@ -205,7 +218,17 @@ export async function POST(req: NextRequest) {
     }
 
     // Build payload for email/webhook
-    const payload = { intent, name, email, phone, message, ip, ua: req.headers.get("user-agent") || "", ts: new Date().toISOString() };
+    const payload = {
+      intent,
+      name,
+      email,
+      phone,
+      message,
+      page,
+      ip,
+      ua: req.headers.get("user-agent") || "",
+      ts: new Date().toISOString(),
+    };
     const webhook = process.env.CONTACT_WEBHOOK_URL;
 
     // Determine if SMTP is properly configured (and not placeholders)
@@ -288,7 +311,7 @@ export async function POST(req: NextRequest) {
       `;
 
       // SMTP with retry logic (2 attempts with 1s delay)
-      async function sendEmailWithRetry(maxAttempts = 2): Promise<boolean> {
+      async function sendEmailWithRetry(maxAttempts = 2): Promise<{ ok: boolean; messageId?: string }> {
         for (let attempt = 1; attempt <= maxAttempts; attempt++) {
           try {
             const transporter = nodemailer.createTransport({
@@ -300,8 +323,8 @@ export async function POST(req: NextRequest) {
               greetingTimeout: 10000,   // 10s greeting timeout
               socketTimeout: 15000,     // 15s socket timeout
             });
-            await transporter.sendMail({ from, to, replyTo: email, subject, text, html });
-            return true; // Success!
+            const info = await transporter.sendMail({ from, to, replyTo: email, subject, text, html });
+            return { ok: true, messageId: (info as any)?.messageId };
           } catch (err) {
             console.error(`SMTP attempt ${attempt}/${maxAttempts} failed:`, err);
             if (attempt < maxAttempts) {
@@ -310,38 +333,37 @@ export async function POST(req: NextRequest) {
             }
           }
         }
-        return false; // All attempts failed
+        return { ok: false }; // All attempts failed
       }
 
-      const emailSent = await sendEmailWithRetry(2);
+      const delivery: Delivery = { smtp: false, webhook: false, formspree: false };
 
-      if (emailSent) {
-        // Email succeeded - also log to webhook in background
-        if (webhook) fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).catch(() => {});
-        postFormspreeAwait(payload).catch(() => {});
-        return new Response(JSON.stringify({ ok: true }), { status: 200 });
-      } else {
-        // Email failed after retries — try webhook as backup
-        console.error("SMTP failed after retries, trying webhook fallback");
-        if (webhook) {
-          const logged = await postWebhookAwait(webhook, payload);
-          if (logged) return new Response(JSON.stringify({ ok: true, note: "email_failed_logged_to_sheet" }), { status: 200 });
-        }
-        // try Formspree as last resort
-        const fsOk = await postFormspreeAwait(payload);
-        if (fsOk) return new Response(JSON.stringify({ ok: true, note: "sent_via_formspree" }), { status: 200 });
-        return new Response(JSON.stringify({ error: "Email failed" }), { status: 502 });
+      // Always try logging to Sheet (awaited)
+      if (webhook) delivery.webhook = await postWebhookAwait(webhook, payload);
+
+      const smtpRes = await sendEmailWithRetry(2);
+      delivery.smtp = smtpRes.ok;
+      delivery.messageId = smtpRes.messageId;
+
+      if (delivery.smtp) {
+        return new Response(
+          JSON.stringify({ ok: true, note: delivery.webhook ? "sent_and_logged" : "sent_email_webhook_failed", delivery }),
+          { status: 200 }
+        );
       }
+
+      // SMTP failed — try Formspree as last resort
+      delivery.formspree = await postFormspreeAwait(payload);
+      if (delivery.formspree) return new Response(JSON.stringify({ ok: true, note: "sent_via_formspree", delivery }), { status: 200 });
+      return new Response(JSON.stringify({ error: "Email failed", delivery }), { status: 502 });
     } else {
       // Email not configured — try webhook only
-      if (webhook) {
-        const ok = await postWebhookAwait(webhook, payload);
-        if (ok) return new Response(JSON.stringify({ ok: true, note: "logged_to_sheet_only" }), { status: 200 });
-      }
-      // Try Formspree if SMTP disabled and webhook not available/failed
-      const fsOk = await postFormspreeAwait(payload);
-      if (fsOk) return new Response(JSON.stringify({ ok: true, note: "sent_via_formspree" }), { status: 200 });
-      return new Response(JSON.stringify({ error: "Email service misconfigured and no webhook" }), { status: 500 });
+      const delivery: Delivery = { smtp: false, webhook: false, formspree: false };
+      if (webhook) delivery.webhook = await postWebhookAwait(webhook, payload);
+      delivery.formspree = await postFormspreeAwait(payload);
+      if (delivery.webhook) return new Response(JSON.stringify({ ok: true, note: "logged_to_sheet_only", delivery }), { status: 200 });
+      if (delivery.formspree) return new Response(JSON.stringify({ ok: true, note: "sent_via_formspree", delivery }), { status: 200 });
+      return new Response(JSON.stringify({ error: "Email service misconfigured and no webhook", delivery }), { status: 500 });
     }
   } catch (err: any) {
     console.error("/api/contact error", err);
