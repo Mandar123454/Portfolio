@@ -11,6 +11,8 @@ type Item = {
   slug?: string;
   image?: string;
   issuedOn?: string;
+  duration?: string;
+  highlights?: string[];
 };
 
 export default function SectionsClient({

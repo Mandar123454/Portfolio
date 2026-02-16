@@ -14,6 +14,7 @@ export type Badge =
 
 export type ProjectDetailProps = {
   title: string;
+  duration?: string;
   badge?: Badge;
   subtitle?: string;
   slug?: string; // page slug used for resolving video URLs
@@ -31,7 +32,7 @@ export type ProjectDetailProps = {
 };
 
 export default function ProjectDetail(props: ProjectDetailProps) {
-  const { title, badge, subtitle, video, whatItIs, features, howItWorks, howBuilt, links } = props;
+  const { title, duration, badge, subtitle, video, whatItIs, features, howItWorks, howBuilt, links } = props;
   const ytId = video.id || video.youtubeId;
   const resolvedEmbed: string | undefined = video.embedUrl || (ytId ? getYoutubeEmbed(ytId) : undefined);
   const resolvedPoster: string | undefined = video.poster || (ytId ? getYoutubePoster(ytId) : undefined);
@@ -42,7 +43,8 @@ export default function ProjectDetail(props: ProjectDetailProps) {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">{title}</h1>
-          {subtitle ? <p className="mt-3 max-w-2xl text-white/80 text-sm md:text-base">{subtitle}</p> : null}
+          {duration ? <p className="mt-3 text-xs text-white/50 italic">Duration: {duration}</p> : null}
+          {subtitle ? <p className={duration ? "mt-2 max-w-2xl text-white/80 text-sm md:text-base" : "mt-3 max-w-2xl text-white/80 text-sm md:text-base"}>{subtitle}</p> : null}
         </div>
         {badge ? (
           <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80">

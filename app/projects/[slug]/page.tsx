@@ -10,6 +10,7 @@ const DETAILS: DetailMap = {
   // Top 6
   "ai-nids": {
     title: "AI-Powered Network Intrusion Detection System (AI-NIDS)",
+    duration: "Mar 2025 – Jun 2025 (4 Months)",
     badge: "System-Level Project" as Badge,
     subtitle: "Detect malicious traffic using an explainable ML ensemble tuned for SOC workflows.",
     video: { provider: "youtube", id: "T3gCpjjgBt0", embedUrl: getYoutubeEmbed("T3gCpjjgBt0") },
@@ -43,6 +44,7 @@ const DETAILS: DetailMap = {
   },
   "smartphone-purchase-ml": {
     title: "Smartphone Purchase Prediction (ML)",
+    duration: "Jan 2025 – Mar 2025 (3 Months)",
     badge: "Featured" as Badge,
     subtitle: "Predict device purchase intent from structured inputs with clear segment insights.",
     video: { provider: "youtube", id: "GRWtzNy9Z8E", embedUrl: getYoutubeEmbed("GRWtzNy9Z8E") },
@@ -71,6 +73,7 @@ const DETAILS: DetailMap = {
   },
   "phishing-chrome-ext": {
     title: "Custom Phishing Detection Chrome Extension",
+    duration: "Apr 2025 – May 2025 (2 Months)",
     badge: "Production-Grade" as Badge,
     subtitle: "Client-side checks and ML signals to flag risky pages before credential entry.",
     video: { provider: "youtube", id: "J1LkMogTM7k", embedUrl: getYoutubeEmbed("J1LkMogTM7k") },
@@ -99,6 +102,7 @@ const DETAILS: DetailMap = {
   },
   "cybersecurity-journey": {
     title: "CyberSecurity-Journey",
+    duration: "Jun 2025 – Jul 2025 (2 Months)",
     badge: "Flagship" as Badge,
     subtitle: "Dashboard-style timeline of security learning, labs, and shipped artifacts.",
     video: { provider: "youtube", id: "exNka5mQx68", embedUrl: getYoutubeEmbed("exNka5mQx68") },
@@ -125,6 +129,7 @@ const DETAILS: DetailMap = {
   },
   "campus-connect": {
     title: "Campus-Connect — Social Media Application",
+    duration: "Aug 2025 – Oct 2025 (3 Months)",
     badge: "Capstone" as Badge,
     subtitle: "A MERN app focused on clean data flows, auth, and content moderation primitives.",
     video: { provider: "youtube", id: "7g9cysI05NA", embedUrl: getYoutubeEmbed("7g9cysI05NA") },
@@ -152,6 +157,7 @@ const DETAILS: DetailMap = {
   },
   "python-journey": {
     title: "Python Journey",
+    duration: "Ongoing since Dec 2024",
     badge: "Featured" as Badge,
     subtitle: "A dashboard tracking Python foundations, exercises, and small utilities.",
     video: { provider: "youtube", id: "I0c8GSxFX4k", embedUrl: getYoutubeEmbed("I0c8GSxFX4k") },
@@ -179,6 +185,7 @@ const DETAILS: DetailMap = {
   // Cybersecurity
   "network-sniffer-dashboard": {
     title: "Network-Sniffer Dashboard",
+    duration: "Feb 2025 – Mar 2025 (2 Months)",
     badge: "System-Level Project" as Badge,
     subtitle: "Web dashboard that visualizes captured packets/flows for quick triage and filtering.",
     video: { provider: "youtube", id: "NYwZuEuppVI", embedUrl: getYoutubeEmbed("NYwZuEuppVI") },
@@ -204,6 +211,7 @@ const DETAILS: DetailMap = {
   },
   "nids-basic": {
     title: "Network Intrusion Detection System",
+    duration: "Jan 2025 – Feb 2025 (2 Months)",
     badge: "System-Level Project" as Badge,
     subtitle: "Baseline NIDS using signatures and heuristics to surface suspicious activity.",
     video: { provider: "youtube", id: "biFX-quTFRs", embedUrl: getYoutubeEmbed("biFX-quTFRs") },
@@ -229,6 +237,7 @@ const DETAILS: DetailMap = {
   },
   "codealpha-cyber-tasks": {
     title: "CodeAlpha Cybersecurity Tasks",
+    duration: "Dec 2025 (1 Month — Internship Period)",
     badge: "Featured" as Badge,
     subtitle: "Focused tasks and mini-tools shipped during CodeAlpha, documented for reproducibility.",
     video: {},
@@ -255,6 +264,7 @@ const DETAILS: DetailMap = {
   // Data Science
   "insurance-fraud-ml": {
     title: "Insurance Fraud Detection",
+    duration: "Feb 2025 – Mar 2025 (2 Months)",
     badge: "Featured" as Badge,
     subtitle: "Supervised models surfacing potential claim fraud with transparent features and thresholds.",
     video: {},
@@ -280,6 +290,7 @@ const DETAILS: DetailMap = {
   },
   "traffic-anomaly-ml": {
     title: "Traffic Anomaly Detection",
+    duration: "Jan 2025 – Feb 2025 (2 Months)",
     badge: "Featured" as Badge,
     subtitle: "Time-series analysis of traffic sensors to flag anomalies and trend shifts.",
     video: { provider: "youtube", id: "JBthPLM7Kas", embedUrl: getYoutubeEmbed("JBthPLM7Kas") },
@@ -305,6 +316,7 @@ const DETAILS: DetailMap = {
   },
   "cv-internship-ml": {
     title: "ML Computer Vision Internship",
+    duration: "Sep 2025 – Nov 2025 (3 Months)",
     badge: "Capstone" as Badge,
     subtitle: "Internship prototypes focused on data hygiene, augmentation, and evaluation.",
     video: {},
@@ -330,6 +342,7 @@ const DETAILS: DetailMap = {
   },
   "pw-survey": {
     title: "Physics-Wallah Survey",
+    duration: "Dec 2024 – Jan 2025 (1 Month)",
     badge: "Featured" as Badge,
     subtitle: "Survey analysis pipeline delivering segment insights and reproducible charts.",
     video: { provider: "youtube", id: "iXY-97XZ7C0", embedUrl: getYoutubeEmbed("iXY-97XZ7C0") },
@@ -356,6 +369,7 @@ const DETAILS: DetailMap = {
   // Other
   "mern-ecommerce": {
     title: "MERN E-Commerce Store",
+    duration: "Sep 2025 – Oct 2025 (2 Months)",
     badge: "Capstone" as Badge,
     subtitle: "Store prototype with catalog, cart, checkout, and admin surfaces.",
     video: { provider: "youtube", id: "hx5QQ7zZUCM", embedUrl: getYoutubeEmbed("hx5QQ7zZUCM") },
@@ -381,6 +395,7 @@ const DETAILS: DetailMap = {
   },
   "dynamic-login": {
     title: "Login / Dynamic Login Form",
+    duration: "3 Weeks",
     badge: "Featured" as Badge,
     subtitle: "Robust login/validation module with clear UX states and errors.",
     video: { provider: "youtube", id: "u9A9Tud7XU8", embedUrl: getYoutubeEmbed("u9A9Tud7XU8") },
@@ -406,6 +421,7 @@ const DETAILS: DetailMap = {
   },
   "moviebox": {
     title: "MovieBox",
+    duration: "3 Weeks",
     badge: "Featured" as Badge,
     subtitle: "Movie browsing interface with search, detail views, and favorites.",
     video: { provider: "youtube", id: "n2A-hJg-d_4", embedUrl: getYoutubeEmbed("n2A-hJg-d_4") },
@@ -431,6 +447,7 @@ const DETAILS: DetailMap = {
   },
   "digital-clock": {
     title: "Digital Clock",
+    duration: "2 Weeks",
     badge: "Featured" as Badge,
     subtitle: "Responsive digital clock utility with clean formatting.",
     video: { provider: "youtube", id: "LnWEBQ4-M6s", embedUrl: getYoutubeEmbed("LnWEBQ4-M6s") },
@@ -456,6 +473,7 @@ const DETAILS: DetailMap = {
   },
   "mk-calculator": {
     title: "MK Calculator",
+    duration: "2 Weeks",
     badge: "Featured" as Badge,
     subtitle: "Simple calculator with clear operations and keyboard support.",
     video: { provider: "youtube", id: "QsAB3MyTxzE", embedUrl: getYoutubeEmbed("QsAB3MyTxzE") },
@@ -481,6 +499,7 @@ const DETAILS: DetailMap = {
   },
   "admission-form": {
     title: "Admission Form",
+    duration: "3 Weeks",
     badge: "Featured" as Badge,
     subtitle: "Form flow with validation, structured fields, and exportable submissions.",
     video: { provider: "youtube", id: "Wh_7Ei3DKh4", embedUrl: getYoutubeEmbed("Wh_7Ei3DKh4") },
@@ -506,6 +525,7 @@ const DETAILS: DetailMap = {
   },
   "hotel-menu-card": {
     title: "Hotel Menu Card",
+    duration: "2 Weeks",
     badge: "Featured" as Badge,
     subtitle: "Menu card UI exploring layout, pricing visibility, and accessibility.",
     video: { provider: "youtube", id: "lkyjHc0Qj9M", embedUrl: getYoutubeEmbed("lkyjHc0Qj9M") },
@@ -531,6 +551,7 @@ const DETAILS: DetailMap = {
   },
   "vote-eligibility": {
     title: "Vote Eligibility",
+    duration: "1 Week",
     badge: "Featured" as Badge,
     subtitle: "Tiny utility that checks vote eligibility via clear rules.",
     video: { provider: "youtube", id: "FAqOw1XOKTo", embedUrl: getYoutubeEmbed("FAqOw1XOKTo") },
@@ -556,6 +577,7 @@ const DETAILS: DetailMap = {
   },
   "puzzle-game": {
     title: "Puzzle Game",
+    duration: "2–3 Weeks",
     badge: "Featured" as Badge,
     subtitle: "Small puzzle game focusing on interactions, level state, and replayability.",
     video: { provider: "youtube", id: "u-Z6I0VWYN8", embedUrl: getYoutubeEmbed("u-Z6I0VWYN8") },
@@ -581,6 +603,7 @@ const DETAILS: DetailMap = {
   },
   "mkstream": {
     title: "MKStream",
+    duration: "1 Month",
     badge: "Featured" as Badge,
     subtitle: "Experimental media interface exploring queues and playback controls.",
     video: { provider: "youtube", id: "133dE-bHWnQ", embedUrl: getYoutubeEmbed("133dE-bHWnQ") },
@@ -606,6 +629,7 @@ const DETAILS: DetailMap = {
   },
   "amazon-netflix-clone": {
     title: "Amazon / Netflix Clone",
+    duration: "1 Month (Educational Build)",
     badge: "Featured" as Badge,
     subtitle: "Educational UI clone for layout practice; no branding or proprietary assets claimed.",
     video: { provider: "youtube", id: "x6CedC0ncuI", embedUrl: getYoutubeEmbed("x6CedC0ncuI") },

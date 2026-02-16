@@ -30,6 +30,8 @@ type Item = {
   image?: string; // public path for modal viewing (image or PDF)
   thumb?: string; // optional thumbnail path for cards (when image is a PDF)
   issuedOn?: string; // optional human date
+  duration?: string; // e.g., "3 months • capstone"
+  highlights?: string[]; // short bullet points shown on the card
 };
 
 const CYBERSECURITY: Item[] = [
@@ -41,6 +43,8 @@ const CYBERSECURITY: Item[] = [
     image: "/pdf_certificates/CEH v13 — Certified Ethical Hacker.pdf",
     thumb: "/ECC-CEH-Certificate.png",
     issuedOn: "July 2025",
+    duration: "1 year • 2025–26",
+    highlights: ["Exam passed: 117/120", "Ethical hacking methodology (recon → exploit → report)", "Industry credential (EC‑Council)"],
   },
   {
     title: "Complete Ethical Hacking Masterclass",
@@ -50,6 +54,8 @@ const CYBERSECURITY: Item[] = [
     image: "/pdf_certificates/Complete Ethical Hacking Masterclass.pdf",
     thumb: "/Ethical%20Hacking.jpg",
     issuedOn: "June 2024",
+    duration: "8 months • 130 hours",
+    highlights: ["Hands‑on labs across common attack surfaces", "Tooling fundamentals (Nmap / Burp / Metasploit)", "Practice-first learning (not just theory)"],
   },
   {
     title: "Real‑Time OS Hacking — Hands‑On Training",
@@ -59,6 +65,8 @@ const CYBERSECURITY: Item[] = [
     image: "/pdf_certificates/NullClass-Cybersecurity-Internship-Certificate.pdf",
     thumb: "/NullClass-CyberSecurity-Training-Certificate.png",
     issuedOn: "July 2024",
+    duration: "2 months",
+    highlights: ["OS-level security practice in a lab environment", "Evidence-backed: certificate + in-site viewer", "Hands‑on training (NULL CLASS)"],
   },
   {
     title: "Capture The Flag(CTF) — Rank 113 of 3,235",
@@ -68,6 +76,8 @@ const CYBERSECURITY: Item[] = [
     image: "/pdf_certificates/Capture The Flag(CTF) — Rank 113 of 3,235.pdf",
     thumb: "/CTF%20August%20Certificate.png",
     issuedOn: "August 2025",
+    duration: "Competition • 1 week (monthly)",
+    highlights: ["Rank 113 / 3,235", "Timed challenges under real pressure", "Verifiable rank certificate"],
   },
   {
     title: "Capture The Flag(CTF) — Rank 206 of 3,009",
@@ -77,6 +87,8 @@ const CYBERSECURITY: Item[] = [
     image: "/pdf_certificates/Capture The Flag(CTF) — Rank 206 of 3,009.pdf",
     thumb: "/CTF%20July%20Certificate.png",
     issuedOn: "July 2025",
+    duration: "Competition • 1 week (monthly)",
+    highlights: ["Rank 206 / 3,009", "CTF skill signal: speed + accuracy", "Verifiable rank certificate"],
   },
 ];
 
@@ -89,6 +101,8 @@ const DATA_SCIENCE: Item[] = [
     image: "/pdf_certificates/NSDC Data Science.pdf",
     thumb: "/CAN_37240536_4824911%20(NSDC).png",
     issuedOn: "May 2025",
+    duration: "3 months • capstone project",
+    highlights: ["Structured DS track with capstone delivery", "Data cleaning → modeling → evaluation", "Credential via NSDC"],
   },
   {
     title: "Data Science Training",
@@ -98,6 +112,8 @@ const DATA_SCIENCE: Item[] = [
     image: "/pdf_certificates/Data Science Training.pdf",
     thumb: "/Data%20Science%20Training.png",
     issuedOn: "April 2025",
+    duration: "3 months • capstone project",
+    highlights: ["Capstone-style project completion", "Practical analytics + modeling workflow", "Training credential (Internshala)"],
   },
   {
     title: "Real‑Time Emotion Detection — Hands‑On Training",
@@ -107,6 +123,8 @@ const DATA_SCIENCE: Item[] = [
     image: "/pdf_certificates/Real‑Time Emotion Detection — Hands‑On Training.pdf",
     thumb: "/NullClass-Data%20Science-Training-Certificate.png",
     issuedOn: "September 2025",
+    duration: "2 months",
+    highlights: ["Computer vision pipeline (train → evaluate → infer)", "Real-time focus: latency + stability", "Hands‑on training (NULL CLASS)"],
   },
   {
     title: "Python From Zero to Hero",
@@ -116,6 +134,8 @@ const DATA_SCIENCE: Item[] = [
     image: "/pdf_certificates/Python%20From%20Zero%20to%20Hero.pdf",
     thumb: "/Python%20From%20Zero%20to%20Hero.jpg",
     issuedOn: "August 2025",
+    duration: "6 months • ~12 hours content",
+    highlights: ["Solid Python fundamentals + practice", "OOP + scripting patterns", "Long-form learning (consistency > cramming)"],
   },
   {
     title: "Fundamental of Python Machine Learning",
@@ -125,6 +145,8 @@ const DATA_SCIENCE: Item[] = [
     image: "/pdf_certificates/Fundamental%20of%20Python%20Machine%20Learning.pdf",
     thumb: "/Fundamental%20of%20Python%20Machine%20Learning.jpg",
     issuedOn: "August 2025",
+    duration: "3 months • ~5 hours content",
+    highlights: ["ML essentials in Python", "Feature prep + baseline models", "Practical notebook-style learning"],
   },
 ];
 
@@ -137,6 +159,8 @@ const OTHER: Item[] = [
     image: "/pdf_certificates/Web%20Design%20%26%20Development%20Certificate.pdf",
     thumb: "/Web%20Design%20%26%20Development%20Certificate%20(SIDH).png",
     issuedOn: "July 2025",
+    duration: "1 day",
+    highlights: ["HTML/CSS basics with responsive layout", "Build-first: small pages + layouts", "Credential via Skill India Digital Hub"],
   },
   {
     title: "Foundational C# with Microsoft",
@@ -146,6 +170,8 @@ const OTHER: Item[] = [
     image: "/csharp-microsoft-freecodecamp.png",
     href: "https://www.freecodecamp.org/certification/mandar1234/foundational-c-sharp-with-microsoft",
     issuedOn: "August 2025",
+    duration: "1 year • practice-heavy",
+    highlights: ["C# fundamentals + OOP foundations", "Microsoft‑verified via freeCodeCamp", "Lots of practice and repetition"],
   },
   {
     title: "Internship & Job Readiness",
@@ -155,6 +181,8 @@ const OTHER: Item[] = [
     image: "/pdf_certificates/Internship%20%26%20Job%20Preparation%20Training%20-%20Certificate%20of%20Completion.pdf",
     thumb: "/Internship%20%26%20Job%20Readiness.png",
     issuedOn: "May 2025",
+    duration: "1 month",
+    highlights: ["Resume + interview preparation", "Professional communication basics", "Training credential (Internshala)"],
   },
   {
     title: "Full Stack Programming Course",
@@ -164,6 +192,8 @@ const OTHER: Item[] = [
     image: "/pdf_certificates/Full%20Stack%20Programming%20Course.pdf",
     thumb: "/Full%20Stack%20Programming%20Course.jpg",
     issuedOn: "August 2025",
+    duration: "6 hours",
+    highlights: ["End‑to‑end overview (frontend + backend concepts)", "REST + CRUD fundamentals", "Fast, practical foundation"],
   },
   {
     title: "Microsoft Azure Fundamentals",
@@ -172,6 +202,8 @@ const OTHER: Item[] = [
     slug: "azure-fundamentals-udemy",
     image: "/Microsoft%20Azure%20Fundamentals.png",
     issuedOn: "December 2023",
+    duration: "6 hours",
+    highlights: ["Core cloud concepts: compute / storage / networking", "Azure services overview", "Practical intro credential"],
   },
 ];
 

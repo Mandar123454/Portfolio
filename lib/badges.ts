@@ -10,6 +10,20 @@ export type EarnedBadge = {
 
 export const EARNED_BADGES: EarnedBadge[] = [
   {
+    id: "nsdc-badge",
+    title: "NSDC",
+    issuer: "NSDC",
+    imageSrc: "/NSDC%20Badge.png",
+    lightboxSrc: "/NSDC%20Badge.png",
+  },
+  {
+    id: "mk-portfolio-badge",
+    title: "MK Portfolio Badge",
+    issuer: "MK Portfolio",
+    imageSrc: "/MK%20Portfolio%20Badge.png",
+    lightboxSrc: "/MK%20Portfolio%20Badge.png",
+  },
+  {
     id: "BG_a95aa89c-d5ca-11f0-bdec-005056b48b54",
     title: "Introduction to Generative AI",
     issuer: "FutureSkills Prime",

@@ -10,10 +10,12 @@ export type CertMeta = {
   image?: string;
   href?: string;
   issuedOn?: string; // e.g., "June 27, 2024"
+  duration?: string;
+  highlights?: string[];
 };
 
 export default function CertCard({ item }: { item: CertMeta }) {
-  const { title, provider, slug, image, href, issuedOn } = item;
+  const { title, provider, slug, image, href, issuedOn, duration, highlights } = item;
 
   const inner = (
     <div className="group relative flex overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] p-4 transition duration-200 ease-out hover:-translate-y-[1px] hover:border-white/15 hover:bg-white/[0.06]">
@@ -34,6 +36,17 @@ export default function CertCard({ item }: { item: CertMeta }) {
             <Calendar className="h-3.5 w-3.5 text-brand" /> {issuedOn}
           </p>
         )}
+        {duration && <p className="mt-1 text-[0.78rem] text-white/65">Duration: {duration}</p>}
+
+        {highlights?.length ? (
+          <div className="mt-2 space-y-1 text-[0.78rem] text-white/65">
+            {highlights.slice(0, 3).map((text) => (
+              <p key={text} className="line-clamp-1">
+                • {text}
+              </p>
+            ))}
+          </div>
+        ) : null}
       </div>
       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10" />
     </div>

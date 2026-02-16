@@ -16,6 +16,7 @@ type Project = {
   domain: Domain;
   deployed: boolean;
   demoSlug: string; // opens modal
+  duration?: string; // displayed as subtle metadata under title
   summary: string; // small professional description
   repoUrl?: string; // required by spec, populate with real link
   liveUrl?: string; // only if deployed
@@ -29,6 +30,7 @@ const TOP_PROJECTS: Project[] = [
     domain: "Cybersecurity",
     deployed: false,
     demoSlug: "ai-nids",
+    duration: "Mar 2025 – Jun 2025 (4 Months)",
     summary: "ML-assisted NIDS for SOC and labs, with explainable scoring, modular detectors, and reproducible evaluation.",
     repoUrl: "https://github.com/Mandar123454/AI-Powered-Network-Intrusion-Detection-System",
   },
@@ -38,6 +40,7 @@ const TOP_PROJECTS: Project[] = [
     domain: "Data Science",
     deployed: true,
     demoSlug: "smartphone-purchase-ml",
+    duration: "Jan 2025 – Mar 2025 (3 Months)",
     summary: "Structured classification pipeline predicting purchase intent with calibrated probabilities and interpretable insights.",
     repoUrl: "https://github.com/Mandar123454/Predictive-Modeling-for-Smartphone-Purchase-Behavior-ML",
     liveUrl: "https://smartpredict-app-a3gcecfectcudbdd.centralindia-01.azurewebsites.net/",
@@ -48,6 +51,7 @@ const TOP_PROJECTS: Project[] = [
     domain: "Cybersecurity",
     deployed: true,
     demoSlug: "phishing-chrome-ext",
+    duration: "Apr 2025 – May 2025 (2 Months)",
     summary: "TypeScript Chrome extension that flags risky pages using URL heuristics and lightweight ML signals before credential entry.",
     repoUrl: "https://github.com/Mandar123454/Custom-Phishing-Detection-Chrome-Extension",
     liveUrl: "https://customphishingdetection.netlify.app/dashboard.html"
@@ -58,6 +62,7 @@ const TOP_PROJECTS: Project[] = [
     domain: "Cybersecurity",
     deployed: true,
     demoSlug: "cybersecurity-journey",
+    duration: "Jun 2025 – Jul 2025 (2 Months)",
     summary: "Evidence-first dashboard mapping security labs, write-ups, and shipped tooling for quick, credible review.",
     repoUrl: "https://github.com/Mandar123454/CyberSecurity-Journey",
     liveUrl: "https://cybersecurity-journey.netlify.app/",
@@ -68,6 +73,7 @@ const TOP_PROJECTS: Project[] = [
     domain: "Other",
     deployed: false,
     demoSlug: "campus-connect",
+    duration: "Aug 2025 – Oct 2025 (3 Months)",
     summary: "MERN social app exploring clean data flows, role-based auth, and moderation hooks.",
     repoUrl: "https://github.com/Mandar123454/Campus-Connect---Social-Media-Application",
   },
@@ -77,6 +83,7 @@ const TOP_PROJECTS: Project[] = [
     domain: "Other",
     deployed: true,
     demoSlug: "python-journey",
+    duration: "Ongoing since Dec 2024",
     summary: "Curated path through Python fundamentals with runnable examples and small utilities.",
     repoUrl: "https://github.com/Mandar123454/Python-Journey",
     liveUrl: "https://mkpythonjourney.netlify.app/",
@@ -86,33 +93,33 @@ const TOP_PROJECTS: Project[] = [
 const CYBERSECURITY: Project[] = [
   TOP_PROJECTS.find((p) => p.slug === "ai-nids")!,
   TOP_PROJECTS.find((p) => p.slug === "cybersecurity-journey")!,
-  { slug: "network-sniffer-dashboard", title: "Network-Sniffer Dashboard", domain: "Cybersecurity", deployed: false, demoSlug: "network-sniffer-dashboard", summary: "Web dashboard visualizing captured packets/flows with filters and basic indicators for quick triage.", repoUrl: "https://github.com/Mandar123454/Network-Sniffer-Dashboard" },
-  { slug: "nids-basic", title: "Network Intrusion Detection System", domain: "Cybersecurity", deployed: false, demoSlug: "nids-basic", summary: "Baseline NIDS using signature and heuristic checks to surface suspicious activity.", repoUrl: "https://github.com/Mandar123454/Network-Intrusion-Detection-System" },
+  { slug: "network-sniffer-dashboard", title: "Network-Sniffer Dashboard", domain: "Cybersecurity", deployed: false, demoSlug: "network-sniffer-dashboard", duration: "Feb 2025 – Mar 2025 (2 Months)", summary: "Web dashboard visualizing captured packets/flows with filters and basic indicators for quick triage.", repoUrl: "https://github.com/Mandar123454/Network-Sniffer-Dashboard" },
+  { slug: "nids-basic", title: "Network Intrusion Detection System", domain: "Cybersecurity", deployed: false, demoSlug: "nids-basic", duration: "Jan 2025 – Feb 2025 (2 Months)", summary: "Baseline NIDS using signature and heuristic checks to surface suspicious activity.", repoUrl: "https://github.com/Mandar123454/Network-Intrusion-Detection-System" },
   TOP_PROJECTS.find((p) => p.slug === "phishing-chrome-ext")!,
-  { slug: "codealpha-cyber-tasks", title: "CodeAlpha Cybersecurity Tasks", domain: "Cybersecurity", deployed: false, demoSlug: "", summary: "Focused tasks and mini-tools shipped during CodeAlpha with reproducible steps and artifacts.", repoUrl: "https://github.com/Mandar123454/Codealpha_Tasks" },
+  { slug: "codealpha-cyber-tasks", title: "CodeAlpha Cybersecurity Tasks", domain: "Cybersecurity", deployed: false, demoSlug: "", duration: "Dec 2025 (1 Month — Internship Period)", summary: "Focused tasks and mini-tools shipped during CodeAlpha with reproducible steps and artifacts.", repoUrl: "https://github.com/Mandar123454/Codealpha_Tasks" },
 ];
 
 const DATA_SCIENCE: Project[] = [
   TOP_PROJECTS.find((p) => p.slug === "smartphone-purchase-ml")!,
-  { slug: "insurance-fraud-ml", title: "Insurance Fraud Detection", domain: "Data Science", deployed: false, demoSlug: "", summary: "Supervised models surfacing potential claim fraud with clear features and thresholding logic.", repoUrl: "https://github.com/Mandar123454/Insurance-Fraud-Detection-Project-Data-Science" },
-  { slug: "traffic-anomaly-ml", title: "Traffic Anomaly Detection", domain: "Data Science", deployed: false, demoSlug: "traffic-anomaly-ml", summary: "Time-series analysis of traffic sensors to flag anomalies and trend shifts.", repoUrl: "https://github.com/Mandar123454/Traffic-Anomaly-Detection-ML" },
-  { slug: "cv-internship-ml", title: "ML Computer Vision Internship", domain: "Data Science", deployed: false, demoSlug: "", summary: "Internship prototypes in CV focused on data hygiene, augmentation, and evaluation.", repoUrl: "https://github.com/Mandar123454/ML-Computer-Vision-Internship" },
-  { slug: "pw-survey", title: "Physics-Wallah Survey", domain: "Data Science", deployed: true, demoSlug: "pw-survey", summary: "Survey analysis with data cleaning, segment insights, and reproducible charts.", repoUrl: "https://github.com/Mandar123454/Physics-Wallah-Survey", liveUrl: "https://physics-wallah-survey.netlify.app/" },
+  { slug: "insurance-fraud-ml", title: "Insurance Fraud Detection", domain: "Data Science", deployed: false, demoSlug: "", duration: "Feb 2025 – Mar 2025 (2 Months)", summary: "Supervised models surfacing potential claim fraud with clear features and thresholding logic.", repoUrl: "https://github.com/Mandar123454/Insurance-Fraud-Detection-Project-Data-Science" },
+  { slug: "traffic-anomaly-ml", title: "Traffic Anomaly Detection", domain: "Data Science", deployed: false, demoSlug: "traffic-anomaly-ml", duration: "Jan 2025 – Feb 2025 (2 Months)", summary: "Time-series analysis of traffic sensors to flag anomalies and trend shifts.", repoUrl: "https://github.com/Mandar123454/Traffic-Anomaly-Detection-ML" },
+  { slug: "cv-internship-ml", title: "ML Computer Vision Internship", domain: "Data Science", deployed: false, demoSlug: "", duration: "Sep 2025 – Nov 2025 (3 Months)", summary: "Internship prototypes in CV focused on data hygiene, augmentation, and evaluation.", repoUrl: "https://github.com/Mandar123454/ML-Computer-Vision-Internship" },
+  { slug: "pw-survey", title: "Physics-Wallah Survey", domain: "Data Science", deployed: true, demoSlug: "pw-survey", duration: "Dec 2024 – Jan 2025 (1 Month)", summary: "Survey analysis with data cleaning, segment insights, and reproducible charts.", repoUrl: "https://github.com/Mandar123454/Physics-Wallah-Survey", liveUrl: "https://physics-wallah-survey.netlify.app/" },
 ];
 
 const OTHER: Project[] = [
   TOP_PROJECTS.find((p) => p.slug === "campus-connect")!,
-  { slug: "mern-ecommerce", title: "MERN E-Commerce Store", domain: "Other", deployed: false, demoSlug: "mern-ecommerce", summary: "Store prototype with catalog, cart, checkout flow, and basic admin surfaces.", repoUrl: "https://github.com/Mandar123454/MERN-E-Commerce-Store" },
-  { slug: "dynamic-login", title: "Login / Dynamic Login Form", domain: "Other", deployed: false, demoSlug: "dynamic-login", summary: "Robust login/validation module with clear UX states and error handling.", repoUrl: "https://github.com/Mandar123454/Dynamic-Login-Form" },
-  { slug: "moviebox", title: "MovieBox", domain: "Other", deployed: false, demoSlug: "moviebox", summary: "Lightweight movie browsing interface with search, detail views, and favorites.", repoUrl: "https://github.com/Mandar123454/MovieBox---A-Dynamic-Movie-Discovery-Platform" },
+  { slug: "mern-ecommerce", title: "MERN E-Commerce Store", domain: "Other", deployed: false, demoSlug: "mern-ecommerce", duration: "Sep 2025 – Oct 2025 (2 Months)", summary: "Store prototype with catalog, cart, checkout flow, and basic admin surfaces.", repoUrl: "https://github.com/Mandar123454/MERN-E-Commerce-Store" },
+  { slug: "dynamic-login", title: "Login / Dynamic Login Form", domain: "Other", deployed: false, demoSlug: "dynamic-login", duration: "3 Weeks", summary: "Robust login/validation module with clear UX states and error handling.", repoUrl: "https://github.com/Mandar123454/Dynamic-Login-Form" },
+  { slug: "moviebox", title: "MovieBox", domain: "Other", deployed: false, demoSlug: "moviebox", duration: "3 Weeks", summary: "Lightweight movie browsing interface with search, detail views, and favorites.", repoUrl: "https://github.com/Mandar123454/MovieBox---A-Dynamic-Movie-Discovery-Platform" },
   TOP_PROJECTS.find((p) => p.slug === "python-journey")!,
-  { slug: "digital-clock", title: "Digital Clock", domain: "Other", deployed: true, demoSlug: "digital-clock", summary: "Responsive digital clock utility with clean time formatting and update loops.", repoUrl: "https://github.com/Mandar123454/Digital-Clock", liveUrl: "https://mkdigitalclock.netlify.app/" },
-  { slug: "mk-calculator", title: "MK Calculator", domain: "Other", deployed: true, demoSlug: "mk-calculator", summary: "Simple calculator with clear operations, keyboard support, and tested edge cases.", repoUrl: "https://github.com/Mandar123454/MK-Calculator", liveUrl: "https://mkcalcee.netlify.app/" },
-  { slug: "admission-form", title: "Admission Form", domain: "Other", deployed: true, demoSlug: "admission-form", summary: "Form flow with validation, structured fields, and exportable submissions.", repoUrl: "https://github.com/Mandar123454/Admission-Form", liveUrl: "https://11thadmissionform.netlify.app/" },
-  { slug: "hotel-menu-card", title: "Hotel Menu Card", domain: "Other", deployed: true, demoSlug: "hotel-menu-card", summary: "Menu card UI exploring layout, pricing visibility, and accessibility.", repoUrl: "https://github.com/Mandar123454/Hotel-Menu-Card", liveUrl: "https://mkhotelmenucard.netlify.app/" },
-  { slug: "vote-eligibility", title: "Vote Eligibility", domain: "Other", deployed: true, demoSlug: "vote-eligibility", summary: "Tiny utility that checks vote eligibility via clear rules and edge cases.", repoUrl: "https://github.com/Mandar123454/Vote-Eligibility", liveUrl: "https://voteeligibility.netlify.app/" },
-  { slug: "puzzle-game", title: "Puzzle Game", domain: "Other", deployed: true, demoSlug: "puzzle-game", summary: "Small puzzle game focusing on interactions, level state, and replayability.", repoUrl: "https://github.com/Mandar123454/Puzzle-Game", liveUrl: "https://mkpuzzlegame.netlify.app/" },
-  { slug: "mkstream", title: "MKStream", domain: "Other", deployed: false, demoSlug: "mkstream", summary: "Experimental media interface exploring queues and playback controls.", repoUrl: "https://github.com/Mandar123454/MKStream", liveUrl: "https://mkstream.netlify.app/" },
+  { slug: "digital-clock", title: "Digital Clock", domain: "Other", deployed: true, demoSlug: "digital-clock", duration: "2 Weeks", summary: "Responsive digital clock utility with clean time formatting and update loops.", repoUrl: "https://github.com/Mandar123454/Digital-Clock", liveUrl: "https://mkdigitalclock.netlify.app/" },
+  { slug: "mk-calculator", title: "MK Calculator", domain: "Other", deployed: true, demoSlug: "mk-calculator", duration: "2 Weeks", summary: "Simple calculator with clear operations, keyboard support, and tested edge cases.", repoUrl: "https://github.com/Mandar123454/MK-Calculator", liveUrl: "https://mkcalcee.netlify.app/" },
+  { slug: "admission-form", title: "Admission Form", domain: "Other", deployed: true, demoSlug: "admission-form", duration: "3 Weeks", summary: "Form flow with validation, structured fields, and exportable submissions.", repoUrl: "https://github.com/Mandar123454/Admission-Form", liveUrl: "https://11thadmissionform.netlify.app/" },
+  { slug: "hotel-menu-card", title: "Hotel Menu Card", domain: "Other", deployed: true, demoSlug: "hotel-menu-card", duration: "2 Weeks", summary: "Menu card UI exploring layout, pricing visibility, and accessibility.", repoUrl: "https://github.com/Mandar123454/Hotel-Menu-Card", liveUrl: "https://mkhotelmenucard.netlify.app/" },
+  { slug: "vote-eligibility", title: "Vote Eligibility", domain: "Other", deployed: true, demoSlug: "vote-eligibility", duration: "1 Week", summary: "Tiny utility that checks vote eligibility via clear rules and edge cases.", repoUrl: "https://github.com/Mandar123454/Vote-Eligibility", liveUrl: "https://voteeligibility.netlify.app/" },
+  { slug: "puzzle-game", title: "Puzzle Game", domain: "Other", deployed: true, demoSlug: "puzzle-game", duration: "2–3 Weeks", summary: "Small puzzle game focusing on interactions, level state, and replayability.", repoUrl: "https://github.com/Mandar123454/Puzzle-Game", liveUrl: "https://mkpuzzlegame.netlify.app/" },
+  { slug: "mkstream", title: "MKStream", domain: "Other", deployed: false, demoSlug: "mkstream", duration: "1 Month", summary: "Experimental media interface exploring queues and playback controls.", repoUrl: "https://github.com/Mandar123454/MKStream", liveUrl: "https://mkstream.netlify.app/" },
 ];
 
 // Special case: Clone project (Amazon/Netflix) — single entry, Amazon publicly linked
@@ -122,6 +129,7 @@ const CLONE: Project = {
   domain: "Other",
   deployed: true, // Amazon clone only
   demoSlug: "amazon-clone",
+  duration: "1 Month (Educational Build)",
   summary: "Amazon-style UI clone built for educational layout practice; branding and proprietary assets are not included or claimed.",
   liveUrl: "https://mkamazonclone.netlify.app/",
 };
@@ -237,7 +245,8 @@ function ProjectCard({ p }: { p: Project }) {
         <DomainIcon size={20} className="mt-0.5 text-brand" />
         <div className="flex-1">
           <h3 className="text-base font-semibold text-white">{p.title}</h3>
-          <p className="mt-1 text-sm text-white/80">{p.summary}</p>
+          {p.duration ? <p className="mt-1 text-xs text-white/50 italic">Duration: {p.duration}</p> : null}
+          <p className={cn(p.duration ? "mt-2" : "mt-1", "text-sm text-white/80")}>{p.summary}</p>
           {p.note ? <p className="mt-1 text-[13px] text-white/70">{p.note}</p> : null}
         </div>
       </div>
