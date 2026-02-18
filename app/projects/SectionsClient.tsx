@@ -68,14 +68,14 @@ const TOP_PROJECTS: Project[] = [
     liveUrl: "https://cybersecurity-journey.netlify.app/",
   },
   {
-    slug: "campus-connect",
-    title: "Campus-Connect — Social Media Application",
+    slug: "mern-ecommerce",
+    title: "MERN E-Commerce Store",
     domain: "Other",
     deployed: false,
-    demoSlug: "campus-connect",
-    duration: "Aug 2025 – Oct 2025 (3 Months)",
-    summary: "MERN social app exploring clean data flows, role-based auth, and moderation hooks.",
-    repoUrl: "https://github.com/Mandar123454/Campus-Connect---Social-Media-Application",
+    demoSlug: "mern-ecommerce",
+    duration: "Sep 2025 – Oct 2025 (2 Months)",
+    summary: "Store prototype with catalog, cart, checkout flow, and basic admin surfaces.",
+    repoUrl: "https://github.com/Mandar123454/MERN-E-Commerce-Store",
   },
   {
     slug: "python-journey",
@@ -108,7 +108,7 @@ const DATA_SCIENCE: Project[] = [
 ];
 
 const OTHER: Project[] = [
-  TOP_PROJECTS.find((p) => p.slug === "campus-connect")!,
+  { slug: "campus-connect", title: "Campus-Connect — Social Media Application", domain: "Other", deployed: false, demoSlug: "campus-connect", duration: "Aug 2025 – Oct 2025 (3 Months)", summary: "MERN social app exploring clean data flows, role-based auth, and moderation hooks.", repoUrl: "https://github.com/Mandar123454/Campus-Connect---Social-Media-Application" },
   { slug: "mern-ecommerce", title: "MERN E-Commerce Store", domain: "Other", deployed: false, demoSlug: "mern-ecommerce", duration: "Sep 2025 – Oct 2025 (2 Months)", summary: "Store prototype with catalog, cart, checkout flow, and basic admin surfaces.", repoUrl: "https://github.com/Mandar123454/MERN-E-Commerce-Store" },
   { slug: "dynamic-login", title: "Login / Dynamic Login Form", domain: "Other", deployed: false, demoSlug: "dynamic-login", duration: "3 Weeks", summary: "Robust login/validation module with clear UX states and error handling.", repoUrl: "https://github.com/Mandar123454/Dynamic-Login-Form" },
   { slug: "moviebox", title: "MovieBox", domain: "Other", deployed: false, demoSlug: "moviebox", duration: "3 Weeks", summary: "Lightweight movie browsing interface with search, detail views, and favorites.", repoUrl: "https://github.com/Mandar123454/MovieBox---A-Dynamic-Movie-Discovery-Platform" },
