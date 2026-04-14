@@ -13,7 +13,7 @@ export type ResearchItem = {
   date?: string;
   overview: string;
   highlights: string[];
-  proofs?: { key: string; href: string; label: string }[];
+  proofs?: { key: string; href?: string; label: string; row?: 1 | 2; colSpan?: 1 | 2 | 3 | 4 | 5 }[];
 };
 
 export default function ResearchClient({ items }: { items: ResearchItem[] }) {
@@ -55,32 +55,33 @@ export default function ResearchClient({ items }: { items: ResearchItem[] }) {
                     </p>
                   </div>
                 </div>
-
-                {canViewProofs ? (
-                  <div className="flex flex-col items-end gap-2">
-                    <div className="flex flex-wrap justify-end gap-2">
-                      {proofs.map((p, idx) => (
-                        <motion.button
-                          key={p.key}
-                          type="button"
-                          whileHover={{ y: -1, scale: 1.01 }}
-                          whileTap={{ y: 0, scale: 0.995 }}
-                          onClick={() => open(r.slug, p.key)}
-                          title={p.label}
-                          className={
-                            "inline-flex items-center rounded-md px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110 " +
-                            (idx % 2 === 0
-                              ? "bg-gradient-to-r from-brand/80 to-fuchsia-500/60"
-                              : "bg-gradient-to-r from-cyan-500/80 to-violet-500/60")
-                          }
-                        >
-                          {p.label}
-                        </motion.button>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
               </div>
+
+              {canViewProofs ? (
+                <div className="mt-4">
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5">
+                    {proofs.map((p, idx) => (
+                      <motion.button
+                        key={p.key}
+                        type="button"
+                        whileHover={{ y: -1, scale: 1.01 }}
+                        whileTap={{ y: 0, scale: 0.995 }}
+                        onClick={() => p.href && open(r.slug, p.key)}
+                        title={p.label}
+                        disabled={!p.href}
+                        className={
+                          "inline-flex w-full items-center justify-center rounded-md px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 " +
+                          (idx % 2 === 0
+                            ? "bg-gradient-to-r from-brand/80 to-fuchsia-500/60"
+                            : "bg-gradient-to-r from-cyan-500/80 to-violet-500/60")
+                        }
+                      >
+                        {p.label}
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
 
               <p className="mt-4 text-sm text-white/85">{r.overview}</p>
 
@@ -96,10 +97,11 @@ export default function ResearchClient({ items }: { items: ResearchItem[] }) {
 
       <div className="mt-6 rounded-2xl border border-white/10 bg-black/25 p-5">
         <p className="text-sm text-white/75">
-          Research and community work I’ve contributed to — focused on real impact, clear documentation, and shareable proof.
+          Best work only: a real-world computer literacy initiative and an end-to-end startup concept — both backed by clear, downloadable proof.
         </p>
       </div>
 
+      {/* Lightviewer modal wiring */}
       <ResearchModal
         items={items.map<ResearchProofItem>((r) => ({
           slug: r.slug,

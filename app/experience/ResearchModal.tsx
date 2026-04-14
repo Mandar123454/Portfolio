@@ -10,7 +10,7 @@ export type ResearchProofItem = {
   slug: string;
   title: string;
   organization: string;
-  proofs?: { key: string; href: string; label: string }[];
+  proofs?: { key: string; href?: string; label: string; row?: 1 | 2; colSpan?: 1 | 2 | 3 | 4 | 5 }[];
 };
 
 export default function ResearchModal({ items }: { items: ResearchProofItem[] }) {
@@ -29,7 +29,7 @@ export default function ResearchModal({ items }: { items: ResearchProofItem[] })
   const selected = useMemo(() => {
     if (proofKey) return proofs.find((p) => p.key === proofKey) ?? null;
     if (legacyDoc) {
-      const byType = proofs.find((p) => p.href.toLowerCase().endsWith(legacyDoc === "ppt" ? ".pptx" : ".pdf"));
+      const byType = proofs.find((p) => (p.href ?? "").toLowerCase().endsWith(legacyDoc === "ppt" ? ".pptx" : ".pdf"));
       return byType ?? null;
     }
     return proofs[0] ?? null;
@@ -200,7 +200,24 @@ export default function ResearchModal({ items }: { items: ResearchProofItem[] })
                   <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center">
                     <div className="max-w-md">
                       <p className="text-base font-semibold text-white">{current.title}</p>
-                      <p className="mt-2 text-sm text-white/70">Proof file — view on desktop for full PDF viewer.</p>
+                      <p className="mt-2 text-sm text-white/70">Open or download the PDF to view it on mobile.</p>
+                      <div className="mt-4 flex items-center justify-center gap-2">
+                        <a
+                          href={src as string}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-xs font-medium text-white hover:bg-white/15"
+                        >
+                          <ExternalLink size={14} /> Open
+                        </a>
+                        <a
+                          href={src as string}
+                          download
+                          className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-xs font-medium text-white hover:bg-white/15"
+                        >
+                          <Download size={14} /> Download
+                        </a>
+                      </div>
                     </div>
                   </div>
                 ) : (

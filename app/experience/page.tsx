@@ -262,7 +262,7 @@ export default function ExperiencePage() {
       location: "Waje High School & Junior College, Waje",
       date: "February 2025",
       overview:
-        "Led and contributed to a three-day computer literacy initiative for rural students (5th–9th standard), combining hands-on teaching with a bilingual (English + Marathi) beginner-friendly guide to make concepts simple, engaging, and memorable.",
+        "One of my strongest community-impact works: co-led a three-day computer literacy program for rural students (5th–9th standard) and authored a bilingual (English + Marathi) beginner-friendly guide to make learning practical, engaging, and memorable.",
       highlights: [
         "Scope: three-day computer literacy program delivered to rural students across 5th–9th standard in an interactive, practical format.",
         "Objectives: introduce core computer concepts; explain hardware vs software; build digital awareness; encourage curiosity; strengthen problem-solving using technology.",
@@ -282,20 +282,39 @@ export default function ExperiencePage() {
           label: "Program PDF",
         },
         {
-          key: "program-ppt",
-          href: "/Empowering%20Rural%20Students%20with%20Basic%20Computer%20Knowledge.pptx",
-          label: "Program PPT",
-        },
-        {
           key: "guide-pdf",
           href: "/pdf_certificates/Exploring%20the%20World%20of%20Computers.pdf",
           label: "Guide PDF",
         },
-        {
-          key: "guide-ppt",
-          href: "/Exploring%20the%20World%20of%20Computers.pptx",
-          label: "Guide PPT",
-        },
+      ],
+    },
+    {
+      title: "SmartQR AI — AI‑Powered Business Platform",
+      organization: "Entrepreneurship Internship Project",
+      slug: "smartqr-ai-business-platform",
+      date: "5 weeks",
+      overview:
+        "One of my strongest structured-research works: built a complete startup concept for an AI-powered QR business platform, backed by weekly documentation covering ideation, strategy, execution planning, risk management, and performance evaluation.",
+      highlights: [
+        "Problem focus: small businesses often lack affordable analytics and rely on assumptions instead of data.",
+        "Role: independently handled business ideation, opportunity analysis, market + competitor research, and product conceptualization (AI + QR).",
+        "Platform features: smart QR interactions (menus, payments, feedback), AI analytics dashboard, customer behavior tracking, personalized recommendations.",
+        "Strategy work: target segment definition (restaurants, retail, salons, vendors), trend validation (QR + Digital India adoption), and differentiation vs payment‑only QR products.",
+        "Execution planning: phased roadmap (research → QR system → AI integration → testing → launch) with weekly timeline and team structure/roles.",
+        "Risk management: identified adoption, competition, security, and technical risks; prioritized actions using an impact × probability risk matrix.",
+        "Performance & growth: defined KPIs (adoption, engagement, revenue/cost metrics, customer satisfaction) and a continuous improvement loop.",
+        "Branding deliverables: designed the project logo and poster as part of product visualization and positioning.",
+      ],
+      proofs: [
+        { key: "week1-pdf", href: "/pdf_certificates/Week1_Business_Ideation.pdf", label: "Week 1 (PDF)", row: 1 },
+        { key: "week2-pdf", href: "/pdf_certificates/Week2_Strategic_Planning.pdf", label: "Week 2 (PDF)", row: 1 },
+        { key: "week3-pdf", href: "/pdf_certificates/Week3_Execution_Plan.pdf", label: "Week 3 (PDF)", row: 1 },
+        { key: "week4-pdf", href: "/pdf_certificates/Week4_Risk_Management.pdf", label: "Week 4 (PDF)", row: 1 },
+        { key: "week5-pdf", href: "/pdf_certificates/Week5_Performance_Evaluation.pdf", label: "Week 5 (PDF)", row: 1 },
+
+        { key: "smartqr-logo", href: "/SmartQR%20AI%20business%20platform%20logo.png", label: "Logo", row: 2 },
+        { key: "smartqr-poster", href: "/SmartQR%20AI%20Poster.png", label: "Poster", row: 2 },
+        { key: "intern-cert-pdf", label: "Internship Certificate (PDF — coming soon)", row: 2, colSpan: 3 },
       ],
     },
   ];

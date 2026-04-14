@@ -141,7 +141,7 @@ export default function ExperienceSectionsClient({
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
                 <h2 className="text-lg font-semibold tracking-tight text-white">Research</h2>
                 <p className="mt-2 max-w-3xl text-sm text-white/75">
-                  Community work and learning artifacts — structured contributions with verifiable proof attached.
+                  Two flagship contributions — community impact + structured product research — with downloadable proof.
                 </p>
               </div>
               <ResearchClient items={research} />
