@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "mandarkajbaje@gmail.com";
+  const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
   const linkedin = "https://www.linkedin.com/in/mandar-kajbaje";
   const github = "https://github.com/Mandar123454";
 
@@ -27,14 +27,16 @@ export default function ContactPage() {
         <p className="mt-1 text-sm text-white/60">I usually reply within 24–48 hours.</p>
 
         <div className="mt-5 flex flex-wrap items-center gap-2">
-          <a
-            href={`mailto:${email}`}
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand/80 to-fuchsia-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
-            aria-label="Email"
-          >
-            <Mail className="h-4 w-4" aria-hidden />
-            Email
-          </a>
+          {email ? (
+            <a
+              href={`mailto:${email}`}
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand/80 to-fuchsia-500/60 px-3 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-white/15 hover:brightness-110"
+              aria-label="Email"
+            >
+              <Mail className="h-4 w-4" aria-hidden />
+              Email
+            </a>
+          ) : null}
           <a
             href={linkedin}
             target="_blank"
