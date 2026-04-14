@@ -2,6 +2,7 @@ import type { InternshipItem } from "../internships/SectionsClient";
 import ExperienceSectionsClient from "./SectionsClient";
 import type { HackathonItem } from "./HackathonsClient";
 import type { WorkshopItem } from "./WorkshopsClient";
+import type { ResearchItem } from "./ResearchClient";
 
 const site = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const metadata = {
@@ -253,12 +254,58 @@ export default function ExperiencePage() {
     },
   ];
 
+  const research: ResearchItem[] = [
+    {
+      title: "Social Work & Community Engagement — Computer Literacy Program",
+      organization: "CKT College — Community Engagement Initiative",
+      slug: "social-work-computer-literacy-waje",
+      location: "Waje High School & Junior College, Waje",
+      date: "February 2025",
+      overview:
+        "Led and contributed to a three-day computer literacy initiative for rural students (5th–9th standard), combining hands-on teaching with a bilingual (English + Marathi) beginner-friendly guide to make concepts simple, engaging, and memorable.",
+      highlights: [
+        "Scope: three-day computer literacy program delivered to rural students across 5th–9th standard in an interactive, practical format.",
+        "Objectives: introduce core computer concepts; explain hardware vs software; build digital awareness; encourage curiosity; strengthen problem-solving using technology.",
+        "Day 1 (5th–6th): what a computer is, how it works, input/output devices & CPU, real-life use cases, hands-on component interaction, quick oral quiz.",
+        "Day 2 (7th–8th): types of computers & operating systems, basic maintenance, written assessment + MCQs to reinforce logical thinking.",
+        "Day 3 (9th): hardware/software & computer generations, system functions, career awareness in computer science, evaluation via written test.",
+        "Outcomes & impact: improved fundamentals, higher interest in digital learning, better linkage to real-life applications, more confident participation.",
+        "Personal learning: stronger communication/teaching skills, leadership & teamwork, simplifying technical concepts, and a real-world impact mindset.",
+        "Educational content: authored and presented a bilingual guide titled “Exploring the World of Computers: A Guide for Young Learners”.",
+        "Topics covered: introduction to computers + daily-life importance (incl. Charles Babbage), parts of a computer, types of computers, input→processing→storage→output cycle.",
+        "Topics covered (continued): operating systems (Windows/Linux/Android), input & output devices, basic computer maintenance, safe shutdown practices, fun facts & engagement prompts.",
+      ],
+      proofs: [
+        {
+          key: "program-pdf",
+          href: "/pdf_certificates/Empowering%20Rural%20Students%20with%20Basic%20Computer%20Knowledge.pdf",
+          label: "Program PDF",
+        },
+        {
+          key: "program-ppt",
+          href: "/Empowering%20Rural%20Students%20with%20Basic%20Computer%20Knowledge.pptx",
+          label: "Program PPT",
+        },
+        {
+          key: "guide-pdf",
+          href: "/pdf_certificates/Exploring%20the%20World%20of%20Computers.pdf",
+          label: "Guide PDF",
+        },
+        {
+          key: "guide-ppt",
+          href: "/Exploring%20the%20World%20of%20Computers.pptx",
+          label: "Guide PPT",
+        },
+      ],
+    },
+  ];
+
   return (
     <main className="container py-12 md:py-16">
       <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Experience</h1>
       <div className="mt-4 max-w-3xl aura">
         <p className="text-sm text-white/85 md:text-base">
-          Proof‑driven work across <span className="text-white">Virtual Internships</span>, <span className="text-white">Workshops</span>, and <span className="text-white">Hackathons</span> —
+          Proof‑driven work across <span className="text-white">Virtual Internships</span>, <span className="text-white">Workshops</span>, <span className="text-white">Hackathons</span>, and <span className="text-white">Research</span> —
           from penetration testing and system hardening to full‑stack delivery and data dashboards.
         </p>
         <p className="mt-2 text-sm text-white/70">
@@ -266,7 +313,7 @@ export default function ExperiencePage() {
         </p>
       </div>
 
-      <ExperienceSectionsClient internships={items} workshops={workshops} hackathons={hackathons} />
+      <ExperienceSectionsClient internships={items} workshops={workshops} hackathons={hackathons} research={research} />
     </main>
   );
 }

@@ -9,21 +9,25 @@ import type { InternshipItem } from "../internships/SectionsClient";
 import InternshipsSection from "../internships/SectionsClient";
 import WorkshopsClient, { type WorkshopItem } from "./WorkshopsClient";
 import HackathonsClient, { type HackathonItem } from "./HackathonsClient";
+import ResearchClient, { type ResearchItem } from "./ResearchClient";
 
-type ActiveTab = "internships" | "workshops" | "hackathons";
+type ActiveTab = "internships" | "workshops" | "hackathons" | "research";
 
 export default function ExperienceSectionsClient({
   internships,
   workshops,
   hackathons,
+  research,
 }: {
   internships: InternshipItem[];
   workshops: WorkshopItem[];
   hackathons: HackathonItem[];
+  research: ResearchItem[];
 }) {
   const params = useSearchParams();
 
   const queryTab: ActiveTab | null = React.useMemo(() => {
+    if (params?.get("research")) return "research";
     if (params?.get("hackathon")) return "hackathons";
     if (params?.get("workshop")) return "workshops";
     if (params?.get("intern")) return "internships";
@@ -49,6 +53,7 @@ export default function ExperienceSectionsClient({
           { key: "internships" as const, label: "Virtual Internships", Icon: Briefcase },
           { key: "workshops" as const, label: "Workshops", Icon: BookOpenText },
           { key: "hackathons" as const, label: "Hackathons", Icon: Trophy },
+          { key: "research" as const, label: "Research", Icon: BookOpenText },
         ].map(({ key, label, Icon }) => {
           const selected = active === key;
           return (
@@ -122,6 +127,24 @@ export default function ExperienceSectionsClient({
                 </p>
               </div>
               <HackathonsClient items={hackathons} />
+            </motion.div>
+          )}
+
+          {active === "research" && (
+            <motion.div
+              key="research"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18 }}
+            >
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <h2 className="text-lg font-semibold tracking-tight text-white">Research</h2>
+                <p className="mt-2 max-w-3xl text-sm text-white/75">
+                  Community work and learning artifacts — structured contributions with verifiable proof attached.
+                </p>
+              </div>
+              <ResearchClient items={research} />
             </motion.div>
           )}
         </AnimatePresence>
