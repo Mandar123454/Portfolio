@@ -13,7 +13,14 @@ export type ResearchItem = {
   date?: string;
   overview: string;
   highlights: string[];
-  proofs?: { key: string; href?: string; label: string; row?: 1 | 2; colSpan?: 1 | 2 | 3 | 4 | 5 }[];
+  proofs?: {
+    key: string;
+    href?: string;
+    label: string;
+    thumb?: string; // optional image preview (useful when PDF preview is unreliable on mobile)
+    row?: 1 | 2;
+    colSpan?: 1 | 2 | 3 | 4 | 5;
+  }[];
 };
 
 export default function ResearchClient({ items }: { items: ResearchItem[] }) {

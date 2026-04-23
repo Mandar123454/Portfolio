@@ -314,7 +314,14 @@ export default function ExperiencePage() {
 
         { key: "smartqr-logo", href: "/SmartQR%20AI%20business%20platform%20logo.png", label: "Logo", row: 2 },
         { key: "smartqr-poster", href: "/SmartQR%20AI%20Poster.png", label: "Poster", row: 2 },
-        { key: "intern-cert-pdf", label: "Internship Certificate (PDF — coming soon)", row: 2, colSpan: 3 },
+        {
+          key: "yuva-cert",
+          href: "/pdf_certificates/Internship%20YuvaIntern%20Completion%20Letter.pdf",
+          thumb: "/Internship%20YuvaIntern%20Completion%20Letter.jpeg",
+          label: "Internship YuvaIntern Completion Letter",
+          row: 2,
+          colSpan: 3,
+        },
       ],
     },
   ];

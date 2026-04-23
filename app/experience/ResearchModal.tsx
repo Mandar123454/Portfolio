@@ -10,7 +10,14 @@ export type ResearchProofItem = {
   slug: string;
   title: string;
   organization: string;
-  proofs?: { key: string; href?: string; label: string; row?: 1 | 2; colSpan?: 1 | 2 | 3 | 4 | 5 }[];
+  proofs?: {
+    key: string;
+    href?: string;
+    label: string;
+    thumb?: string;
+    row?: 1 | 2;
+    colSpan?: 1 | 2 | 3 | 4 | 5;
+  }[];
 };
 
 export default function ResearchModal({ items }: { items: ResearchProofItem[] }) {
@@ -36,6 +43,7 @@ export default function ResearchModal({ items }: { items: ResearchProofItem[] })
   }, [proofKey, legacyDoc, proofs]);
 
   const src = selected?.href;
+  const thumb = selected?.thumb;
   const proofLabel = selected?.label ?? "Proof";
 
   const hasDoc = Boolean(src);
@@ -47,6 +55,11 @@ export default function ResearchModal({ items }: { items: ResearchProofItem[] })
     const normalized = ((src ?? "").split("?")[0] ?? "").toLowerCase();
     return normalized.endsWith(".png") || normalized.endsWith(".jpg") || normalized.endsWith(".jpeg") || normalized.endsWith(".webp");
   }, [src]);
+
+  const thumbIsImage = useMemo(() => {
+    const normalized = ((thumb ?? "").split("?")[0] ?? "").toLowerCase();
+    return normalized.endsWith(".png") || normalized.endsWith(".jpg") || normalized.endsWith(".jpeg") || normalized.endsWith(".webp");
+  }, [thumb]);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -87,7 +100,7 @@ export default function ResearchModal({ items }: { items: ResearchProofItem[] })
     };
   }, [current]);
 
-  const displaySrc = isImage ? src : null;
+  const displaySrc = isImage ? src : isMobile && isPdf && thumbIsImage ? thumb : null;
   useEffect(() => {
     if (!displaySrc) return;
     let isActive = true;
@@ -197,29 +210,65 @@ export default function ResearchModal({ items }: { items: ResearchProofItem[] })
             {hasDoc ? (
               isPdf ? (
                 isMobile ? (
-                  <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center">
-                    <div className="max-w-md">
-                      <p className="text-base font-semibold text-white">{current.title}</p>
-                      <p className="mt-2 text-sm text-white/70">Open or download the PDF to view it on mobile.</p>
-                      <div className="mt-4 flex items-center justify-center gap-2">
-                        <a
-                          href={src as string}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-xs font-medium text-white hover:bg-white/15"
-                        >
-                          <ExternalLink size={14} /> Open
-                        </a>
-                        <a
-                          href={src as string}
-                          download
-                          className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-xs font-medium text-white hover:bg-white/15"
-                        >
-                          <Download size={14} /> Download
-                        </a>
+                  thumbIsImage ? (
+                    <div className="relative h-full w-full">
+                      <div className="relative h-full w-full overflow-auto touch-pan-x touch-pan-y touch-pinch-zoom">
+                        <Image
+                          src={thumb as string}
+                          alt={`${current.title} — ${proofLabel} (Preview)`}
+                          fill
+                          className="rounded-b-[14px] object-contain"
+                          priority
+                          sizes="96vw"
+                          unoptimized={thumb?.includes("%20") || thumb?.includes(" ")}
+                        />
+                      </div>
+
+                      <div className="absolute inset-x-0 bottom-0 bg-black/55 backdrop-blur px-4 py-3">
+                        <div className="mx-auto flex max-w-md items-center justify-center gap-2">
+                          <a
+                            href={src as string}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-xs font-medium text-white hover:bg-white/15"
+                          >
+                            <ExternalLink size={14} /> Open PDF
+                          </a>
+                          <a
+                            href={src as string}
+                            download
+                            className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-xs font-medium text-white hover:bg-white/15"
+                          >
+                            <Download size={14} /> Download
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center">
+                      <div className="max-w-md">
+                        <p className="text-base font-semibold text-white">{current.title}</p>
+                        <p className="mt-2 text-sm text-white/70">Open or download the PDF to view it on mobile.</p>
+                        <div className="mt-4 flex items-center justify-center gap-2">
+                          <a
+                            href={src as string}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-xs font-medium text-white hover:bg-white/15"
+                          >
+                            <ExternalLink size={14} /> Open
+                          </a>
+                          <a
+                            href={src as string}
+                            download
+                            className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-xs font-medium text-white hover:bg-white/15"
+                          >
+                            <Download size={14} /> Download
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  )
                 ) : (
                   <iframe src={src as string} title={`${current.title} — ${proofLabel}`} className="h-full w-full rounded-b-[14px]" />
                 )
