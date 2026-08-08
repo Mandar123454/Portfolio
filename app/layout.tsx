@@ -54,7 +54,10 @@ export const metadata: Metadata = {
     apple: [
       { url: "/apple-touch-icon.svg", type: "image/svg+xml" },
     ],
-  }
+  },
+  verification: {
+    google: "ih89obBx9ANMc430j57gwmeMmcRYruyiBGsufs2PlqU",
+  },
 };
 
 export const viewport: Viewport = {
